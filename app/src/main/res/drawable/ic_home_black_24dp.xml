@@ -14,7 +14,7 @@
         <path
             android:pathData="M0 0H79V79H0V0"
             android:strokeWidth="6"
-            android:strokeColor="rgba(255, 243, 219, 1)"
+            android:strokeColor="@color/yellow_light_1"
             />
     </group>
 
