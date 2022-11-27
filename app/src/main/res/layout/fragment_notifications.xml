@@ -7,10 +7,22 @@
     tools:context=".ui.notifications.NotificationsFragment">
     <!--User-->
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="418dp"
+        android:layout_height="769dp"
+        android:src="@drawable/user_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/User_back"
-        android:layout_width="331dp"
-        android:layout_height="127dp"
+        android:layout_width="361dp"
+        android:layout_height="126dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_type"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +32,7 @@
 
     <TextView
         android:id="@+id/settings"
-        android:layout_width="331dp"
+        android:layout_width="361dp"
         android:layout_height="174dp"
         android:layout_marginTop="372dp"
         android:background="@drawable/button_type"
@@ -31,13 +43,137 @@
 
     <TextView
         android:id="@+id/preference"
-        android:layout_width="331dp"
+        android:layout_width="361dp"
         android:layout_height="174dp"
         android:layout_marginTop="188dp"
         android:background="@drawable/button_type"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/follows"
+        android:layout_width="155dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/mainx"
+        android:text="你的关注"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:icon="@mipmap/follows"
+        app:layout_constraintStart_toStartOf="@+id/preference"
+        app:layout_constraintTop_toTopOf="@+id/preference" />
+
+    <Button
+        android:id="@+id/private_button"
+        android:layout_width="155dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/mainx"
+        android:text="隐私设置"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:icon="@mipmap/eye"
+        app:layout_constraintStart_toStartOf="@+id/settings"
+        app:layout_constraintTop_toTopOf="@+id/settings" />
+
+    <Button
+        android:id="@+id/private_button3"
+        android:layout_width="155dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="104dp"
+        android:fontFamily="@font/mainx"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:icon="@mipmap/exit"
+        app:iconGravity="textEnd"
+        app:layout_constraintStart_toStartOf="@+id/settings"
+        app:layout_constraintTop_toTopOf="@+id/settings" />
+
+    <Button
+        android:id="@+id/change_password"
+        android:layout_width="155dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/mainx"
+        android:text="修改密码"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:icon="@mipmap/key_2"
+        app:layout_constraintStart_toStartOf="@+id/settings"
+        app:layout_constraintTop_toTopOf="@+id/settings" />
+
+    <Button
+        android:id="@+id/history"
+        android:layout_width="155dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/mainx"
+        android:text="历史回复"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:icon="@mipmap/history"
+        app:layout_constraintEnd_toEndOf="@+id/preference"
+        app:layout_constraintTop_toTopOf="@+id/preference" />
+
+    <Button
+        android:id="@+id/your_event"
+        android:layout_width="155dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="104dp"
+        android:fontFamily="@font/mainx"
+        android:text="你的事件"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:icon="@mipmap/your_event"
+        app:iconGravity="textEnd"
+        app:layout_constraintStart_toStartOf="@+id/preference"
+        app:layout_constraintTop_toTopOf="@+id/preference" />
+
+    <TextView
+        android:id="@+id/preference_text"
+        android:layout_width="75dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/mainx"
+        android:text="偏好"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/preference"
+        app:layout_constraintTop_toTopOf="@+id/preference" />
+
+    <TextView
+        android:id="@+id/id_setting"
+        android:layout_width="75dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/mainx"
+        android:text="账号设置"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/settings"
+        app:layout_constraintTop_toTopOf="@+id/settings" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="244dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="68dp"
+        android:hint="很酷，不写个签"
+        android:maxLines="2"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/User_back"
+        app:layout_constraintTop_toTopOf="@+id/User_back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
