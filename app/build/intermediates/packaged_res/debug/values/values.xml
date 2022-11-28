@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF564833</color>
+    <color name="brown">#FFA6751B</color>
+    <color name="grey">#FFCCCCCC</color>
+    <color name="orange_main">#FFFFBB3D</color>
+    <color name="white">#FFFFFAF2</color>
+    <color name="yellow_light_1">#FFFFF3DB</color>
+    <color name="yellow_light_2">#FFFFD991</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <string name="app_name">CrowdOS_APP</string>
+    <string name="title_dashboard">动态</string>
+    <string name="title_home">首页</string>
+    <string name="title_notifications">用户</string>
+    <style name="Theme.CrowdOS" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        
+        <item name="colorPrimary">@color/orange_main</item>
+        <item name="colorPrimaryVariant">@color/orange_main</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/orange_main</item>
+        
+        
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        
+    </style>
+</resources>
