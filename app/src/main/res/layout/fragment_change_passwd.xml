@@ -35,7 +35,6 @@
         android:layout_marginTop="176dp"
         android:background="@drawable/button_type"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,9 +80,33 @@
         android:layout_height="59dp"
         android:layout_marginStart="104dp"
         android:layout_marginTop="52dp"
-        android:background="@drawable/button_type"
+        android:background="@drawable/button_type2"
         app:layout_constraintStart_toStartOf="@+id/user_back2"
         app:layout_constraintTop_toTopOf="@+id/user_back2" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="330dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/button_type2"
+        android:drawableLeft="@mipmap/email"
+        android:paddingLeft="10dp"
+        app:layout_constraintStart_toStartOf="@+id/blank1"
+        app:layout_constraintTop_toTopOf="@+id/blank1" />
+
+    <TextView
+        android:id="@+id/password"
+        android:layout_width="330dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="132dp"
+        android:background="@drawable/button_type2"
+        android:drawableLeft="@mipmap/key_1"
+        android:paddingLeft="10dp"
+        app:layout_constraintStart_toStartOf="@+id/blank1"
+        app:layout_constraintTop_toTopOf="@+id/blank1" />
 
     <TextView
         android:id="@+id/signature3"
