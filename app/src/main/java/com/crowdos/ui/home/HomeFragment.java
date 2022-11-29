@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.crowdos.databinding.FragmentHomeBinding;
-
+/******************************************************************/
+/*************************HOME*************************************/
+/******************************************************************/
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
