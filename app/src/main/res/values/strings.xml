@@ -20,4 +20,7 @@
     <string name="upload">上传</string>
     <string name="set_start_time">设置起始时间</string>
     <string name="set_end_time">设置结束时间</string>
+    <string name="personal_signature">个性签名</string>
+    <string name="username">用户名</string>
+    <string name="events_added">他/她上传的事件</string>
 </resources>
