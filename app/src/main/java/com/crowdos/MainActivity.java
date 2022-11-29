@@ -12,6 +12,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.crowdos.databinding.ActivityMainBinding;
 
+//******************************************************************
+//*************************MainActivity*****************************
+//******************************************************************
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
