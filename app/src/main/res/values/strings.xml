@@ -23,4 +23,5 @@
     <string name="personal_signature">个性签名</string>
     <string name="username">用户名</string>
     <string name="events_added">他/她上传的事件</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>
