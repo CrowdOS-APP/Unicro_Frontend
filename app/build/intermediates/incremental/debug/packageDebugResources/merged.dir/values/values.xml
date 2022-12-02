@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF564833</color>
+    <color name="brown">#FFA6751B</color>
+    <color name="grey">#FFCCCCCC</color>
+    <color name="orange_main">#FFFFBB3D</color>
+    <color name="white">#FFFFFAF2</color>
+    <color name="yellow_centre">#FFE05E</color>
+    <color name="yellow_light_1">#FFFFF3DB</color>
+    <color name="yellow_light_2">#FFFFD991</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <string name="Null"/>
+    <string name="app_name">CrowdOS_APP</string>
+    <string name="committee">确认</string>
+    <string name="description">简介</string>
+    <string name="events_added">他/她上传的事件</string>
+    <string name="hint_mail">请输入邮箱地址</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="hint_verify">请输入验证码</string>
+    <string name="login">登录</string>
+    <string name="otto_handsome">使用这个位置</string>
+    <string name="personal_signature">个性签名</string>
+    <string name="register">注册</string>
+    <string name="set_end_time">设置结束时间</string>
+    <string name="set_start_time">设置起始时间</string>
+    <string name="title">标题</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_dashboard">动态</string>
+    <string name="title_home">首页</string>
+    <string name="title_notifications">用户</string>
+    <string name="type_of_events">事件类型</string>
+    <string name="upload">上传</string>
+    <string name="username">用户名</string>
+    <string name="verify_code">获取验证码</string>
+    <string name="welcome_page_start">start</string>
+    <string name="welcome_page_welcome">开始您的旅途</string>
+    <style name="Theme.CrowdOS" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        
+        <item name="colorPrimary">@color/orange_main</item>
+        <item name="colorPrimaryVariant">@color/orange_main</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/orange_main</item>
+        
+        
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        
+    </style>
+</resources>

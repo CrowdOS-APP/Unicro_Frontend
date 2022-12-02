@@ -1,0 +1,334 @@
+[
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_activity_main.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_back.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/back.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_user_1.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/user_1.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_start.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/start.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_dynamic_emerge.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_dynamic_emerge.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable_button_type_circle.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable/button_type_circle.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_main.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/main.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_lock.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/lock.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_urgent.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_urgent.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/font_title.ttf.flat",
+        "source": "com.crowdos.app-main-42:/font/title.ttf"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_scan.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/scan.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_change_passwd.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_change_passwd.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_reply.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_reply.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable_button_type2.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable/button_type2.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_exit.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/exit.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_follower.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_follower.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_eye.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/eye.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.crowdos.app-main-42:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_follows.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/follows.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_home.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable_ic_home_black_24dp.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable/ic_home_black_24dp.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_follows.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_follows.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_key_1.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/key_1.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_history.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/history.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/color_navigation_select_color.xml.flat",
+        "source": "com.crowdos.app-main-42:/color/navigation_select_color.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_register_page.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/register_page.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_user_3.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/user_3.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_upload_page.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/upload_page.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_history.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_history.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/font_main.ttf.flat",
+        "source": "com.crowdos.app-main-42:/font/main.ttf"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_send.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/send.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/navigation_mobile_navigation.xml.flat",
+        "source": "com.crowdos.app-main-42:/navigation/mobile_navigation.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_settings.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable-v24_button_type_circle_main2.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable-v24/button_type_circle_main2.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.crowdos.app-pngs-35:/drawable-anydpi-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_choice.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/choice.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_cloud.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/cloud.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_email.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/email.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_unlike.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/unlike.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_dynamic_comments.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_dynamic_comments.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_fogotten_password.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/fogotten_password.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_welcome_page.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/welcome_page.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_dynamic_follows.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_dynamic_follows.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_comment.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/comment.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/font_limelight.ttf.flat",
+        "source": "com.crowdos.app-main-42:/font/limelight.ttf"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_user.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_user.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_search.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/search.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_key_2.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/key_2.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_like.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/like.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable_ic_notifications_black_24dp.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable/ic_notifications_black_24dp.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_password_fogotten_page.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/password_fogotten_page.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_user_2.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/user_2.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_upload.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/upload.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_verify_code.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/verify_code.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable_user_background.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable/user_background.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable_button_type.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable/button_type.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_fragment_your_event.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/fragment_your_event.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/font_mainx.xml.flat",
+        "source": "com.crowdos.app-main-42:/font/mainx.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable_ic_dashboard_black_24dp.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable/ic_dashboard_black_24dp.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_dynamic.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/dynamic.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/xml_data_extraction_rules.xml.flat",
+        "source": "com.crowdos.app-main-42:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/font_limelightfont.xml.flat",
+        "source": "com.crowdos.app-main-42:/font/limelightfont.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/font_titlex.xml.flat",
+        "source": "com.crowdos.app-main-42:/font/titlex.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/xml_backup_rules.xml.flat",
+        "source": "com.crowdos.app-main-42:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable-v24_button_type_circle_main.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable-v24/button_type_circle_main.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_welcome_comment.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/welcome_comment.png"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.crowdos.app-main-42:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_login_page.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/login_page.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_event_page.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/event_page.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/layout_user_main_page.xml.flat",
+        "source": "com.crowdos.app-main-42:/layout/user_main_page.xml"
+    },
+    {
+        "merged": "com.crowdos.app-merged_res-40:/mipmap-xxhdpi_your_event.png.flat",
+        "source": "com.crowdos.app-main-42:/mipmap-xxhdpi/your_event.png"
+    }
+]
