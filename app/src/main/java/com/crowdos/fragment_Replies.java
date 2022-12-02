@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.crowdos;
 
 import android.content.Context;
 import android.os.Bundle;

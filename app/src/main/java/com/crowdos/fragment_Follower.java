@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.crowdos;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -52,7 +52,7 @@ public class fragment_Follower extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment__home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
