@@ -3,6 +3,7 @@ package com.crowdos;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.crowdos.databinding.FragmentUserBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,6 @@ import com.crowdos.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private Button WelcomePageButtonForLogin;
 
     private boolean isLogin;
     private boolean isGotoWelcomePage;
@@ -35,14 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(isGotoWelcomePage)
         {
-            super.onCreate(savedInstanceState);
-            WelcomePageButtonForLogin = (Button) findViewById(R.id.button);
-            WelcomePageButtonForLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            //调用event_welcome类
 
-                }
-            });
         }
         else{
             super.onCreate(savedInstanceState);
