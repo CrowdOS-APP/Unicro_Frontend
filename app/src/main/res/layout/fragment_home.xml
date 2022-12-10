@@ -40,30 +40,31 @@
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView2"
-        android:layout_width="372dp"
-        android:layout_height="555dp"
+        android:layout_width="364dp"
+        android:layout_height="530dp"
         android:background="@drawable/button_type"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59"
+        app:layout_constraintVertical_bias="0.562"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <EditText
+    <TextView
         android:id="@+id/textView9"
-        android:layout_width="270dp"
-        android:layout_height="55dp"
+        android:layout_width="291dp"
+        android:layout_height="54dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/button_type"
+        android:drawableLeft="@mipmap/search"
         android:ems="10"
         android:fontFamily="@font/mainx"
+
         android:gravity="center_vertical"
-        android:hint="搜索用户UID"
         android:inputType="text"
-        android:paddingLeft="50dp"
+        android:paddingLeft="12dp"
         android:text="@string/Null"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,5 +83,26 @@
         app:layout_constraintVertical_bias="0.966"
         app:srcCompat="@mipmap/cloud"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/home_search"
+        android:layout_width="222dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:fontFamily="@font/mainx"
+        android:gravity="center_vertical"
+        android:hint="试试搜下用户UID"
+        android:inputType="number"
+        android:imeOptions="actionDone"
+        android:lines="1"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.754"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/textView9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -95,9 +95,7 @@
         android:drawableLeft="@mipmap/email"
         android:fontFamily="@font/mainx"
         android:gravity="center_vertical"
-        android:hint="  请输入你的邮箱"
-        android:paddingLeft="10dp"
-        android:textColor="@color/black"
+        android:paddingLeft="11dp"
         android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="@+id/blank1"
         app:layout_constraintTop_toTopOf="@+id/blank1" />
@@ -112,8 +110,9 @@
         android:drawableLeft="@mipmap/key_1"
         android:fontFamily="@font/mainx"
         android:gravity="center_vertical"
-        android:hint=" 请输入旧密码"
+
         android:paddingLeft="4dp"
+
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="@+id/blank1"
@@ -129,12 +128,13 @@
         android:drawableLeft="@mipmap/lock"
         android:fontFamily="@font/mainx"
         android:gravity="center_vertical"
-        android:hint=" 请输入新密码"
         android:paddingLeft="7dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="@+id/blank1"
         app:layout_constraintTop_toTopOf="@+id/blank1" />
+
+
 
     <TextView
         android:id="@+id/password3"
@@ -162,5 +162,92 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/signature_blank3"
         app:layout_constraintTop_toTopOf="@+id/signature_blank3" />
+
+    <EditText
+        android:id="@+id/private_change_password_email"
+        android:layout_width="273dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="12dp"
+        android:background="@null"
+        android:fontFamily="@font/mainx"
+        android:hint="请输入你的邮箱"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintHorizontal_bias="0.754"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toTopOf="@+id/email" />
+
+    <EditText
+        android:id="@+id/private_change_password_old"
+        android:layout_width="230dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="12dp"
+        android:background="@null"
+        android:fontFamily="@font/mainx"
+        android:gravity="center_vertical"
+        android:hint="请输入旧密码"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:password="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toTopOf="@+id/password" />
+
+    <EditText
+        android:id="@+id/private_change_password_new"
+        android:layout_width="230dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="12dp"
+        android:background="@null"
+        android:fontFamily="@font/mainx"
+        android:gravity="center_vertical"
+        android:hint="请输入新密码"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:password="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/password2"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="@+id/password2"
+        app:layout_constraintTop_toTopOf="@+id/password2" />
+
+    <ImageView
+        android:id="@+id/hide_password_old"
+        android:layout_width="35dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/icon_eye"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintTop_toTopOf="@+id/password" />
+
+    <ImageView
+        android:id="@+id/hide_password_new"
+        android:layout_width="35dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:clickable="true"
+        android:src="@drawable/icon_eye"
+        app:layout_constraintEnd_toEndOf="@+id/password2"
+        app:layout_constraintTop_toTopOf="@+id/password2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
