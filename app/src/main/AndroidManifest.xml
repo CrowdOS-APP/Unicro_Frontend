@@ -12,38 +12,59 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrowdOS"
         tools:targetApi="31">
+        <activity android:name=".ui.welcome.event_Register"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".ui.welcome.event_Password_Forgotten"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".ui.welcome.event_Login"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.notifications.ChangePasswordActivity"
-            android:parentActivityName=".MainActivity"
+            android:exported="false"
             android:label="修改密码"
-            android:exported="false">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.notifications.YourEventActivity"
+            android:exported="false"
             android:label="你的事件"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.notifications.HistoryCommentActivity"
+            android:exported="false"
             android:label="历史回复"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.notifications.YourFollowerActivity"
+            android:exported="false"
             android:label="你的关注"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -23,7 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:background="@drawable/button_type"
+        android:fontFamily="@font/main"
         android:text="@string/login"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +43,7 @@
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="199dp"
+        android:layout_width="300dp"
         android:layout_height="56dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_type"
@@ -53,7 +55,7 @@
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="199dp"
+        android:layout_width="300dp"
         android:layout_height="56dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/button_type"
@@ -83,5 +85,47 @@
         app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toTopOf="@+id/textView10"
         app:srcCompat="@mipmap/email" />
+
+    <EditText
+        android:id="@+id/private_change_password_new9"
+        android:layout_width="240dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="11dp"
+        android:background="@null"
+        android:fontFamily="@font/mainx"
+        android:gravity="center_vertical"
+        android:hint="请输入你的邮箱"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:password="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+    <EditText
+        android:id="@+id/private_change_password_new10"
+        android:layout_width="240dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="11dp"
+        android:background="@null"
+        android:fontFamily="@font/mainx"
+        android:gravity="center_vertical"
+        android:hint="请输入密码"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:password="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="@+id/textView11" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
