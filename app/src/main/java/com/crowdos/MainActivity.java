@@ -24,7 +24,7 @@ import com.crowdos.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    public boolean isLogin = true;
+    public static boolean isLogin = true;
     private boolean isGotoWelcomePage;
     private TextView intoBt;
 

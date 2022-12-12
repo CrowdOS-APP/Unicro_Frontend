@@ -33,15 +33,15 @@
         android:id="@+id/button9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="84dp"
         android:background="@drawable/button_type"
         android:fontFamily="@font/mainx"
         android:text="@string/register"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -119,6 +119,17 @@
         app:layout_constraintVertical_bias="0.518"
         app:srcCompat="@mipmap/lock" />
 
+    <ImageView
+        android:id="@+id/hide_password_old6"
+        android:layout_width="35dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:src="@drawable/icon_eye"
+        app:layout_constraintEnd_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
+
     <EditText
         android:id="@+id/private_change_password_new3"
         android:layout_width="240dp"
@@ -133,7 +144,6 @@
         android:inputType="text"
         android:lines="1"
         android:maxLines="1"
-        android:password="true"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="16sp"
@@ -151,10 +161,9 @@
         android:gravity="center_vertical"
         android:hint="请输入验证码"
         android:imeOptions="actionDone"
-        android:inputType="text"
+        android:inputType="number"
         android:lines="1"
         android:maxLines="1"
-        android:password="true"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="16sp"
@@ -163,7 +172,7 @@
 
     <EditText
         android:id="@+id/private_change_password_new5"
-        android:layout_width="240dp"
+        android:layout_width="210dp"
         android:layout_height="35dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="11dp"

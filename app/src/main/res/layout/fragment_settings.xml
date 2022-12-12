@@ -81,7 +81,7 @@
         android:layout_height="59dp"
         android:layout_marginStart="104dp"
         android:layout_marginTop="52dp"
-        android:background="@drawable/button_type"
+        android:background="@drawable/button_type2"
         app:layout_constraintStart_toStartOf="@+id/user_back2"
         app:layout_constraintTop_toTopOf="@+id/user_back2" />
 

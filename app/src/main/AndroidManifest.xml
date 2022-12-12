@@ -13,22 +13,25 @@
         android:theme="@style/Theme.CrowdOS"
         tools:targetApi="31">
         <activity android:name=".ui.welcome.event_Register"
+            android:parentActivityName=".ui.welcome.event_Login"
             android:exported="false"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:label="注册">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity android:name=".ui.welcome.event_Password_Forgotten"
+            android:parentActivityName=".ui.welcome.event_Login"
             android:exported="false"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:label="忘记密码">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity android:name=".ui.welcome.event_Login"
             android:exported="false"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:label="登陆"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
