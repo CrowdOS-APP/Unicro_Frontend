@@ -1,4 +1,5 @@
 <resources>
+    <string name="userLogin">https://mock.apifox.cn/m1/1900041-0-default/login</string>
     <string name="app_name">CrowdOS_APP</string>
     <string name="title_home">首页</string>
     <string name="title_dashboard">动态</string>
