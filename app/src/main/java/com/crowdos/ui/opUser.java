@@ -39,7 +39,7 @@ public class opUser {
     /*芝士注册函数*/
     public boolean userRegister(String username,String pwd){
         //结果变量()
-        final boolean[] judge = {{false}};
+        final boolean[] judge = {false};
         //新建请求体
         RequestBody registerPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
         //采用异步
