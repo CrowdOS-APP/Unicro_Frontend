@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.crowdos.MainActivity;
 import com.crowdos.R;
 
 public class event_Register extends AppCompatActivity {
@@ -54,12 +53,7 @@ public class event_Register extends AppCompatActivity {
 
         button_askForCode = findViewById(R.id.textView) ;
         button_register = findViewById(R.id.button9) ;
-        button_askForCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(event_Register.this,"已发送验证码",Toast.LENGTH_SHORT).show();
-            }
-        });
+        button_askForCode.setOnClickListener(view -> Toast.makeText(event_Register.this,"已发送验证码",Toast.LENGTH_SHORT).show());
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

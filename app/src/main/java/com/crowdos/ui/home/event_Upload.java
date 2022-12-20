@@ -1,32 +1,20 @@
 package com.crowdos.ui.home;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.crowdos.MainActivity;
 import com.crowdos.R;
 
-import java.io.ByteArrayOutputStream;
-
 public class event_Upload extends AppCompatActivity {
-
-    private Button upload_Pictures;
-    private EditText upload_Description;
-    private EditText upload_Title;
-    private ImageButton upload;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -35,26 +23,21 @@ public class event_Upload extends AppCompatActivity {
         setContentView(R.layout.activity_event_upload);
 
 
-        upload_Pictures = (Button) findViewById(R.id.floatingActionButton2);
-        upload_Description = (EditText) findViewById(R.id.upload_description);
-        upload_Title = (EditText) findViewById(R.id.upload_title);
-        upload = (ImageButton) findViewById(R.id.imageButton6);
-        upload_Pictures.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                public void photo() {//调用系统相册选择图片
-                    Intent intent = new Intent();
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                        intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    } else {
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                    }
-                    intent.setType("image/*");
-                    startActivityForResult(intent, 1000);//打开相册
-                }
-            }
-        });
+        Button upload_Pictures = findViewById(R.id.add_pic);
+        EditText upload_Description = findViewById(R.id.upload_description);
+        EditText upload_Title = findViewById(R.id.upload_title);
+        ImageButton upload_event = findViewById(R.id.imageButton5);
+        ImageButton upload_type = findViewById(R.id.imageButton3);
+        ImageButton upload_StartTime = findViewById(R.id.imageButton6);
+        ImageButton upload_EndTime = findViewById(R.id.imageButton7);
+        ImageButton upload_locate = findViewById(R.id.imageButton4);
+
+        /*************<相册>******************/
+
+        /*************<相册>******************/
+
+
+        /*************<标题和简介>******************/
         upload_Description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,13 +48,52 @@ public class event_Upload extends AppCompatActivity {
             public void onClick(View view) {
             }
         });
-        upload.setOnClickListener(new View.OnClickListener() {
+        /*************<标题和简介>******************/
+
+
+        /*************<类型>******************/
+        upload_type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        /*************<类型>******************/
+
+
+        /*************<时间>******************/
+        upload_StartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        upload_EndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        /*************<时间>******************/
+
+
+        /*************<地图>******************/
+        upload_locate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        /*************<地图>******************/
+
+
+        /*************<上传>******************/
+        upload_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //此处打包信息上传至服务器
+                Toast.makeText(event_Upload.this,"事件已上传",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(event_Upload.this, MainActivity.class);
+                startActivity(intent);
             }
         });
-
+        /*************<上传>******************/
     }
 
 

@@ -3,13 +3,7 @@ package com.crowdos;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.crowdos.ui.home.event_Upload;
-import com.crowdos.ui.welcome.event_Login;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -18,6 +12,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.crowdos.databinding.ActivityMainBinding;
+import com.crowdos.ui.welcome.event_Login;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 //******************************************************************
 //*************************MainActivity*****************************
@@ -30,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isGotoWelcomePage;
     private TextView intoBt;
 
-    private ImageView Upload;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -40,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
         else
             isGotoWelcomePage = false;
 
+        super.onCreate(savedInstanceState);
         if (isGotoWelcomePage) {
             //调用event_welcome类
-            super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_event_welcome);
 
             intoBt = findViewById(R.id.startVoyage);
@@ -52,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } else {
-            super.onCreate(savedInstanceState);
 
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
@@ -67,11 +62,7 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navView, navController);
 
-            Upload = findViewById(R.id.Upload);
-            Upload.setOnClickListener(view -> {
-                Intent intent = new Intent(MainActivity.this, event_Upload.class);
-                startActivity(intent);
-            });
+
         }
     }
 

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,6 +30,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity android:name=".ui.welcome.event_Login"
             android:exported="false"
             android:label="登陆"
@@ -77,6 +80,14 @@
             android:exported="false"
             android:label="用户设置"
             android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".ui.home.event_Upload"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:label="上传事件">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
