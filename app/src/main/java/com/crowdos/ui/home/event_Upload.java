@@ -2,6 +2,7 @@ package com.crowdos.ui.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -22,19 +23,26 @@ import java.io.ByteArrayOutputStream;
 
 public class event_Upload extends AppCompatActivity {
 
+    private Button upload_Pictures;
+    private EditText upload_Description;
+    private EditText upload_Title;
+    private ImageButton upload;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upload_page);
-        Button upload_Pictures = (Button) findViewById(R.id.floatingActionButton2);
-        EditText upload_Description = (EditText) findViewById(R.id.editTextTextPersonName3);
-        EditText upload_Title = (EditText) findViewById(R.id.editTextTextPersonName2);
-        ImageButton upload = (ImageButton) findViewById(R.id.imageButton6);
-        ImageButton destroy = (ImageButton) findViewById(R.id.imageButton7);
+        setContentView(R.layout.activity_event_upload);
+
+
+        upload_Pictures = (Button) findViewById(R.id.floatingActionButton2);
+        upload_Description = (EditText) findViewById(R.id.upload_description);
+        upload_Title = (EditText) findViewById(R.id.upload_title);
+        upload = (ImageButton) findViewById(R.id.imageButton6);
         upload_Pictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**public void photo(){//调用系统相册选择图片
+                public void photo() {//调用系统相册选择图片
                     Intent intent = new Intent();
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                         intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
@@ -45,8 +53,6 @@ public class event_Upload extends AppCompatActivity {
                     intent.setType("image/*");
                     startActivityForResult(intent, 1000);//打开相册
                 }
-                 don't know if its fine
-                 */
             }
         });
         upload_Description.setOnClickListener(new View.OnClickListener() {
@@ -65,12 +71,7 @@ public class event_Upload extends AppCompatActivity {
                 //此处打包信息上传至服务器
             }
         });
-        destroy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDestroy();
-            }
-        });
+
     }
 
 

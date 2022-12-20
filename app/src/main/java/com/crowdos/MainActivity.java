@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crowdos.ui.home.event_Upload;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isLogin = true;
     private boolean isGotoWelcomePage;
     private TextView intoBt;
+
+    private ImageView Upload;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -63,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navView, navController);
 
+            Upload = findViewById(R.id.Upload);
+            Upload.setOnClickListener(view -> {
+                Intent intent = new Intent(MainActivity.this, event_Upload.class);
+                startActivity(intent);
+            });
         }
     }
 
