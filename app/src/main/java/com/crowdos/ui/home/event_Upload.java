@@ -1,5 +1,7 @@
 package com.crowdos.ui.home;
 
+import static com.crowdos.ui.home.event_UploadFragment.*;
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -102,8 +104,6 @@ public class event_Upload extends AppCompatActivity {
 
 
         /*************<标题和简介>******************/
-        description = upload_Description.getText().toString();
-        title = upload_Title.getText().toString();
         upload_Title.addTextChangedListener(new TextWatcher() {
             final int num = 40;
             private CharSequence wordNum;//记录输入的字数
@@ -187,6 +187,8 @@ public class event_Upload extends AppCompatActivity {
         upload_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                description = upload_Description.getText().toString();
+                title = upload_Title.getText().toString();
                 timeChangeUnix();
                 if(isChooseEventType && isSetStartTime && isSetEndTime && unixEndTime >= unixStartTime) {
                     //此处打包信息上传至服务器
@@ -361,5 +363,25 @@ public class event_Upload extends AppCompatActivity {
     }
     /*************<时间>******************/
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
+        mMapView.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
+        mMapView.onPause();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
+        mMapView.onSaveInstanceState(outState);
+    }
 
 }

@@ -37,7 +37,7 @@
         style="@android:style/Widget.Holo.ImageButton"
         android:layout_width="180dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="#00FFFFFF"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,6 @@
         android:background="#00FFFFFF"
         android:clickable="false"
         app:layout_constraintEnd_toStartOf="@+id/imageButton5"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toEndOf="@+id/imageButton6"
         app:layout_constraintTop_toTopOf="@+id/imageView3"
         app:srcCompat="@drawable/button_type"
@@ -281,11 +280,11 @@
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
         app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4" />
 
-    <com.google.android.gms.maps.MapView
+    <com.amap.api.maps2d.MapView
         android:id="@+id/mapView"
         android:layout_width="180dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="392dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="388dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_type"
         app:layout_constraintEnd_toEndOf="parent"

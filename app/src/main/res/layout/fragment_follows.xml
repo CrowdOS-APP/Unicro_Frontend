@@ -39,13 +39,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/history_list"
+        android:layout_width="336dp"
+        android:layout_height="446dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="@+id/blank1"
+        app:layout_constraintTop_toTopOf="@+id/blank1" />
+
     <TextView
         android:id="@+id/user_name3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/mainx"
+        android:fontFamily="@font/title"
         android:text="用户名"
         android:textColor="@color/black"
         android:textSize="24sp"

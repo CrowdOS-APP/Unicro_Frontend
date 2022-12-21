@@ -180,7 +180,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="12dp"
-        android:fontFamily="@font/mainx"
+        android:fontFamily="@font/title"
         android:text="用户名"
         android:textColor="@color/black"
         android:textSize="24sp"

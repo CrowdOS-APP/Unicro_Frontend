@@ -38,7 +38,7 @@
         app:srcCompat="@mipmap/scan"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <com.google.android.gms.maps.MapView
+    <com.amap.api.maps2d.MapView
         android:id="@+id/mapView2"
         android:layout_width="364dp"
         android:layout_height="530dp"
