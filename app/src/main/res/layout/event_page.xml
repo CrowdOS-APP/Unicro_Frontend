@@ -14,28 +14,29 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/user_background" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="380dp"
         android:layout_height="215dp"
-        android:layout_marginBottom="76dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5"
         app:srcCompat="@drawable/button_type" />
 
     <ImageView
         android:id="@+id/imageView20"
-        android:layout_width="246dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="272dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        android:layout_width="254dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintHorizontal_bias="0.898"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
         app:srcCompat="@drawable/button_type" />
 
     <TextView
@@ -64,8 +65,8 @@
 
     <TextView
         android:id="@+id/textView17"
-        android:layout_width="246dp"
-        android:layout_height="70dp"
+        android:layout_width="247dp"
+        android:layout_height="55dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/title"
@@ -75,20 +76,6 @@
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_type"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/Null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton8"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -140,7 +127,7 @@
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView3"
-        android:layout_width="158dp"
+        android:layout_width="168dp"
         android:layout_height="250dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="180dp"
@@ -151,9 +138,22 @@
     <TextView
         android:id="@+id/editTextTextPersonName5"
         android:layout_width="200dp"
-        android:layout_height="250dp"
-        android:layout_marginStart="184dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="196dp"
         android:layout_marginTop="180dp"
+        android:background="@drawable/button_type"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/Null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/editTextTextPersonName6"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="388dp"
         android:background="@drawable/button_type"
         android:ems="10"
         android:inputType="textPersonName"
@@ -184,5 +184,31 @@
         app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName5"
         app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName5" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="165dp"
+        android:layout_height="21dp"
+        android:fontFamily="@font/main"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="起始时间-终止时间"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName6"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName6"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName6"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName6" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_type"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/Null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton8"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
