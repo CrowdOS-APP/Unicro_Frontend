@@ -1,11 +1,10 @@
 package com.crowdos.ui.notifications;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,11 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.crowdos.MainActivity;
 import com.crowdos.R;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 public class UserSettingsActivity extends AppCompatActivity {
 
@@ -109,11 +105,11 @@ public class UserSettingsActivity extends AppCompatActivity {
             String userName = setUserName.getText().toString();
             String userSignature = setSignature.getText().toString();
             if(userName.length() != 0) {
-                saveData(userName,1);
+                getString(userName,"UserName");
                 Toast.makeText(UserSettingsActivity.this, "用户名已修改", Toast.LENGTH_SHORT).show();
             }
             if(userSignature.length() != 0){
-                saveData(userSignature,2);
+                getString(userSignature,"UserSignature");
                 Toast.makeText(UserSettingsActivity.this, "个性签名已修改", Toast.LENGTH_SHORT).show();
             }
             Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
@@ -125,39 +121,31 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     }
 
-    public void saveData(String inputText, int saveType) {
-        FileOutputStream out = null;
-        BufferedWriter writer = null;
-        if (inputText != null && !TextUtils.isEmpty(inputText)) {
-            try {
-                String fileName = null;
-                switch (saveType){
-                    case 1:
-                        fileName = "UserName";
-                        break;
-                    case 2:
-                        fileName = "UserSignature";
-                }
-                out = openFileOutput(fileName, Context.MODE_PRIVATE);
-                writer = new BufferedWriter(new OutputStreamWriter(out));
-                writer.write(inputText);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (out != null) {
-                        out.close();
-                    }
-                    if (writer != null) {
-                        writer.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+    public static void getString(String setString, String fileName) {
+
+        String filePath = null;
+        boolean hasSDCard = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+        if (hasSDCard) {
+            filePath =Environment.getExternalStorageDirectory().toString() + File.separator + fileName +".txt";
+        } else{
+            filePath =Environment.getDownloadCacheDirectory().toString() + File.separator + fileName +".txt";
         }
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                File dir = new File(file.getParent());
+                dir.mkdirs();
+                file.createNewFile();
+            }
+            FileOutputStream outStream = new FileOutputStream(file);
+
+            outStream.write(setString.getBytes());
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
     }
 
 

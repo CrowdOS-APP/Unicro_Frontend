@@ -1,11 +1,9 @@
 package com.crowdos;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Environment;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,14 +14,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.crowdos.databinding.ActivityMainBinding;
 import com.crowdos.ui.home.HomeFragment;
+import com.crowdos.ui.notifications.NotificationsFragment;
+import com.crowdos.ui.notifications.UserSettingsActivity;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.File;
 
 //******************************************************************
 //*************************MainActivity*****************************
@@ -35,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isLogin = true;
     private boolean isGotoWelcomePage;
     private TextView intoBt;
+    private boolean isShowMap;
+
 
 
 
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             isGotoWelcomePage = true;
         else
             isGotoWelcomePage = false;
-
+        isShowMap = false;
         super.onCreate(savedInstanceState);
         if (isGotoWelcomePage) {
             //调用event_welcome类
@@ -58,7 +56,16 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } else {
-
+            if(!fileIsExists("UserName")){
+                String presentString = NotificationsFragment.readData("UserName");
+                if(presentString == "") {
+                    UserSettingsActivity.getString("用户名", "UserName");
+                }
+            }
+            if(!fileIsExists("UserSignature")){
+                UserSettingsActivity.getString("很酷，不写个签。", "UserSignature");
+            }
+            isShowMap = true;
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
             BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -71,14 +78,7 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navView, navController);
 
-            String userNameString = readData("UserName");
-            String userSignatureString = readData("UserSignature");
-            Log.e(TAG, "onCreate: "+userNameString);
-            Log.e(TAG, "onCreate: "+userSignatureString);
-            TextView userName = findViewById(R.id.user_name);
-            TextView userSignature = findViewById(R.id.signature);
-//            userName.setText(userNameString);
-//            userSignature.setText(userSignatureString);
+
         }
     }
 
@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
-        HomeFragment.mMapView.onDestroy();
+        if(isShowMap){
+            HomeFragment.mMapView.onDestroy();
+        }
     }
 
 //    @Override
@@ -101,44 +103,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
-        HomeFragment.mMapView.onPause();
+        if(isShowMap) {
+            HomeFragment.mMapView.onPause();
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
-        HomeFragment.mMapView.onSaveInstanceState(outState);
+        if(isShowMap){
+            HomeFragment.mMapView.onSaveInstanceState(outState);
+        }
     }
 
-    public String readData(String outputText) {
-        FileInputStream in = null;
-        BufferedReader reader = null;
-        try {
-            in = openFileInput(outputText);
-            reader = new BufferedReader(new InputStreamReader(in));
-            StringBuffer buffer = new StringBuffer();
-            String len = "";
-            while ((len = reader.readLine()) != null) {
-                buffer.append(len);
+
+
+    public boolean fileIsExists(String strFile)
+    {
+        String filePath = Environment.getExternalStorageDirectory().toString() + File.separator + strFile +".txt";
+        try
+        {
+            File f=new File(filePath);
+            if(!f.exists())
+            {
+                return false;
             }
-            return buffer.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
-        return "";
+        catch (Exception e)
+        {
+            return false;
+        }
+        return true;
     }
+
 }
