@@ -15,6 +15,8 @@ import okhttp3.Response;
 
 public class opInfo {
 
+    //
+
     private String scheme = "https";
     private String hosts = "mock.apifox.cn";
 
@@ -189,13 +191,13 @@ public class opInfo {
 
 
     //关注操作(这里的UID是Int，需转)
-    public String opFollow(String token,String uid,boolean isFollow){
+    public String opFollow(String token,long uid,boolean isFollow){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
                 .addPathSegment(com.crowdos.ui.url.opFollow)
                 .addQueryParameter("token",token)
-                .addQueryParameter("UID",uid)
+                .addQueryParameter("UID", String.valueOf(uid))
                 .build();
         RequestBody opFollowing = new FormBody.Builder()
                 .add("isFollow", String.valueOf(isFollow))
@@ -247,7 +249,7 @@ public class opInfo {
 
 
     //紧急事件列表
-    public String gEmergEventList(long longitude,long latitude){
+    public String gEmergEventList(double longitude,double latitude){
         final String[] result = {null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -308,7 +310,7 @@ public class opInfo {
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.otherEventList)
+                .addPathSegment(com.crowdos.ui.url.gEventInfo)
                 .addQueryParameter("eventID", String.valueOf(eventID))
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
@@ -393,7 +395,7 @@ public class opInfo {
     }
 
     //upload Comments
-    public String upComment(String token,String eveID,String comment){
+    public String upComment(String token,long eveID,String comment){
         final String[] isSuccess = {null};
         //eventID应该是名称
         HttpUrl url = new HttpUrl.Builder()
@@ -403,7 +405,7 @@ public class opInfo {
                 .addQueryParameter("token",token)
                 .build();
         RequestBody updateInfo = new FormBody.Builder()
-                .add("eventID",eveID)
+                .add("eventID", String.valueOf(eveID))
                 .add("comment",comment)
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();

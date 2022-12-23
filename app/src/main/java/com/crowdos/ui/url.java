@@ -11,11 +11,12 @@ public class url {
     public static String otherEventList = "m1/1900041-0-default/othersEventList";
     public static String following = "m1/1900041-0-default/following";
     public static String opFollow = "m1/1900041-0-default/follow";
-    public static String opSearch = "m2/1900041-0-default/49791362";
+    // coming soon! public static String opSearch = "m2/1900041-0-default/49791362";
     public static String gemergList = "m1/1900041-0-default/getEmergencyList";
     public static String gEventList = "m1/1900041-0-default/getEventList";
     public static String gEventInfo = "m1/1900041-0-default/getEvenInfo";
     public static String upEventInfo = "m1/1900041-0-default/uploadEvenInfo";
     public static String gComment = "m1/1900041-0-default/getComment";
     public static String upComment = "m2/1900041-0-default/49790085";
+    public static String getVerifyCode = "m1/1900041-0-default/SendVerifyCode";
 }

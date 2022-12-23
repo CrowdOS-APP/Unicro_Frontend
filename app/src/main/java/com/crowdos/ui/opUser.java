@@ -19,11 +19,17 @@ public class opUser {
     public String userLogin(String username,String pwd){
         //结果变量(token)
         final String[] token = {null};
+        //建立url
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme("https")
+                .host("mock.apifox.cn")
+                .addPathSegment(com.crowdos.ui.url.userLogin)
+                .build();
         //新建请求体
         RequestBody loginPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
         //采用异步
         OkHttpClient loginAct = new OkHttpClient();
-        Request request = new Request.Builder().url("https://mock.apifox.cn/m1/1900041-0-default/login").post(loginPac).build();
+        Request request = new Request.Builder().url(url).post(loginPac).build();
         loginAct.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -41,11 +47,16 @@ public class opUser {
     public boolean userRegister(String username,String pwd){
         //结果变量()
         final boolean[] judge = {false};
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme("https")
+                .host("mock.apifox.cn")
+                .addPathSegment(com.crowdos.ui.url.userRegister)
+                .build();
         //新建请求体
         RequestBody registerPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
         //采用异步
         OkHttpClient loginAct = new OkHttpClient();
-        Request request = new Request.Builder().url("https://mock.apifox.cn/m1/1900041-0-default/register").post(registerPac).build();
+        Request request = new Request.Builder().url(url).post(registerPac).build();
         loginAct.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -92,12 +103,17 @@ public class opUser {
     //请求验证码（注册段）
     public boolean requestVerifyCode(String email){
         final boolean[] isSucceed = {false};
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme("https")
+                .host("mock.apifox.cn")
+                .addPathSegment(com.crowdos.ui.url.getVerifyCode)
+                .build();
         RequestBody requestPac = new FormBody.Builder()
                 .add("email",email)
                 .build();
         OkHttpClient requestForVerifyCode = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://mock.apifox.cn/m1/1900041-0-default/SendVerifyCode")
+                .url(url)
                 .build();
         requestForVerifyCode.newCall(request).enqueue(new Callback() {
             @Override
