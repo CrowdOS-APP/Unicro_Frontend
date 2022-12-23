@@ -9,11 +9,18 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.crowdos.MainActivity;
 import com.crowdos.R;
@@ -22,10 +29,15 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserSettingsActivity extends AppCompatActivity {
 
-    @SuppressLint("MissingInflatedId")
+    MyAdapter myAdapter;
+    List<HeadSculpture> sculptureRecyclerViewList = new ArrayList<>();
+    private int sculptureId;
+    @SuppressLint({"MissingInflatedId", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +47,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         EditText setSignature = findViewById(R.id.change_signature);
         TextView setUserNameTextNumber = findViewById(R.id.textView34);
         TextView setSignatureTextNumber = findViewById(R.id.textView35);
+
         /*************<用户名和个性签名>******************/
         setUserName.addTextChangedListener(new TextWatcher() {
             final int num = 15;
@@ -118,11 +131,39 @@ public class UserSettingsActivity extends AppCompatActivity {
                 saveUserFiles(userSignature,"UserSignature");
                 Toast.makeText(UserSettingsActivity.this, "个性签名已修改", Toast.LENGTH_SHORT).show();
             }
+            saveUserFiles(""+sculptureId,"UserSculpture");
+            Toast.makeText(UserSettingsActivity.this, "头像已修改", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
 
             startActivity(intent);
         });
         /*************<修改>******************/
+
+
+        /*************<头像>******************/
+        //构造数据
+        RecyclerView sculptureRecyclerView = findViewById(R.id.sculpture);
+
+        for(int i = 1; i <= 6; i++){
+            HeadSculpture headSculpture = new HeadSculpture();
+            headSculpture.sculptureContent = "头像" + i;
+            headSculpture.number = i;
+            switch (i){
+                case 1: headSculpture.sculpture = R.mipmap.sculpture1; break;
+                case 2: headSculpture.sculpture = R.mipmap.sculpture2; break;
+                case 3: headSculpture.sculpture = R.mipmap.sculpture3; break;
+                case 4: headSculpture.sculpture = R.mipmap.sculpture4; break;
+                case 5: headSculpture.sculpture = R.mipmap.sculpture5; break;
+                case 6: headSculpture.sculpture = R.mipmap.sculpture6; break;
+            }
+            sculptureRecyclerViewList.add(headSculpture);
+        }
+        myAdapter = new MyAdapter();
+        sculptureRecyclerView.setAdapter(myAdapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(UserSettingsActivity.this,3);
+//        layoutManager.setOrientation(RecyclerView.HORIZONTAL);  也能设置横向滚动
+        sculptureRecyclerView.setLayoutManager(layoutManager);
+        /*************<头像>******************/
 
 
     }
@@ -148,7 +189,50 @@ public class UserSettingsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
 
+    class MyAdapter extends RecyclerView.Adapter<showHeadSculpture>{
+        @NonNull
+        @Override
+        public showHeadSculpture onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+            View view = View.inflate(UserSettingsActivity.this, R.layout.item_sculpture, null);
+            showHeadSculpture myViewHoder = new showHeadSculpture(view);
+            return myViewHoder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull showHeadSculpture holder, int position) {
+            HeadSculpture news = sculptureRecyclerViewList.get(position);
+            holder.mySculpture.setImageResource(news.sculpture);
+            holder.mySculptureText.setText(news.sculptureContent);
+            holder.number = news.number;
+            holder.mRootview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sculptureId = holder.number;
+                    Toast.makeText(UserSettingsActivity.this,"已选择" + news.sculptureContent, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return sculptureRecyclerViewList.size();
+        }
+
+    }
+
+    class showHeadSculpture extends RecyclerView.ViewHolder{
+        ImageView mySculpture;
+        TextView mySculptureText;
+        ConstraintLayout mRootview;
+        int number;
+        public showHeadSculpture(@NonNull View item){
+            super(item);
+            mySculpture = item.findViewById(R.id.imageView9);
+            mySculptureText = item.findViewById(R.id.textView36);
+            mRootview = item.findViewById(R.id.item1);
+        }
     }
 
 

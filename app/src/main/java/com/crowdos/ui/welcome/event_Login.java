@@ -93,6 +93,7 @@ public class event_Login extends AppCompatActivity {
 
         saveFiles("用户名", "UserName");
         saveFiles("很酷，不写个签。", "UserSignature");
+        saveFiles("1", "UserSculpture");
     }
     public void saveFiles(String setString, String fileName) {
 

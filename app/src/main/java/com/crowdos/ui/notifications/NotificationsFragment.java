@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class NotificationsFragment extends Fragment {
     private FragmentUserBinding binding;
     private TextView userName;
     private TextView userSignature;
+    private ImageView userSculpture;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -93,10 +95,20 @@ public class NotificationsFragment extends Fragment {
 
         String userNameString = MainActivity.toNotificationsFragmentUserNameString;
         String userSignatureString = MainActivity.toNotificationsFragmentUserSignatureString;
+        String userSculptureOptions = MainActivity.toNotificationsFragmentUserSculpture;
         userName = view.findViewById(R.id.user_name);
         userSignature = view.findViewById(R.id.signature);
+        userSculpture = view.findViewById(R.id.imageView);
         userName.setText(userNameString);
         userSignature.setText(userSignatureString);
+        switch (userSculptureOptions){
+            case "1": userSculpture.setImageResource(R.mipmap.sculpture1);  break;
+            case "2": userSculpture.setImageResource(R.mipmap.sculpture2);  break;
+            case "3": userSculpture.setImageResource(R.mipmap.sculpture3);  break;
+            case "4": userSculpture.setImageResource(R.mipmap.sculpture4);  break;
+            case "5": userSculpture.setImageResource(R.mipmap.sculpture5);  break;
+            case "6": userSculpture.setImageResource(R.mipmap.sculpture6);  break;
+        }
         return view;
     }
 

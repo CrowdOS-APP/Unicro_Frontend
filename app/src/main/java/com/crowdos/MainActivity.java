@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String toNotificationsFragmentUserNameString;
     public static String toNotificationsFragmentUserSignatureString;
+    public static String toNotificationsFragmentUserSculpture;
 
 
 
@@ -60,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } else {
+
             toNotificationsFragmentUserNameString = readData("UserName");
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
+            toNotificationsFragmentUserSculpture = readData("UserSculpture");
             isShowMap = true;
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
