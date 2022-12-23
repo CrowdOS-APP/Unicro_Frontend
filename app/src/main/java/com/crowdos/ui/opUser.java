@@ -7,6 +7,7 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -59,15 +60,20 @@ public class opUser {
     }
 
     //修改密码
-    public String updatePasswd(String token,String username,String pwd){
+    public String updatePasswd(String token,String oldPwd,String pwd){
         final String[] isSuccess = {null};
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme("https")
+                .host("mock.apifox.cn")
+                .addPathSegment(com.crowdos.ui.url.updatePwd)
+                .addQueryParameter("token",token)
+                .build();
         RequestBody updateInfo = new FormBody.Builder()
-                .add("token",token)
-                .add("email",username)
-                .add("passwd",pwd)
+                .add("oldPasswd",oldPwd)
+                .add("newPasswd",pwd)
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
-        Request request = new Request.Builder().url("https://mock.apifox.cn/m1/1900041-0-default/updatePasswd")
+        Request request = new Request.Builder().url(url)
                 .post(updateInfo)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -81,6 +87,28 @@ public class opUser {
             }
         });
         return isSuccess[0];
+    }
+
+    //请求验证码（注册段）
+    public boolean requestVerifyCode(String email){
+        final boolean[] isSucceed = {false};
+        RequestBody requestPac = new FormBody.Builder()
+                .add("email",email)
+                .build();
+        OkHttpClient requestForVerifyCode = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://mock.apifox.cn/m1/1900041-0-default/SendVerifyCode")
+                .build();
+        requestForVerifyCode.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {}
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
+            }
+        });
+        return isSucceed[0];
     }
 
 }
