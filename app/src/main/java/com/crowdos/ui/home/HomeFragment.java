@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.crowdos.R;
 import com.crowdos.databinding.FragmentHomeBinding;
@@ -44,6 +46,24 @@ public class HomeFragment extends Fragment {
         AMap aMap = null;
         if (aMap == null) {
             aMap = mMapView.getMap();
+            //对地图上的控件的管理
+            UiSettings settings =  aMap.getUiSettings();
+
+            //设置了定位的监听,这里要实现LocationSource接口
+            //aMap.setLocationSource((LocationSource) this);
+
+            // 是否显示定位按钮
+            settings.setMyLocationButtonEnabled(true);
+            //添加指南针
+            settings.setCompassEnabled(true);
+
+            //管理缩放控件
+            settings.setZoomControlsEnabled(true);
+            //设置logo位置，左下，底部居中，右下（隐藏logo：settings.setLogoLeftMargin(9000)）
+            settings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_LEFT);
+            //设置显示地图的默认比例尺
+            settings.setScaleControlsEnabled(true);
+            aMap.setMyLocationEnabled(true);//显示定位层并且可以触发定位,默认是flase
         }
         MyLocationStyle myLocationStyle;
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类
@@ -60,4 +80,30 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+//    public void location(){
+//        //初始化定位
+//        mLocationClient = new AMapLocationClient(getApplicationContext());
+//        //设置定位回调监听
+//        mLocationClient.setLocationListener(this);
+//        //初始化定位参数
+//        mLocationOption = new AMapLocationClientOption();
+//        //设置定位模式为Hight_Accuracy高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+//        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+//        //设置是否返回地址信息（默认返回地址信息）
+//        mLocationOption.setNeedAddress(true);
+//        //设置是否只定位一次,默认为false
+//        mLocationOption.setOnceLocation(false);
+//        //设置是否强制刷新WIFI，默认为强制刷新
+//        mLocationOption.setWifiActiveScan(true);
+//        //设置是否允许模拟位置,默认为false，不允许模拟位置
+//        mLocationOption.setMockEnable(false);
+//        //设置定位间隔,单位毫秒,默认为2000ms
+//        mLocationOption.setInterval(2000);
+//        //给定位客户端对象设置定位参数
+//        mLocationClient.setLocationOption(mLocationOption);
+//        //启动定位
+//        mLocationClient.startLocation();
+//
+//    }
 }

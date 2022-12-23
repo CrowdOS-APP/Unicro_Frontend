@@ -1,11 +1,14 @@
 package com.crowdos.ui.notifications;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,8 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.crowdos.MainActivity;
 import com.crowdos.R;
 
-import java.io.File;
+import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class UserSettingsActivity extends AppCompatActivity {
 
@@ -105,11 +110,12 @@ public class UserSettingsActivity extends AppCompatActivity {
             String userName = setUserName.getText().toString();
             String userSignature = setSignature.getText().toString();
             if(userName.length() != 0) {
-                getString(userName,"UserName");
+                saveUserFiles(userName,"UserName");
+                Log.e(TAG, "onCreate: "+ userName );
                 Toast.makeText(UserSettingsActivity.this, "用户名已修改", Toast.LENGTH_SHORT).show();
             }
             if(userSignature.length() != 0){
-                getString(userSignature,"UserSignature");
+                saveUserFiles(userSignature,"UserSignature");
                 Toast.makeText(UserSettingsActivity.this, "个性签名已修改", Toast.LENGTH_SHORT).show();
             }
             Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
@@ -121,29 +127,26 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     }
 
-    public static void getString(String setString, String fileName) {
+    public void saveUserFiles(String setString, String fileName) {
 
-        String filePath = null;
-        boolean hasSDCard = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-        if (hasSDCard) {
-            filePath =Environment.getExternalStorageDirectory().toString() + File.separator + fileName +".txt";
-        } else{
-            filePath =Environment.getDownloadCacheDirectory().toString() + File.separator + fileName +".txt";
-        }
+        String data = setString;
+        FileOutputStream out;
+        BufferedWriter writer = null;
         try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                File dir = new File(file.getParent());
-                dir.mkdirs();
-                file.createNewFile();
-            }
-            FileOutputStream outStream = new FileOutputStream(file);
-
-            outStream.write(setString.getBytes());
-            outStream.close();
-        } catch (Exception e) {
+            out = openFileOutput(""+fileName, Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(data);
+        } catch (IOException e){
             e.printStackTrace();
-
+        }
+        finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

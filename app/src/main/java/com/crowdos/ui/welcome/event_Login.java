@@ -1,6 +1,7 @@
 package com.crowdos.ui.welcome;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -16,6 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crowdos.MainActivity;
 import com.crowdos.R;
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class event_Login extends AppCompatActivity {
 
@@ -84,6 +90,31 @@ public class event_Login extends AppCompatActivity {
             }
         });
         /*************<登陆>******************/
+
+        saveFiles("用户名", "UserName");
+        saveFiles("很酷，不写个签。", "UserSignature");
+    }
+    public void saveFiles(String setString, String fileName) {
+
+        String data = setString;
+        FileOutputStream out;
+        BufferedWriter writer = null;
+        try {
+            out = openFileOutput(""+fileName, Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(data);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }

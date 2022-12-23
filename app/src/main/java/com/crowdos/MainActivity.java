@@ -14,12 +14,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.crowdos.databinding.ActivityMainBinding;
 import com.crowdos.ui.home.HomeFragment;
-import com.crowdos.ui.notifications.NotificationsFragment;
-import com.crowdos.ui.notifications.UserSettingsActivity;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 //******************************************************************
 //*************************MainActivity*****************************
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView intoBt;
     private boolean isShowMap;
 
+    public static String toNotificationsFragmentUserNameString;
+    public static String toNotificationsFragmentUserSignatureString;
 
 
 
@@ -56,15 +60,8 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } else {
-            if(!fileIsExists("UserName")){
-                String presentString = NotificationsFragment.readData("UserName");
-                if(presentString == "") {
-                    UserSettingsActivity.getString("用户名", "UserName");
-                }
-            }
-            if(!fileIsExists("UserSignature")){
-                UserSettingsActivity.getString("很酷，不写个签。", "UserSignature");
-            }
+            toNotificationsFragmentUserNameString = readData("UserName");
+            toNotificationsFragmentUserSignatureString = readData("UserSignature");
             isShowMap = true;
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean fileIsExists(String strFile)
     {
-        String filePath = Environment.getExternalStorageDirectory().toString() + File.separator + strFile +".txt";
+        String filePath = Environment.getExternalStorageDirectory().toString() + strFile +".txt";
         try
         {
             File f=new File(filePath);
@@ -129,13 +126,39 @@ public class MainActivity extends AppCompatActivity {
             {
                 return false;
             }
-
         }
         catch (Exception e)
         {
             return false;
         }
         return true;
+    }
+
+
+
+    public String readData(String fname) {
+        FileInputStream in = null;
+        BufferedReader reader = null;
+        StringBuilder content = new StringBuilder();
+        try{
+            in = openFileInput(fname);
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null){
+                content.append(line);
+            }
+        }catch (IOException e){
+            e.printStackTrace();;
+        }finally {
+            if(reader != null){
+                try{
+                    reader.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        return content.toString();
     }
 
 }
