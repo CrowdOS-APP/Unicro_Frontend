@@ -304,7 +304,7 @@ public class opInfo {
         return result[0];//array of eventlists,including name,id,place.
     }
 
-    //getting event details (listen while clicking for more information)
+    //getting event details (listen while clicking for more information)2
     public String gEventInfo(int eventID){
         final String[] result = {null};
         HttpUrl url = new HttpUrl.Builder()

@@ -100,7 +100,7 @@ public class opUser {
         return isSuccess[0];
     }
 
-    //请求验证码（注册段）
+    //请求验证码（注册段）1
     public boolean requestVerifyCode(String email){
         final boolean[] isSucceed = {false};
         HttpUrl url = new HttpUrl.Builder()

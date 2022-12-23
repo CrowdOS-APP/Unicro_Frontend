@@ -1,6 +1,6 @@
 package com.crowdos.ui;
 
-public class url {
+public class url {//3
     public static String userLogin = "m1/1900041-0-default/login";
     public static String userRegister = "m1/1900041-0-default/register";
     public static String getUserInfo = "m1/1900041-0-default/getUserInfo";
