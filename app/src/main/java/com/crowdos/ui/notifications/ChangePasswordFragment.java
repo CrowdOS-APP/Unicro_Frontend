@@ -1,26 +1,26 @@
 package com.crowdos.ui.notifications;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.text.method.TransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.crowdos.MainActivity;
 import com.crowdos.R;
+import com.crowdos.databinding.FragmentChangePasswdBinding;
 
 
 public class ChangePasswordFragment extends Fragment {
 
-    private View root;
-
+    private TextView userName;
+    private TextView userSignature;
+    private ImageView userSculpture;
+    private FragmentChangePasswdBinding binding;
 
 
     @Override
@@ -32,12 +32,29 @@ public class ChangePasswordFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        if(root == null)
+        binding = FragmentChangePasswdBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        if(view == null)
         {
-            root = inflater.inflate(R.layout.fragment_change_passwd,container,false);
+            view = inflater.inflate(R.layout.fragment_change_passwd,container,false);
         }
-        return root;
+        String userNameString = MainActivity.toNotificationsFragmentUserNameString;
+        String userSignatureString = MainActivity.toNotificationsFragmentUserSignatureString;
+        String userSculptureOptions = MainActivity.toNotificationsFragmentUserSculpture;
+        userName = view.findViewById(R.id.user_name3);
+        userSignature = view.findViewById(R.id.signature3);
+        userSculpture = view.findViewById(R.id.imageView3);
+        userName.setText(userNameString);
+        userSignature.setText(userSignatureString);
+        switch (userSculptureOptions){
+            case "1": userSculpture.setImageResource(R.mipmap.sculpture1);  break;
+            case "2": userSculpture.setImageResource(R.mipmap.sculpture2);  break;
+            case "3": userSculpture.setImageResource(R.mipmap.sculpture3);  break;
+            case "4": userSculpture.setImageResource(R.mipmap.sculpture4);  break;
+            case "5": userSculpture.setImageResource(R.mipmap.sculpture5);  break;
+            case "6": userSculpture.setImageResource(R.mipmap.sculpture6);  break;
+        }
+        return view;
     }
 
 

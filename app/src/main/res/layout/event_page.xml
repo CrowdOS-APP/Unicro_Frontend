@@ -83,10 +83,10 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="8dp"
         android:background="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
         app:srcCompat="@mipmap/like"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -118,10 +118,10 @@
         style="@android:style/Widget.Holo.Light.ImageButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="8dp"
         android:background="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButton2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
         app:srcCompat="@mipmap/unlike"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -166,10 +166,10 @@
         style="@android:style/Widget.Holo.Light.ImageButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="8dp"
         android:background="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
         app:srcCompat="@mipmap/send"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -202,13 +202,24 @@
         android:layout_width="240dp"
         android:layout_height="48dp"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button_type"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/Null"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButton8"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="77dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/main"
+        android:text="+关注"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName5"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

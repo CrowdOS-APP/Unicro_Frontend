@@ -131,8 +131,10 @@ public class UserSettingsActivity extends AppCompatActivity {
                 saveUserFiles(userSignature,"UserSignature");
                 Toast.makeText(UserSettingsActivity.this, "个性签名已修改", Toast.LENGTH_SHORT).show();
             }
-            saveUserFiles(""+sculptureId,"UserSculpture");
-            Toast.makeText(UserSettingsActivity.this, "头像已修改", Toast.LENGTH_SHORT).show();
+            if(sculptureId != 0){
+                saveUserFiles(""+sculptureId,"UserSculpture");
+                Toast.makeText(UserSettingsActivity.this, "头像已修改", Toast.LENGTH_SHORT).show();
+            }
             Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
 
             startActivity(intent);
@@ -161,7 +163,6 @@ public class UserSettingsActivity extends AppCompatActivity {
         myAdapter = new MyAdapter();
         sculptureRecyclerView.setAdapter(myAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(UserSettingsActivity.this,3);
-//        layoutManager.setOrientation(RecyclerView.HORIZONTAL);  也能设置横向滚动
         sculptureRecyclerView.setLayoutManager(layoutManager);
         /*************<头像>******************/
 
@@ -206,6 +207,7 @@ public class UserSettingsActivity extends AppCompatActivity {
             holder.mySculpture.setImageResource(news.sculpture);
             holder.mySculptureText.setText(news.sculptureContent);
             holder.number = news.number;
+            sculptureId = 0;
             holder.mRootview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
