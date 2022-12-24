@@ -11,10 +11,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.crowdos.databinding.ActivityMainBinding;
+import com.crowdos.ui.home.MyLocationListener;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,13 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public static String toNotificationsFragmentUserNameString;
     public static String toNotificationsFragmentUserSignatureString;
     public static String toNotificationsFragmentUserSculpture;
-    public LocationClient locationClient=null;
-    private BDAbstractLocationListener locationListener= new BDAbstractLocationListener() {
-        @Override
-        public void onReceiveLocation(BDLocation bdLocation) {
-
-        }
-    };
+    public LocationClient mLocationClient;
+    private MyLocationListener myLocationListener;
 
 
     @SuppressLint("MissingInflatedId")
@@ -70,17 +65,25 @@ public class MainActivity extends AppCompatActivity {
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
             toNotificationsFragmentUserSculpture = readData("UserSculpture");
             isShowMap = true;
+            //定位初始化
             try {
-                locationClient=new LocationClient(getApplicationContext());
+                mLocationClient = new LocationClient(this);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            locationClient.registerLocationListener(new BDAbstractLocationListener() {
-//                @Override
-//                public void onReceiveLocation(BDLocation bdLocation) {
-//
-//                }
-//            });
+            //通过LocationClientOption设置LocationClient相关参数
+            LocationClientOption option = new LocationClientOption();
+            option.setOpenGps(true); // 打开gps
+            option.setCoorType("bd09ll"); // 设置坐标类型
+            option.setScanSpan(1000);
+            //设置locationClientOption
+           // mLocationClient.setLocOption(option);
+            //注册LocationListener监听器
+            myLocationListener = new MyLocationListener();
+            //mLocationClient.registerLocationListener(myLocationListener);
+            //开启地图定位图层
+            //mLocationClient.start();
+
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
             BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -101,20 +104,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        locationClient.stop();
+        mLocationClient.stop();
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
-//        mMapView.onResume();
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
         if(isShowMap) {
+
         }
     }
 

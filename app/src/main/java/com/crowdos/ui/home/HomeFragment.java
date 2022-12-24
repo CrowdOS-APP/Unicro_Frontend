@@ -1,7 +1,6 @@
 package com.crowdos.ui.home;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -68,36 +67,37 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onStart(){
-        homePreferences= getContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
-        String data=homePreferences.getString("returned_data","");
-        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         super.onStart();
+        if(MainActivity.isShowMap) {
+            mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+        }
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        mMapView.onResume();
+        if(MainActivity.isShowMap) {
+            mMapView.onPause();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mBaiduMap.setMyLocationEnabled(false);
-        homePreferences= getContext().getSharedPreferences("settings",Context.MODE_PRIVATE);
-        String data=homePreferences.getString("returned_data","");
-        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-        mMapView.onResume();
+        if(MainActivity.isShowMap){
+            mMapView.onResume();
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
         if(MainActivity.isShowMap){
-            //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+            mBaiduMap.setMyLocationEnabled(false);
             mMapView.onDestroy();
+            mMapView = null;
         }
+        binding = null;
     }
 
 
