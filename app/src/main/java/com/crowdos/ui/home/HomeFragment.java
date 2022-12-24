@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.baidu.mapapi.map.MapView;
+import com.crowdos.MainActivity;
 import com.crowdos.R;
 import com.crowdos.databinding.FragmentHomeBinding;
 /******************************************************************/
@@ -19,6 +21,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private ImageView Upload;
+    public static MapView mMapView = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,8 +35,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        // java
-        // 是否同意隐私政策，默认为false
+        mMapView = root.findViewById(R.id.mapView2);
 
         return root;
     }
@@ -42,6 +44,10 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        if(MainActivity.isShowMap){
+            //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+            mMapView.onDestroy();
+        }
     }
 
 

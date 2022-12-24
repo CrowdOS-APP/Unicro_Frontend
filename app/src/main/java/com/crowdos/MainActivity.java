@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.crowdos.databinding.ActivityMainBinding;
+import com.crowdos.ui.home.HomeFragment;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isLogin = true;
     private boolean isGotoWelcomePage;
     private TextView intoBt;
-    private boolean isShowMap;
 
+    public static boolean isShowMap;
     public static String toNotificationsFragmentUserNameString;
     public static String toNotificationsFragmentUserSignatureString;
     public static String toNotificationsFragmentUserSculpture;
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         if (isGotoWelcomePage) {
             //调用event_welcome类
             setContentView(R.layout.activity_event_welcome);
-
             intoBt = findViewById(R.id.startVoyage);
             intoBt.setOnClickListener(view -> {
                 Intent intent = new Intent(MainActivity.this, event_Login.class);
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } else {
-
             toNotificationsFragmentUserNameString = readData("UserName");
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
             toNotificationsFragmentUserSculpture = readData("UserSculpture");
@@ -84,9 +83,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
-        if(isShowMap){
 
-        }
     }
 
 //    @Override
@@ -99,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
         if(isShowMap) {
-
+            //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
+            HomeFragment.mMapView.onPause();
         }
     }
 

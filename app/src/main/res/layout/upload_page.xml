@@ -140,11 +140,11 @@
         app:layout_constraintTop_toTopOf="@+id/imageButton4" />
 
     <TextView
-        android:id="@+id/editTextTextPersonName4"
-        android:layout_width="152dp"
-        android:layout_height="260dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="388dp"
+        android:id="@+id/editTextTextPersonName7"
+        android:layout_width="180dp"
+        android:layout_height="210dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="384dp"
         android:background="@drawable/button_type"
         android:ems="10"
         android:inputType="textPersonName"
@@ -166,6 +166,19 @@
         app:layout_constraintStart_toStartOf="@+id/imageButton5"
         app:layout_constraintTop_toTopOf="@+id/imageButton5"
         app:layout_constraintVertical_bias="0.515" />
+
+    <TextView
+        android:id="@+id/editTextTextPersonName4"
+        android:layout_width="152dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="384dp"
+        android:background="@drawable/button_type"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/Null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/textView7"
@@ -347,5 +360,15 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapView4"
+        android:layout_width="151dp"
+        android:layout_height="187dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName7"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName7"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName7"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -90,6 +90,7 @@ public class event_Upload extends AppCompatActivity {
         });
         /*************<时间显示>******************/
 
+
         /*************<相册>******************/
         //coming soon
         upload_Pictures.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +133,6 @@ public class event_Upload extends AppCompatActivity {
                     upload_Title.setSelection(tempSelection);//设置光标在最后
                 }
             }
-
         });
         
 
@@ -325,8 +325,6 @@ public class event_Upload extends AppCompatActivity {
                     getDate[0] = calender;
                     startDate.setText(getDate[0]);
                 }
-
-
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
