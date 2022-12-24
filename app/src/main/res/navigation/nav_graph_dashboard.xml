@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:startDestination="@id/navigation_dynamic">
+
+    <fragment
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph_dashboard"
+        android:id="@+id/navigation_dynamic"
+        android:name="com.crowdos.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dynamic_follows">
+        <action
+            android:id="@+id/action_navigation_dynamic_to_dynamic_emerge"
+            app:destination="@id/dynamic_emerge" />
+        <action
+            android:id="@+id/action_navigation_dynamic_to_dynamic_comment"
+            app:destination="@id/dynamic_comment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/dynamic_comment"
+        android:name="com.crowdos.ui.dashboard.fragment_Replies"
+        android:label="评论"
+        tools:layout="@layout/fragment_dynamic_comments">
+        <action
+            android:id="@+id/action_dynamic_comment_to_navigation_dynamic"
+            app:destination="@id/navigation_dynamic" />
+        <action
+            android:id="@+id/action_dynamic_comment_to_dynamic_emerge2"
+            app:destination="@id/dynamic_emerge" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dynamic_emerge"
+        android:name="com.crowdos.ui.dashboard.fragment_Urgent"
+        android:label="紧急事件"
+        tools:layout="@layout/fragment_dynamic_emerge" >
+        <action
+            android:id="@+id/action_dynamic_emerge_to_dynamic_comment2"
+            app:destination="@id/dynamic_comment" />
+        <action
+            android:id="@+id/action_dynamic_emerge_to_navigation_dynamic"
+            app:destination="@id/navigation_dynamic" />
+    </fragment>
+
+</navigation>

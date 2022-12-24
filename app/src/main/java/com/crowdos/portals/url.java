@@ -1,6 +1,6 @@
-package com.crowdos.ui;
+package com.crowdos.portals;
 
-public class url {//3
+public class url {//4
     public static String userLogin = "m1/1900041-0-default/login";
     public static String userRegister = "m1/1900041-0-default/register";
     public static String getUserInfo = "m1/1900041-0-default/getUserInfo";

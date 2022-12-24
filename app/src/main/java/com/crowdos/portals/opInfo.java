@@ -1,8 +1,26 @@
-package com.crowdos.ui;
+package com.crowdos.portals;
 
 import androidx.annotation.NonNull;
 
+import com.crowdos.portals.jsonFiles.eventList;
+import com.crowdos.portals.jsonFiles.followedEvents;
+import com.crowdos.portals.jsonFiles.getComment;
+import com.crowdos.portals.jsonFiles.getEventInfo;
+import com.crowdos.portals.jsonFiles.getMyComment;
+import com.crowdos.portals.jsonFiles.getUserInfo;
+import com.crowdos.portals.jsonFiles.myEventList;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -20,15 +38,137 @@ public class opInfo {
     private String scheme = "https";
     private String hosts = "mock.apifox.cn";
 
-    //获取用户个人信息(此处存疑，get方法需要调用.addHeader方法来进行头部验证，我不清楚是不是把token放在这里，不过不难改)
-    public String getUserInfo(String token){
+
+    //我完全不想写注释了，你只用知道对于array返回的是List，不是array则返回对应数据结构的变量一个，哥们要猝了
+    private boolean isSucceed(String data){
+        boolean result = false;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            String isSucceed = "false";
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                isSucceed = jsonObject.getString("isSucceed");
+            }
+            if (isSucceed.equals("true")){
+                result = true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private List<eventList> gEventList(String data){
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
+        Gson gson = new Gson();
+        ArrayList<eventList> eventLists = new ArrayList<>();
+        for (JsonElement user : jsonArray) {
+            //使用GSON，直接转成Bean对象
+            eventList eventList = gson.fromJson(user, eventList.class);
+            eventLists.add(eventList);
+        }
+        return eventLists;
+    }
+
+    private List<getComment> getComments(String data){
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
+        Gson gson = new Gson();
+        ArrayList<getComment> commentsLists = new ArrayList<>();
+        for (JsonElement user : jsonArray) {
+            //使用GSON，直接转成Bean对象
+            getComment eventList = gson.fromJson(user, getComment.class);
+            commentsLists.add(eventList);
+        }
+        return commentsLists;
+    }
+
+    private List<getMyComment> getMyComments(String data){
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
+        Gson gson = new Gson();
+        ArrayList<getMyComment> commentsLists = new ArrayList<>();
+        for (JsonElement user : jsonArray) {
+            getMyComment eventList = gson.fromJson(user, getMyComment.class);
+            commentsLists.add(eventList);
+        }
+        return commentsLists;
+    }
+
+    private List<myEventList> getMyEventList(String data){
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
+        Gson gson = new Gson();
+        ArrayList<myEventList> eventLists = new ArrayList<>();
+        for (JsonElement user : jsonArray) {
+            myEventList eventList = gson.fromJson(user, myEventList.class);
+            eventLists.add(eventList);
+        }
+        return eventLists;
+    }
+
+    private List<followedEvents> getMyFollow(String data){
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
+        Gson gson = new Gson();
+        ArrayList<followedEvents> eventLists = new ArrayList<>();
+        for (JsonElement user : jsonArray) {
+            followedEvents eventList = gson.fromJson(user, followedEvents.class);
+            eventLists.add(eventList);
+        }
+        return eventLists;
+    }
+
+
+    private getEventInfo getEventInfos(String data){
+        getEventInfo result = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                result.content = jsonObject.getString("content");
+                result.eventname = jsonObject.getString("eventname");
+                result.endtime = Long.valueOf(jsonObject.getString("endtime"));
+                result.starttime = Long.valueOf(jsonObject.getString("starttime"));
+                result.latitude = Double.valueOf(jsonObject.getString("latitude"));
+                result.longitude = Double.valueOf(jsonObject.getString("longitude"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private getUserInfo getUserInfos(String data){
+        getUserInfo result = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                result.signature = jsonObject.getString("signature");
+                result.UID = Long.valueOf(jsonObject.getString("UID"));
+                result.username = jsonObject.getString("username");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+
+
+    //获取用户个人信息
+    public getUserInfo getUserInfo(String token){
         //直接初始化
-        final String[] userInfo = {null};
+        final getUserInfo[] userInfo = {null};
         OkHttpClient gUserInfo = new OkHttpClient();
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.getUserInfo)
+                .addPathSegment(com.crowdos.portals.url.getUserInfo)
                 .addQueryParameter("token",token)//在query加入token
                 .build();
         Request request = new Request.Builder().url(url)
@@ -41,21 +181,22 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                userInfo[0] = response.body().string();
+                String data = response.body().string();
+                userInfo[0] = getUserInfos(data);
             }
         });
         return userInfo[0];
     }
 
-    //修改用户信息
-    public String updateUserInfo(String username,String sign,String token){
+    //修改用户信息1
+    public boolean updateUserInfo(String username,String sign,String token){
         //直接初始化
-        final String[] isSuccess = {null};
+        final boolean[] isSuccess = {false};
         //问题同上且UID应该改变不了
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.updateUserInfo)
+                .addPathSegment(com.crowdos.portals.url.updateUserInfo)
                 .addQueryParameter("token",token)//在query加入token
                 .build();
         RequestBody updateInfo = new FormBody.Builder()
@@ -73,21 +214,20 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-               isSuccess[0] = response.body().string();
+               String data = response.body().string();
+               isSuccess[0] = isSucceed(data);
             }
         });
         return isSuccess[0];
     }
 
-
-
     //获得我的评论(很奇怪，这里是所有评论的字符串组)
-    public String gMycomment(String token){
-        final String[] result = {null};
+    public List<getMyComment> gMycomment(String token){
+        final List<getMyComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.myComment)
+                .addPathSegment(com.crowdos.portals.url.myComment)
                 .addQueryParameter("token",token)//在query加入token
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
@@ -101,7 +241,8 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                result[0] = response.body().string();
+                String data = response.body().string();
+                result[0] = getMyComments(data);
             }
         });
         return result[0];
@@ -109,12 +250,12 @@ public class opInfo {
 
 
     //获得我的事件
-    public String gMyEventList(String token){
-        final String[] result = {null};
+    public List<myEventList> gMyEventList(String token){
+        final List<myEventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.myEventList)
+                .addPathSegment(com.crowdos.portals.url.myEventList)
                 .addQueryParameter("token",token)
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
@@ -128,20 +269,21 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                result[0] = response.body().string();
+                String data = response.body().string();
+                result[0] = getMyEventList(data);
             }
         });
         return result[0];//array of eventlists,including name,id,place.
     }
 
 
-    //获得别人的事件
+    /*获得别人的事件
     public String gOtherEventList(String token){
         final String[] result = {null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.otherEventList)
+                .addPathSegment(com.crowdos.portals.url.otherEventList)
                 .addQueryParameter("token",token)
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
@@ -159,16 +301,16 @@ public class opInfo {
             }
         });
         return result[0];//array of eventlists,including name,id,place.
-    }
+    }*/
 
 
     //获得关注列表
-    public String gFollowing(String token){
-        final String[] result = {null};
+    public List<followedEvents> gFollowing(String token){
+        final List<followedEvents>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.following)
+                .addPathSegment(com.crowdos.portals.url.following)
                 .addQueryParameter("token",token)
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
@@ -183,7 +325,8 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                result[0] = response.body().string();
+                String data = response.body().string();
+                result[0] = getMyFollow(data);
             }
         });
         return result[0];//array of integer
@@ -191,18 +334,18 @@ public class opInfo {
 
 
     //关注操作(这里的UID是Int，需转)
-    public String opFollow(String token,long uid,boolean isFollow){
+    public boolean opFollow(String token,long uid,boolean isFollow){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.opFollow)
+                .addPathSegment(com.crowdos.portals.url.opFollow)
                 .addQueryParameter("token",token)
                 .addQueryParameter("UID", String.valueOf(uid))
                 .build();
         RequestBody opFollowing = new FormBody.Builder()
                 .add("isFollow", String.valueOf(isFollow))
                 .build();
-        final String[] isSucceed = {null};
+        final boolean[] isSucceed = {false};
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
                 .post(opFollowing)
@@ -214,7 +357,8 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                isSucceed[0] = response.body().string();
+                String data = response.body().string();
+                isSucceed[0] = isSucceed(data);
             }
         });
         return isSucceed[0];//array of integer
@@ -227,7 +371,7 @@ public class opInfo {
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.otherEventList)
+                .addPathSegment(com.crowdos.portals.url.otherEventList)
                 .addQueryParameter("token",key)
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
@@ -249,12 +393,13 @@ public class opInfo {
 
 
     //紧急事件列表
-    public String gEmergEventList(double longitude,double latitude){
-        final String[] result = {null};
+    public List<eventList> gEmergeEventList(double longitude,double latitude,String token){
+        final List<eventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.gemergList)
+                .addPathSegment(com.crowdos.portals.url.gemergList)
+                .addQueryParameter("token",token)
                 .build();
         RequestBody place = new FormBody.Builder()
                 .add("longitude", String.valueOf(longitude))
@@ -271,7 +416,8 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                result[0] = response.body().string();
+                String data = response.body().string();
+                result[0] = gEventList(data);
             }
         });
         return result[0];//array of eventlists,including name,id,place.
@@ -279,13 +425,16 @@ public class opInfo {
 
 
     //getting a single event
-    public String gEventList(String token){
-        final String[] result = {null};
+    public List<eventList> gEventsNearby(String token,double longitude,double latitude){
+
+        final List<eventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.gEventList)
+                .addPathSegment(com.crowdos.portals.url.gEventList)
                 .addQueryParameter("token",token)
+                .addQueryParameter("longitude", String.valueOf(longitude))
+                .addQueryParameter("latitude", String.valueOf(latitude))
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
@@ -298,19 +447,20 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                result[0] = response.body().string();
+                String data = response.body().string();
+                result[0] = gEventList(data);
             }
         });
         return result[0];//array of eventlists,including name,id,place.
     }
 
     //getting event details (listen while clicking for more information)2
-    public String gEventInfo(int eventID){
-        final String[] result = {null};
+    public getEventInfo gEventInfo(int eventID){
+        final getEventInfo[] result = {null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.gEventInfo)
+                .addPathSegment(com.crowdos.portals.url.gEventInfo)
                 .addQueryParameter("eventID", String.valueOf(eventID))
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
@@ -324,7 +474,8 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                result[0] = response.body().string();
+                String data = response.body().string();
+                result[0] = getEventInfos(data);
             }
         });
         return result[0];//details of a single event
@@ -332,18 +483,20 @@ public class opInfo {
 
 
     //upload events
-    public String upEvent(String token,long eveID,String content,double longitude,double latitude,
+    public boolean upEvent(String token,
+                          String title,String content,
+                          double longitude,double latitude,
                           long startTime,long endTime){
-        final String[] isSuccess = {null};
+        final boolean[] isSuccess = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.upEventInfo)
+                .addPathSegment(com.crowdos.portals.url.upEventInfo)
                 .addQueryParameter("token",token)
-                .addQueryParameter("eventID", String.valueOf(eveID))
                 .build();
         //eventID应该是名称
         RequestBody updateInfo = new FormBody.Builder()
+                .add("title",title)
                 .add("content",content)
                 .add("startTime",String.valueOf(startTime))
                 .add("endTime", String.valueOf(endTime))
@@ -361,7 +514,8 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                isSuccess[0] = response.body().string();
+                String data = response.body().string();
+                isSuccess[0] = isSucceed(data);
             }
         });
         return isSuccess[0];
@@ -369,13 +523,14 @@ public class opInfo {
 
 
     //getComment
-    public String gComment(String token){
-        final String[] result = {null};
+    public List<getComment> gComment(String token,long eventID){
+        final List<getComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.gComment)
+                .addPathSegment(com.crowdos.portals.url.gComment)
                 .addQueryParameter("token",token)
+                .addQueryParameter("eventID", String.valueOf(eventID))
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
@@ -388,20 +543,23 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                result[0] = response.body().string();
+                String data = response.body().string();
+                result[0] = getComments(data);
             }
         });
         return result[0];
     }
 
+
+
     //upload Comments
-    public String upComment(String token,long eveID,String comment){
-        final String[] isSuccess = {null};
+    public boolean upComment(String token,long eveID,String comment){
+        final boolean[] isSuccess = {false};
         //eventID应该是名称
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
-                .addPathSegment(com.crowdos.ui.url.upComment)
+                .addPathSegment(com.crowdos.portals.url.upComment)
                 .addQueryParameter("token",token)
                 .build();
         RequestBody updateInfo = new FormBody.Builder()
@@ -419,7 +577,8 @@ public class opInfo {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                isSuccess[0] = response.body().string();
+                String data = response.body().string();
+                isSuccess[0] = isSucceed(data);
             }
         });
         return isSuccess[0];

@@ -5,24 +5,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crowdos.R;
 import com.crowdos.databinding.FragmentDynamicFollowsBinding;
 /******************************************************************/
 /*************************DYNAMIC**********************************/
 /******************************************************************/
 public class DashboardFragment extends Fragment {
 
+
+
+
     private FragmentDynamicFollowsBinding binding;
     private int mColumnCount = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -31,9 +38,26 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+
+        TextView toEmerge = getView().findViewById(R.id.textView16);
+        toEmerge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(DashboardFragment.this).navigate(R.id.action_navigation_dynamic_to_dynamic_emerge);
+            }
+        });
+
+
+        TextView toComment = getView().findViewById(R.id.textView18);
+        toComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(DashboardFragment.this).navigate(R.id.action_navigation_dynamic_to_dynamic_comment);
+            }
+        });
+
         binding = FragmentDynamicFollowsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
 
 
 

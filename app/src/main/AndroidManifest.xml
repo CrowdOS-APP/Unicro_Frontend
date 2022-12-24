@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- 读写权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 允许访问网络，必选权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许获取粗略位置，若用GPS实现定位小蓝点功能则必选 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 允许获取设备和运营商信息，用于问题排查和网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 允许获取网络状态，用于网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许获取wifi网络信息，用于网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许获取wifi状态改变，用于网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 允许写入扩展存储，用于数据缓存，若无此权限则写到私有目录 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许写设备缓存，用于问题排查 -->
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" /> <!-- 允许读设备等信息，用于问题排查 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -26,7 +39,6 @@
 
 
     <application
-        android:name=".CrowdOSApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -35,29 +47,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CrowdOS"
-        tools:targetApi="31"
-        >
-        <activity android:name=".ui.welcome.event_Register"
-            android:parentActivityName=".ui.welcome.event_Login"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.welcome.event_Register"
             android:exported="false"
-            android:label="注册">
+            android:label="注册"
+            android:parentActivityName=".ui.welcome.event_Login">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".ui.welcome.event_Password_Forgotten"
-            android:parentActivityName=".ui.welcome.event_Login"
+        <activity
+            android:name=".ui.welcome.event_Password_Forgotten"
             android:exported="false"
-            android:label="忘记密码">
+            android:label="忘记密码"
+            android:parentActivityName=".ui.welcome.event_Login">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-        <activity android:name=".ui.welcome.event_Login"
+        <activity
+            android:name=".ui.welcome.event_Login"
             android:exported="false"
-            android:label="登陆"
-            >
+            android:label="登陆">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -107,10 +119,11 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".ui.home.event_Upload"
+        <activity
+            android:name=".ui.home.event_Upload"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            android:label="上传事件">
+            android:label="上传事件"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -131,13 +144,9 @@
         </activity>
 
         <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="EELCNkAzpPrnGK0tjKjcuKkZNsAywVaN" />
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote">
-        </service>
-
+            android:name="com.amap.api.v2.apikey"
+            android:value="f4f4df71dc71e2aebbc43d56aeed568a" />
     </application>
+
+
 </manifest>

@@ -1,6 +1,10 @@
-package com.crowdos.ui;
+package com.crowdos.portals;
 
 import androidx.annotation.NonNull;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -15,7 +19,39 @@ import okhttp3.Response;
 
 /*这个文件主要负责进行用户账号操作*/
 public class opUser {
-    /*以下是登录函数*/
+    private boolean isSucceed(String data){
+        boolean result = false;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            String isSucceed = "false";
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                isSucceed = jsonObject.getString("isSucceed");
+            }
+            if (isSucceed.equals("true")){
+                result = true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    private String receivedToken(String data){
+        String token = null;
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            for(int i = 0; i<jsonArray.length(); i++)
+            {
+                JSONObject jsonObject=jsonArray.getJSONObject(i);
+                token =jsonObject.getString("token");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return token;
+
+    }
+    /*以下是登录函数2*/
     public String userLogin(String username,String pwd){
         //结果变量(token)
         final String[] token = {null};
@@ -23,7 +59,7 @@ public class opUser {
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host("mock.apifox.cn")
-                .addPathSegment(com.crowdos.ui.url.userLogin)
+                .addPathSegment(com.crowdos.portals.url.userLogin)
                 .build();
         //新建请求体
         RequestBody loginPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
@@ -37,11 +73,13 @@ public class opUser {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                token[0] = response.body().string();
+                String data = response.body().string();
+                token[0] = receivedToken(data);
             }
         });
         return token[0];
     }
+
 
     /*芝士注册函数*/
     public boolean userRegister(String username,String pwd){
@@ -50,7 +88,7 @@ public class opUser {
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host("mock.apifox.cn")
-                .addPathSegment(com.crowdos.ui.url.userRegister)
+                .addPathSegment(com.crowdos.portals.url.userRegister)
                 .build();
         //新建请求体
         RequestBody registerPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
@@ -64,19 +102,21 @@ public class opUser {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                judge[0] = true;
+                String data = response.body().string();
+                judge[0] = isSucceed(data);
+
             }
         });
         return judge[0];
     }
 
     //修改密码
-    public String updatePasswd(String token,String oldPwd,String pwd){
-        final String[] isSuccess = {null};
+    public boolean updatePasswd(String token, String oldPwd, String pwd){
+        final boolean[] isSucceed = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host("mock.apifox.cn")
-                .addPathSegment(com.crowdos.ui.url.updatePwd)
+                .addPathSegment(com.crowdos.portals.url.updatePwd)
                 .addQueryParameter("token",token)
                 .build();
         RequestBody updateInfo = new FormBody.Builder()
@@ -94,19 +134,22 @@ public class opUser {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                isSuccess[0] = response.body().string();
+                String data = response.body().string();
+                isSucceed(data);
             }
-        });
-        return isSuccess[0];
-    }
 
+
+        });
+        return isSucceed[0];
+    }
+    /*coming sonn
     //请求验证码（注册段）1
     public boolean requestVerifyCode(String email){
         final boolean[] isSucceed = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host("mock.apifox.cn")
-                .addPathSegment(com.crowdos.ui.url.getVerifyCode)
+                .addPathSegment(com.crowdos.portals.url.getVerifyCode)
                 .build();
         RequestBody requestPac = new FormBody.Builder()
                 .add("email",email)
@@ -125,6 +168,6 @@ public class opUser {
             }
         });
         return isSucceed[0];
-    }
+    }*/
 
 }
