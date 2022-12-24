@@ -2,7 +2,7 @@ package com.crowdos.portals.jsonFiles;
 
 import com.google.gson.annotations.SerializedName;
 
-public class myEventList {
+public class myEventList {//8
     @SerializedName("uid")
     public long uid;
     @SerializedName("eventname")

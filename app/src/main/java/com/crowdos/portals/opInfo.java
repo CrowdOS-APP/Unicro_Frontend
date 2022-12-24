@@ -188,7 +188,7 @@ public class opInfo {
         return userInfo[0];
     }
 
-    //修改用户信息
+    //修改用户信息1
     public boolean updateUserInfo(String username,String sign,String token){
         //直接初始化
         final boolean[] isSuccess = {false};

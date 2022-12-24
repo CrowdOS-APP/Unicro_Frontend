@@ -9,4 +9,4 @@ public class getUserInfo {
     public String signature;
     @SerializedName("UID")
     public long UID;
-}
+}//6

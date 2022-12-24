@@ -11,4 +11,4 @@ public class eventList {
     public long longitude;
     @SerializedName("latitude")
     public long latitude;
-}
+}//1

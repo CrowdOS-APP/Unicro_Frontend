@@ -1,7 +1,7 @@
 package com.crowdos.portals;
 
 
-public class userInfo {
+public class userInfo {//5
     private String pwd;
     private int avtUrlNumber;
     private String userName;

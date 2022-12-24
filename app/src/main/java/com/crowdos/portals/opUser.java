@@ -51,7 +51,7 @@ public class opUser {
         return token;
 
     }
-    /*以下是登录函数*/
+    /*以下是登录函数2*/
     public String userLogin(String username,String pwd){
         //结果变量(token)
         final String[] token = {null};
