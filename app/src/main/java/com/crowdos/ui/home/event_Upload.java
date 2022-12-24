@@ -10,11 +10,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -76,12 +74,7 @@ public class event_Upload extends AppCompatActivity {
         /*************<时间显示>******************/
         //日历初始化
         calendar = Calendar.getInstance();
-        upload_StartTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isSetStartTime = onClickTime(v);
-            }
-        });
+        upload_StartTime.setOnClickListener(v -> isSetStartTime = onClickTime(v));
         upload_EndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,12 +86,9 @@ public class event_Upload extends AppCompatActivity {
 
         /*************<相册>******************/
         //coming soon
-        upload_Pictures.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(event_Upload.this, "功能尚未开放，敬请期待", Toast.LENGTH_SHORT).show();
-            }
-        });
+        upload_Pictures.setOnClickListener(v ->
+            Toast.makeText(event_Upload.this, "功能尚未开放，敬请期待", Toast.LENGTH_SHORT).show()
+        );
         /*************<相册>******************/
 
 
@@ -176,37 +166,35 @@ public class event_Upload extends AppCompatActivity {
         upload_locate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
             }
         });
         /*************<地图>******************/
 
 
         /*************<上传>******************/
-        upload_event.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                description = upload_Description.getText().toString();
-                title = upload_Title.getText().toString();
-                timeChangeUnix();
-                if(isChooseEventType && isSetStartTime && isSetEndTime && unixEndTime >= unixStartTime) {
-                    //此处打包信息上传至服务器
-                    Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(event_Upload.this, MainActivity.class);
-                    startActivity(intent);
-                }
-                else if(!isChooseEventType)
-                {
-                    Toast.makeText(event_Upload.this, "未选择事件类型", Toast.LENGTH_SHORT).show();
-                }
-                else if(!isSetStartTime){
-                    Toast.makeText(event_Upload.this, "未设置起始时间", Toast.LENGTH_SHORT).show();
-                }
-                else if(!isSetEndTime){
-                    Toast.makeText(event_Upload.this, "未设置终止时间", Toast.LENGTH_SHORT).show();
-                }
-                else if(unixEndTime < unixStartTime){
-                    Toast.makeText(event_Upload.this, "终止时间需晚于起始时间", Toast.LENGTH_SHORT).show();
-                }
+        upload_event.setOnClickListener(view -> {
+            description = upload_Description.getText().toString();
+            title = upload_Title.getText().toString();
+            timeChangeUnix();
+            if(isChooseEventType && isSetStartTime && isSetEndTime && unixEndTime >= unixStartTime) {
+                //此处打包信息上传至服务器
+                Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(event_Upload.this, MainActivity.class);
+                startActivity(intent);
+            }
+            else if(!isChooseEventType)
+            {
+                Toast.makeText(event_Upload.this, "未选择事件类型", Toast.LENGTH_SHORT).show();
+            }
+            else if(!isSetStartTime){
+                Toast.makeText(event_Upload.this, "未设置起始时间", Toast.LENGTH_SHORT).show();
+            }
+            else if(!isSetEndTime){
+                Toast.makeText(event_Upload.this, "未设置终止时间", Toast.LENGTH_SHORT).show();
+            }
+            else if(unixEndTime < unixStartTime){
+                Toast.makeText(event_Upload.this, "终止时间需晚于起始时间", Toast.LENGTH_SHORT).show();
             }
         });
         /*************<上传>******************/
@@ -228,20 +216,12 @@ public class event_Upload extends AppCompatActivity {
             }
         });
 
-        alertBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                isChooseEventType = true;
-                alertDialog2.dismiss();
-            }
+        alertBuilder.setPositiveButton("确定", (dialogInterface, i) -> {
+            isChooseEventType = true;
+            alertDialog2.dismiss();
         });
 
-        alertBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                alertDialog2.dismiss();
-            }
-        });
+        alertBuilder.setNegativeButton("取消", (dialogInterface, i) -> alertDialog2.dismiss());
 
         alertDialog2 = alertBuilder.create();
         alertDialog2.show();
@@ -266,32 +246,28 @@ public class event_Upload extends AppCompatActivity {
     }
 
     private void showTimeDialog(boolean chooseTimeType) {
-        timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String time ;
-                if(hourOfDay < 10 && minute < 10){
-                    time = "0" + hourOfDay + ":0" + minute;
-                }
-                else if(hourOfDay < 10){
-                    time = "0" + hourOfDay + ":" + minute;
-                }
-                else if(minute < 10){
-                    time = hourOfDay + ":0" + minute;
-                }
-                else{
-                    time = hourOfDay + ":" + minute;
-                }
+        timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+            String time ;
+            if(hourOfDay < 10 && minute < 10){
+                time = "0" + hourOfDay + ":0" + minute;
+            }
+            else if(hourOfDay < 10){
+                time = "0" + hourOfDay + ":" + minute;
+            }
+            else if(minute < 10){
+                time = hourOfDay + ":0" + minute;
+            }
+            else{
+                time = hourOfDay + ":" + minute;
+            }
 
-                if(chooseTimeType){
-                    getTime[1] = time;
-                    endTime.setText("终止时间"+ getTime[1]);
-                }
-                else{
-                    getTime[0] = time;
-                    startTime.setText("起始时间"+ getTime[0]);
-                }
+            if(chooseTimeType){
+                getTime[1] = time;
+                endTime.setText("终止时间"+ getTime[1]);
+            }
+            else{
+                getTime[0] = time;
+                startTime.setText("起始时间"+ getTime[0]);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         timePickerDialog.show();
@@ -299,32 +275,28 @@ public class event_Upload extends AppCompatActivity {
     }
 
     private void showCalenderDialog(boolean chooseTimeType) {
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String calender;
-                if(month < 10 && dayOfMonth <10){
-                    calender = year + "-0" + (month + 1) + "-0" + dayOfMonth;
-                }
-                else if(dayOfMonth < 10){
-                    calender = year + "-" + (month + 1) + "-0" + dayOfMonth;
-                }
-                else if(month < 10) {
-                    calender = year + "-0" + (month + 1) + "-" + dayOfMonth;
-                }
-                else{
-                    calender = year + "-" + (month + 1) + "-" + dayOfMonth;
-                }
+        datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            String calender;
+            if(month < 10 && dayOfMonth <10){
+                calender = year + "-0" + (month + 1) + "-0" + dayOfMonth;
+            }
+            else if(dayOfMonth < 10){
+                calender = year + "-" + (month + 1) + "-0" + dayOfMonth;
+            }
+            else if(month < 10) {
+                calender = year + "-0" + (month + 1) + "-" + dayOfMonth;
+            }
+            else{
+                calender = year + "-" + (month + 1) + "-" + dayOfMonth;
+            }
 
-                if(chooseTimeType){
-                    getDate[1] = calender;
-                    endDate.setText(getDate[1]);
-                }
-                else{
-                    getDate[0] = calender;
-                    startDate.setText(getDate[0]);
-                }
+            if(chooseTimeType){
+                getDate[1] = calender;
+                endDate.setText(getDate[1]);
+            }
+            else{
+                getDate[0] = calender;
+                startDate.setText(getDate[0]);
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();

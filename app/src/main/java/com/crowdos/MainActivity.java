@@ -12,7 +12,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.crowdos.databinding.ActivityMainBinding;
-import com.crowdos.ui.home.HomeFragment;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -97,8 +96,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if(isShowMap) {
-            //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-            HomeFragment.mMapView.onPause();
         }
     }
 
