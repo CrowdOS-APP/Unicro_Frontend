@@ -6,7 +6,7 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.common.BaiduMapSDKException;
 
-public class CrowdOSApplication  extends Application {
+public class CrowdOSApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -18,6 +18,5 @@ public class CrowdOSApplication  extends Application {
 
         }
         SDKInitializer.setCoordType(CoordType.BD09LL);
-        SDKInitializer.setHttpsEnable(true);
     }
 }

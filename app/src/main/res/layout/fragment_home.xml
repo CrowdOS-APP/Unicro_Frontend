@@ -20,9 +20,10 @@
         android:id="@+id/imageView6"
         android:layout_width="500dp"
         android:layout_height="500dp"
-        android:layout_marginBottom="440dp"
+        android:layout_marginBottom="436dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/button_type_circle_main2" />
 
@@ -103,5 +104,20 @@
         app:layout_constraintHorizontal_bias="0.754"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="222dp"
+        android:layout_height="37dp"
+        android:background="@null"
+        android:fontFamily="@font/mainx"
+        android:gravity="center|center_vertical"
+        android:textColor="@color/yellow_light_1"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/mapView2"
+        app:layout_constraintEnd_toEndOf="@+id/mapView2"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/mapView2"
+        tools:text="经纬度" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
