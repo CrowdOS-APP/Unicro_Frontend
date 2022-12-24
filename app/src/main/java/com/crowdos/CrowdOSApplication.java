@@ -18,5 +18,6 @@ public class CrowdOSApplication extends Application {
 
         }
         SDKInitializer.setCoordType(CoordType.BD09LL);
+        SDKInitializer.setHttpsEnable(true);
     }
 }

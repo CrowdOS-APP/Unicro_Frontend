@@ -11,6 +11,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
 import com.crowdos.databinding.ActivityMainBinding;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
     public static String toNotificationsFragmentUserNameString;
     public static String toNotificationsFragmentUserSignatureString;
     public static String toNotificationsFragmentUserSculpture;
+    public LocationClient locationClient=null;
+    private BDAbstractLocationListener locationListener= new BDAbstractLocationListener() {
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
 
+        }
+    };
 
 
     @SuppressLint("MissingInflatedId")
@@ -61,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
             toNotificationsFragmentUserSculpture = readData("UserSculpture");
             isShowMap = true;
+            try {
+                locationClient=new LocationClient(getApplicationContext());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            locationClient.registerLocationListener(new BDAbstractLocationListener() {
+//                @Override
+//                public void onReceiveLocation(BDLocation bdLocation) {
+//
+//                }
+//            });
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
             BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -81,8 +101,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
-
+        locationClient.stop();
     }
 
 //    @Override
@@ -133,5 +152,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return content.toString();
     }
+
+
 
 }

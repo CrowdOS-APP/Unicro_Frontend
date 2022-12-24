@@ -120,7 +120,6 @@ public class opInfo {
         return eventLists;
     }
 
-
     private getEventInfo getEventInfos(String data){
         getEventInfo result = null;
         try {
@@ -156,9 +155,11 @@ public class opInfo {
         return result;
     }
 
-
-
-
+    /**分割
+     *
+     * @param
+     * @return
+     */
 
     //获取用户个人信息
     public getUserInfo getUserInfo(String token){
@@ -222,7 +223,7 @@ public class opInfo {
     }
 
     //获得我的评论(很奇怪，这里是所有评论的字符串组)
-    public List<getMyComment> gMycomment(String token){
+    public List<getMyComment> getMyComment(String token){
         final List<getMyComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -247,7 +248,6 @@ public class opInfo {
         });
         return result[0];
     }
-
 
     //获得我的事件
     public List<myEventList> gMyEventList(String token){
@@ -276,7 +276,6 @@ public class opInfo {
         return result[0];//array of eventlists,including name,id,place.
     }
 
-
     /*获得别人的事件
     public String gOtherEventList(String token){
         final String[] result = {null};
@@ -303,9 +302,8 @@ public class opInfo {
         return result[0];//array of eventlists,including name,id,place.
     }*/
 
-
     //获得关注列表
-    public List<followedEvents> gFollowing(String token){
+    public List<followedEvents> getFollowing(String token){
         final List<followedEvents>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -333,7 +331,7 @@ public class opInfo {
     }
 
 
-    //关注操作(这里的UID是Int，需转)
+    //关注操作
     public boolean opFollow(String token,long uid,boolean isFollow){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -393,7 +391,7 @@ public class opInfo {
 
 
     //紧急事件列表
-    public List<eventList> gEmergeEventList(double longitude,double latitude,String token){
+    public List<eventList> getEmergeEventList(double longitude,double latitude,String token){
         final List<eventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -425,7 +423,7 @@ public class opInfo {
 
 
     //getting a single event
-    public List<eventList> gEventsNearby(String token,double longitude,double latitude){
+    public List<eventList> getEventsNearby(String token,double longitude,double latitude){
 
         final List<eventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
@@ -455,7 +453,7 @@ public class opInfo {
     }
 
     //getting event details (listen while clicking for more information)2
-    public getEventInfo gEventInfo(int eventID){
+    public getEventInfo getEventInfo(int eventID){
         final getEventInfo[] result = {null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -523,7 +521,7 @@ public class opInfo {
 
 
     //getComment
-    public List<getComment> gComment(String token,long eventID){
+    public List<getComment> getComment(String token,long eventID){
         final List<getComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
