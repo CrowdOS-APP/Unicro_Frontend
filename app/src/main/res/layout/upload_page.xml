@@ -37,13 +37,13 @@
         style="@android:style/Widget.Holo.ImageButton"
         android:layout_width="180dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="236dp"
         android:background="#00FFFFFF"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
         app:srcCompat="@drawable/button_type"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -140,11 +140,11 @@
         app:layout_constraintTop_toTopOf="@+id/imageButton4" />
 
     <TextView
-        android:id="@+id/editTextTextPersonName4"
-        android:layout_width="152dp"
-        android:layout_height="260dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="388dp"
+        android:id="@+id/editTextTextPersonName7"
+        android:layout_width="180dp"
+        android:layout_height="210dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="384dp"
         android:background="@drawable/button_type"
         android:ems="10"
         android:inputType="textPersonName"
@@ -166,6 +166,19 @@
         app:layout_constraintStart_toStartOf="@+id/imageButton5"
         app:layout_constraintTop_toTopOf="@+id/imageButton5"
         app:layout_constraintVertical_bias="0.515" />
+
+    <TextView
+        android:id="@+id/editTextTextPersonName4"
+        android:layout_width="152dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="384dp"
+        android:background="@drawable/button_type"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/Null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/textView7"
@@ -280,15 +293,7 @@
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
         app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4" />
 
-    <com.amap.api.maps2d.MapView
-        android:id="@+id/mapView"
-        android:layout_width="180dp"
-        android:layout_height="210dp"
-        android:layout_marginTop="388dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/button_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/add_pic"
@@ -355,5 +360,15 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapView4"
+        android:layout_width="151dp"
+        android:layout_height="187dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName7"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName7"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName7"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

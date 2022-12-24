@@ -1,7 +1,5 @@
 package com.crowdos.ui.home;
 
-import static com.crowdos.ui.home.event_UploadFragment.*;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -92,6 +90,7 @@ public class event_Upload extends AppCompatActivity {
         });
         /*************<时间显示>******************/
 
+
         /*************<相册>******************/
         //coming soon
         upload_Pictures.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +133,6 @@ public class event_Upload extends AppCompatActivity {
                     upload_Title.setSelection(tempSelection);//设置光标在最后
                 }
             }
-
         });
         
 
@@ -327,8 +325,6 @@ public class event_Upload extends AppCompatActivity {
                     getDate[0] = calender;
                     startDate.setText(getDate[0]);
                 }
-
-
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
@@ -367,21 +363,19 @@ public class event_Upload extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
-        mMapView.onDestroy();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
-        mMapView.onPause();
+
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
-        mMapView.onSaveInstanceState(outState);
     }
 
 }
