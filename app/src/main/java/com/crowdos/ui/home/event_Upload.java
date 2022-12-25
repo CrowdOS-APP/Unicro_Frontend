@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.crowdos.MainActivity;
 import com.crowdos.R;
 
@@ -31,7 +33,7 @@ public class event_Upload extends AppCompatActivity {
     private boolean isChooseEventType = false;
     private boolean isSetStartTime = false;
     private boolean isSetEndTime = false;
-    //boolean isUploadPicture = false;
+    private boolean isSetLocation = false;
     private AlertDialog alertDialog2;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
@@ -40,13 +42,20 @@ public class event_Upload extends AppCompatActivity {
     private String[] getTime = {"00:00","00:00"};
     private String[] getDate = {"2000-01-01","2000-01-01"};
     private TextView startDate,endDate, startTime, endTime;
+    private TextView addressTextView;
+    private String addressString;
+    private Handler mHandler;
 
+    // 默认逆地理编码半径范围
+    private static final int sDefaultRGCRadius = 500;
 
+    public GeoCoder mGeoCoder;
     public boolean EventType;//true代表紧急事件，false代表普通事件
     public long unixStartTime;
     public long unixEndTime;
     public String description;
     public String title;
+    public double latitude,longitude;//经纬度
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -108,6 +117,7 @@ public class event_Upload extends AppCompatActivity {
                 wordNum= s;//实时记录输入的字数
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void afterTextChanged(Editable s) {
                 int number = num - s.length();
@@ -124,7 +134,6 @@ public class event_Upload extends AppCompatActivity {
                 }
             }
         });
-        
 
         upload_Description.addTextChangedListener(new TextWatcher() {
             final int num = 500;
@@ -160,13 +169,17 @@ public class event_Upload extends AppCompatActivity {
         /*************<标题和简介>******************/
 
 
-
-
         /*************<地图>******************/
+        addressTextView = findViewById(R.id.textView38);
         upload_locate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                isSetLocation = true;
+                latitude = MyLocationListener.latitude;
+                longitude = MyLocationListener.longitude;
+                addressString = MyLocationListener.address;
+                addressTextView.setText(addressString);
+                Toast.makeText(event_Upload.this, "已设置为当前位置", Toast.LENGTH_SHORT).show();
             }
         });
         /*************<地图>******************/
@@ -177,7 +190,7 @@ public class event_Upload extends AppCompatActivity {
             description = upload_Description.getText().toString();
             title = upload_Title.getText().toString();
             timeChangeUnix();
-            if(isChooseEventType && isSetStartTime && isSetEndTime && unixEndTime >= unixStartTime) {
+            if(isChooseEventType && isSetStartTime && isSetEndTime && isSetLocation && unixEndTime >= unixStartTime) {
                 //此处打包信息上传至服务器
                 Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(event_Upload.this, MainActivity.class);
@@ -192,6 +205,9 @@ public class event_Upload extends AppCompatActivity {
             }
             else if(!isSetEndTime){
                 Toast.makeText(event_Upload.this, "未设置终止时间", Toast.LENGTH_SHORT).show();
+            }
+            else if(!isSetLocation){
+                Toast.makeText(event_Upload.this, "未选择事件位置", Toast.LENGTH_SHORT).show();
             }
             else if(unixEndTime < unixStartTime){
                 Toast.makeText(event_Upload.this, "终止时间需晚于起始时间", Toast.LENGTH_SHORT).show();
@@ -330,6 +346,8 @@ public class event_Upload extends AppCompatActivity {
         unixEndTime = dateEnd.getTime();
     }
     /*************<时间>******************/
+
+
 
     @Override
     protected void onDestroy() {
