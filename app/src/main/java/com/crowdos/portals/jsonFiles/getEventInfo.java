@@ -8,9 +8,9 @@ public class getEventInfo {
     @SerializedName("content")
     public String content;
     @SerializedName("longitude")
-    public Double longitude;
+    public double longitude;
     @SerializedName("latitude")
-    public Double latitude;
+    public double latitude;
     @SerializedName("starttime")
     public long starttime;
     @SerializedName("endtime")

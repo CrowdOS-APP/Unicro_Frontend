@@ -8,6 +8,9 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.MyLocationData;
 
 public class MyLocationListener extends BDAbstractLocationListener {
+    public static double latitude;
+    public static double longitude;
+    public static String address;
     @Override
     public void onReceiveLocation(BDLocation location) {
         //mapView 销毁后不在处理新接收的位置
@@ -20,5 +23,8 @@ public class MyLocationListener extends BDAbstractLocationListener {
                 .direction(location.getDirection()).latitude(location.getLatitude())
                 .longitude(location.getLongitude()).build();
         mBaiduMap.setMyLocationData(locData);
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+        address = location.getAddrStr();
     }
 }

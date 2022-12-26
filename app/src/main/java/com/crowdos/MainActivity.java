@@ -11,10 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.crowdos.databinding.ActivityMainBinding;
-import com.crowdos.ui.home.MyLocationListener;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 //******************************************************************
-//*************************MainActivity*****************************11
+//*************************MainActivity*****************************
 //******************************************************************
 
 public class MainActivity extends AppCompatActivity {
@@ -38,18 +35,12 @@ public class MainActivity extends AppCompatActivity {
     public static String toNotificationsFragmentUserNameString;
     public static String toNotificationsFragmentUserSignatureString;
     public static String toNotificationsFragmentUserSculpture;
-    public LocationClient mLocationClient;
-    private MyLocationListener myLocationListener;
+
 
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        String token = readData("token");
-        if(!token.equals(null)){
-            isLogin = true;
-        }
         if (isLogin)
             isGotoWelcomePage = true;
         else
@@ -70,25 +61,6 @@ public class MainActivity extends AppCompatActivity {
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
             toNotificationsFragmentUserSculpture = readData("UserSculpture");
             isShowMap = true;
-            //定位初始化
-            try {
-                mLocationClient = new LocationClient(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            //通过LocationClientOption设置LocationClient相关参数
-            LocationClientOption option = new LocationClientOption();
-            option.setOpenGps(true); // 打开gps
-            option.setCoorType("bd09ll"); // 设置坐标类型
-            option.setScanSpan(1000);
-            //设置locationClientOption
-           // mLocationClient.setLocOption(option);
-            //注册LocationListener监听器
-            myLocationListener = new MyLocationListener();
-            //mLocationClient.registerLocationListener(myLocationListener);
-            //开启地图定位图层
-            //mLocationClient.start();
-
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
             BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -100,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navView, navController);
-
         }
     }
 
@@ -108,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLocationClient.stop();
+        //mLocationClient.stop();
     }
 
     @Override
@@ -132,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
 
     public String readData(String fname) {
         FileInputStream in = null;
