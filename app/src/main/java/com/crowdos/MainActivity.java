@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 //******************************************************************
-//*************************MainActivity*****************************
+//*************************MainActivity*****************************11
 //******************************************************************
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String token = readData("token");
+        if(!token.equals(null)){
+            isLogin = true;
+        }
         if (isLogin)
             isGotoWelcomePage = true;
         else
@@ -95,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navView, navController);
-
 
         }
     }

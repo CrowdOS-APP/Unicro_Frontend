@@ -19,7 +19,7 @@ import okhttp3.Response;
 
 /*这个文件主要负责进行用户账号操作*/
 public class opUser {
-    private boolean isSucceed(String data){
+    private static boolean isSucceed(String data){
         boolean result = false;
         try {
             JSONArray jsonArray = new JSONArray(data);
@@ -36,14 +36,14 @@ public class opUser {
         }
         return result;
     }
-    private String receivedToken(String data){
+    private static String receivedToken(String data){
         String token = null;
         try {
             JSONArray jsonArray = new JSONArray(data);
             for(int i = 0; i<jsonArray.length(); i++)
             {
                 JSONObject jsonObject=jsonArray.getJSONObject(i);
-                token =jsonObject.getString("token");
+                token = jsonObject.getString("token");
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -52,13 +52,14 @@ public class opUser {
 
     }
     /*以下是登录函数2*/
-    public String userLogin(String username,String pwd){
+    public static String userLogin(String username,String pwd){
         //结果变量(token)
         final String[] token = {null};
         //建立url
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host("mock.apifox.cn")
+                .port(8888)
                 .addPathSegment(com.crowdos.portals.url.userLogin)
                 .build();
         //新建请求体
@@ -82,7 +83,7 @@ public class opUser {
 
 
     /*芝士注册函数*/
-    public boolean userRegister(String username,String pwd){
+    public static boolean userRegister(String username,String pwd){
         //结果变量()
         final boolean[] judge = {false};
         HttpUrl url = new HttpUrl.Builder()
@@ -111,7 +112,7 @@ public class opUser {
     }
 
     //修改密码
-    public boolean updatePasswd(String token, String oldPwd, String pwd){
+    public static boolean updatePasswd(String token, String oldPwd, String pwd){
         final boolean[] isSucceed = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
@@ -157,6 +158,7 @@ public class opUser {
         OkHttpClient requestForVerifyCode = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
+                .post(requestPac)
                 .build();
         requestForVerifyCode.newCall(request).enqueue(new Callback() {
             @Override

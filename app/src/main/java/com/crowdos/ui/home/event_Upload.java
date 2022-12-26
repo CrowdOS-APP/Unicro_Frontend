@@ -179,7 +179,13 @@ public class event_Upload extends AppCompatActivity {
             timeChangeUnix();
             if(isChooseEventType && isSetStartTime && isSetEndTime && unixEndTime >= unixStartTime) {
                 //此处打包信息上传至服务器
-                Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
+                /*boolean isSuccess = upEvent(,title,description,,,unixStartTime,unixEndTime);
+                if(isSuccess) {
+                    Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(event_Upload.this, "上传失败", Toast.LENGTH_SHORT).show();
+                }*/
                 Intent intent = new Intent(event_Upload.this, MainActivity.class);
                 startActivity(intent);
             }

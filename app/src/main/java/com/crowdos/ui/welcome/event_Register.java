@@ -1,5 +1,7 @@
 package com.crowdos.ui.welcome;
 
+import static com.crowdos.portals.opUser.userRegister;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -21,10 +23,18 @@ public class event_Register extends AppCompatActivity {
     private Button button_register;
 
     private EditText editText;
+    private EditText editPasswd;
+    private EditText editEmail;
     private ImageView imageView;
+    private String email = null;
+    private String passwd = null;
+    private boolean isSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        editPasswd = findViewById(R.id.private_change_password_new5);
+        editEmail = findViewById(R.id.private_change_password_new3);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_page);
@@ -48,7 +58,7 @@ public class event_Register extends AppCompatActivity {
             }
 
         });
-        /*************<显示和隐藏密码>******************/
+        /*************<显示和隐藏密码>****************11**/
 
 
         button_askForCode = findViewById(R.id.textView) ;
@@ -57,9 +67,17 @@ public class event_Register extends AppCompatActivity {
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(event_Register.this,"注册成功",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(event_Register.this, event_Login.class);
-                startActivity(intent);
+                email = String.valueOf(editEmail);
+                passwd = String.valueOf(editPasswd);
+                isSuccess = userRegister(email,passwd);
+                if(isSuccess) {
+                    Toast.makeText(event_Register.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(event_Register.this, event_Login.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(event_Register.this,"注册失败",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         //token needed to judge which activity should jump into

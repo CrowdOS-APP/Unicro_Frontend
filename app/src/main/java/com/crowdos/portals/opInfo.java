@@ -35,12 +35,12 @@ public class opInfo {
 
     //
 
-    private String scheme = "https";
-    private String hosts = "mock.apifox.cn";
+    private static String scheme = "https";
+    private static String hosts = "mock.apifox.cn";
 
 
     //我完全不想写注释了，你只用知道对于array返回的是List，不是array则返回对应数据结构的变量一个，哥们要猝了
-    private boolean isSucceed(String data){
+    private static boolean isSucceed(String data){
         boolean result = false;
         try {
             JSONArray jsonArray = new JSONArray(data);
@@ -157,8 +157,8 @@ public class opInfo {
 
     /**分割
      *
-     * @param
-     * @return
+     *
+     *
      */
 
     //获取用户个人信息
@@ -481,7 +481,7 @@ public class opInfo {
 
 
     //upload events
-    public boolean upEvent(String token,
+    public static boolean upEvent(String token,
                           String title,String content,
                           double longitude,double latitude,
                           long startTime,long endTime){
