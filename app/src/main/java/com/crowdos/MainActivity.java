@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, event_Login.class);
                 startActivity(intent);
             });
-
         } else {
             toNotificationsFragmentUserNameString = readData("UserName");
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
@@ -76,32 +75,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //mLocationClient.stop();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(isShowMap) {
-
-        }
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
-        if(isShowMap){
 
-        }
     }
 
     public String readData(String fname) {

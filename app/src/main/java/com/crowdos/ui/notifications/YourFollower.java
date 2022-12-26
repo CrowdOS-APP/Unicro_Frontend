@@ -7,5 +7,6 @@ public class YourFollower {
     public double latitude;
     public long startTime;
     public long endTime;
-
+    public int eventId;
+    boolean eventType;
 }

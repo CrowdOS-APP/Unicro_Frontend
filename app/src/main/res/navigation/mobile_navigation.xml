@@ -19,18 +19,6 @@
 
 
     <fragment
-        android:id="@+id/dynamic_comment"
-        android:name="com.crowdos.ui.dashboard.fragment_Replies"
-        android:label="评论"
-        tools:layout="@layout/fragment_dynamic_comments"/>
-
-    <fragment
-        android:id="@+id/dynamic_emerge"
-        android:name="com.crowdos.ui.dashboard.fragment_Urgent"
-        android:label="紧急事件"
-        tools:layout="@layout/fragment_dynamic_emerge" />
-
-    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.crowdos.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"

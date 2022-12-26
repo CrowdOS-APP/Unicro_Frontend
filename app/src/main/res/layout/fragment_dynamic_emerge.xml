@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView20"
-        android:layout_width="419dp"
-        android:layout_height="739dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:rotation="180"
         android:src="@drawable/user_background"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +67,7 @@
         android:background="#00FFFFFF"
         android:src="@mipmap/choice"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView18"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -81,7 +82,7 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.895"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

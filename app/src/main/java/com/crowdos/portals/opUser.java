@@ -82,7 +82,7 @@ public class opUser {
     }
 
 
-    /*芝士注册函数*/
+    /*注册函数*/
     public static boolean userRegister(String username,String pwd){
         //结果变量()
         final boolean[] judge = {false};

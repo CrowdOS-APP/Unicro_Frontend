@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,23 +49,15 @@ public class event_Password_Forgotten extends AppCompatActivity {
 
         });
         /*************<显示和隐藏密码>******************/
-
-
         button_askForCode = findViewById(R.id.textView);
         button_change = findViewById(R.id.button9);
-        button_askForCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(event_Password_Forgotten.this,"已发送验证码",Toast.LENGTH_SHORT).show();
-            }
-        });
-        button_change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(event_Password_Forgotten.this,"已更新密码，请重新登陆",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(event_Password_Forgotten.this, event_Login.class);
-                startActivity(intent);
-            }
+        button_askForCode.setOnClickListener(view ->
+                Toast.makeText(event_Password_Forgotten.this,"已发送验证码",Toast.LENGTH_SHORT).show()
+        );
+        button_change.setOnClickListener(view -> {
+            Toast.makeText(event_Password_Forgotten.this,"已更新密码，请重新登陆",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(event_Password_Forgotten.this, event_Login.class);
+            startActivity(intent);
         });
         //token needed to judge which activity should jump into
     }

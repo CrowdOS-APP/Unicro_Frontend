@@ -10,7 +10,7 @@ import com.baidu.mapapi.map.MyLocationData;
 public class MyLocationListener extends BDAbstractLocationListener {
     public static double latitude;
     public static double longitude;
-    public static String address;
+    public static String address = null;
     @Override
     public void onReceiveLocation(BDLocation location) {
         //mapView 销毁后不在处理新接收的位置

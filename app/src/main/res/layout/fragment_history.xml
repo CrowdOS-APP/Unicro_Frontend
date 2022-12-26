@@ -65,12 +65,13 @@
         android:id="@+id/user_name4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/mainx"
         android:text="偏好-历史回复"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/blank1"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="@+id/blank1"
         app:layout_constraintTop_toTopOf="@+id/blank1" />
 

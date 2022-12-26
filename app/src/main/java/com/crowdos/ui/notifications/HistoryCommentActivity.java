@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryCommentActivity extends AppCompatActivity {
-    RecyclerView mRecyclerView;
-    MyAdapter mMyAdapter;
-    List<HistoryComment> mHistoryCommentList = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private MyAdapter mMyAdapter;
+    private List<HistoryComment> mHistoryCommentList = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override

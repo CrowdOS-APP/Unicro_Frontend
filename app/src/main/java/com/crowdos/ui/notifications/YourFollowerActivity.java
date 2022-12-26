@@ -1,17 +1,21 @@
 package com.crowdos.ui.notifications;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.crowdos.R;
+import com.crowdos.ui.event.EventPageActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,9 +37,10 @@ public class YourFollowerActivity extends AppCompatActivity {
             YourFollower yourFollower = new YourFollower();
             yourFollower.eventName = "标题" + i;
             yourFollower.description = "内容" + i;
+            yourFollower.eventType = true;
             yourFollowerList.add(yourFollower);
         }
-        mMyAdapter = new YourFollowerActivity.MyAdapter();
+        mMyAdapter = new MyAdapter();
         mRecyclerView.setAdapter(mMyAdapter);
         layoutManager = new LinearLayoutManager(YourFollowerActivity.this);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -57,11 +62,25 @@ public class YourFollowerActivity extends AppCompatActivity {
             YourFollower yourFollower = yourFollowerList.get(position);
             holder.eventTitle.setText(yourFollower.eventName);
             holder.eventContent.setText(yourFollower.description);
+            if(yourFollower.eventType){
+                holder.eventType.setImageResource(R.mipmap.position2);
+            }
+            else{
+                holder.eventType.setImageResource(R.mipmap.position);
+            }
 
             //展示时间
             String startTime;
             startTime = getFormatDate(yourFollower.startTime);
             holder.eventTime.setText("开始时间:"+startTime);
+            holder.mRootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventPageActivity.eventType = yourFollower.eventType;
+                    Intent intent = new Intent(YourFollowerActivity.this, EventPageActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
@@ -81,12 +100,17 @@ public class YourFollowerActivity extends AppCompatActivity {
         TextView eventTitle;
         TextView eventContent;
         TextView eventTime;
+        ImageView eventType;
+        ConstraintLayout mRootView;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             eventTitle = itemView.findViewById(R.id.textView19);
             eventContent = itemView.findViewById(R.id.textView20);
             eventTime = itemView.findViewById(R.id.textView28);
+            eventType = itemView.findViewById(R.id.imageView21);
+            mRootView = itemView.findViewById(R.id.item3);
         }
     }
 }

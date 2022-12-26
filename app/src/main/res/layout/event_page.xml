@@ -30,24 +30,25 @@
 
     <ImageView
         android:id="@+id/imageView20"
-        android:layout_width="254dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="380dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.898"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
         app:srcCompat="@drawable/button_type" />
 
     <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:id="@+id/textView24"
+        android:layout_width="360dp"
+        android:layout_height="76dp"
         android:fontFamily="@font/main"
         android:text="@string/description"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView20"
         app:layout_constraintEnd_toEndOf="@+id/imageView20"
-        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="@+id/imageView20"
         app:layout_constraintTop_toTopOf="@+id/imageView20" />
 
@@ -65,16 +66,16 @@
 
     <TextView
         android:id="@+id/textView17"
-        android:layout_width="247dp"
+        android:layout_width="380dp"
         android:layout_height="55dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
         android:fontFamily="@font/title"
         android:gravity="bottom"
         android:text="@string/title"
         android:textColor="@color/black"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -90,29 +91,6 @@
         app:srcCompat="@mipmap/like"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:srcCompat="@drawable/button_type_circle" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/main"
-        android:text="@string/username"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
     <ImageButton
         android:id="@+id/imageButton8"
         style="@android:style/Widget.Holo.Light.ImageButton"
@@ -125,10 +103,10 @@
         app:srcCompat="@mipmap/unlike"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <com.google.android.gms.maps.MapView
+    <TextView
         android:id="@+id/mapView3"
-        android:layout_width="168dp"
-        android:layout_height="250dp"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="180dp"
         android:background="@drawable/button_type"
@@ -150,14 +128,14 @@
 
     <TextView
         android:id="@+id/editTextTextPersonName6"
-        android:layout_width="200dp"
+        android:layout_width="380dp"
         android:layout_height="40dp"
-        android:layout_marginStart="196dp"
         android:layout_marginTop="388dp"
         android:background="@drawable/button_type"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/Null"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
@@ -187,7 +165,7 @@
 
     <TextView
         android:id="@+id/textView31"
-        android:layout_width="165dp"
+        android:layout_width="350dp"
         android:layout_height="21dp"
         android:fontFamily="@font/main"
         android:gravity="center_horizontal|center_vertical"
@@ -215,11 +193,65 @@
         android:id="@+id/button"
         android:layout_width="77dp"
         android:layout_height="38dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/main"
         android:text="+关注"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName5"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName5"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName5"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comment_view"
+        android:layout_width="352dp"
+        android:layout_height="173dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.595" />
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapView"
+        android:layout_width="145dp"
+        android:layout_height="176dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mapView3"
+        app:layout_constraintEnd_toEndOf="@+id/mapView3"
+        app:layout_constraintStart_toStartOf="@+id/mapView3"
+        app:layout_constraintTop_toTopOf="@+id/mapView3" />
+
+    <EditText
+        android:id="@+id/event_comment"
+        android:layout_width="221dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:background="@null"
+        android:fontFamily="@font/mainx"
+        android:gravity="center_vertical"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxEms="60"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton9"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton8"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="368dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:srcCompat="@mipmap/position" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

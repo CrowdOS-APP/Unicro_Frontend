@@ -1,17 +1,21 @@
 package com.crowdos.ui.notifications;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.crowdos.R;
+import com.crowdos.ui.event.EventPageActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +37,8 @@ public class YourEventActivity extends AppCompatActivity {
             YourEvent yourEvent = new YourEvent();
             yourEvent.eventName = "标题" + i;
             yourEvent.description = "内容" + i;
+            yourEvent.eventId = i;
+            yourEvent.eventType = true;
             yourEventList.add(yourEvent);
         }
         mMyAdapter = new MyAdapter();
@@ -57,11 +63,25 @@ public class YourEventActivity extends AppCompatActivity {
             YourEvent yourEvent = yourEventList.get(position);
             holder.eventTitle.setText(yourEvent.eventName);
             holder.eventContent.setText(yourEvent.description);
-
+            if(yourEvent.eventType){
+                holder.eventType.setImageResource(R.mipmap.position2);
+            }
+            else{
+                holder.eventType.setImageResource(R.mipmap.position);
+            }
             //展示时间
             String startTime;
             startTime = getFormatDate(yourEvent.startTime);
             holder.eventTime.setText("开始时间:"+startTime);
+            holder.mRootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventPageActivity.eventId = yourEvent.eventId;
+                    EventPageActivity.eventType = yourEvent.eventType;
+                    Intent intent = new Intent(YourEventActivity.this, EventPageActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
@@ -81,12 +101,16 @@ public class YourEventActivity extends AppCompatActivity {
         TextView eventTitle;
         TextView eventContent;
         TextView eventTime;
+        ImageView eventType;
+        ConstraintLayout mRootView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             eventTitle = itemView.findViewById(R.id.textView19);
             eventContent = itemView.findViewById(R.id.textView20);
             eventTime = itemView.findViewById(R.id.textView28);
+            eventType = itemView.findViewById(R.id.imageView21);
+            mRootView = itemView.findViewById(R.id.item3);
         }
     }
 

@@ -26,18 +26,16 @@ public class event_Register extends AppCompatActivity {
     private EditText editPasswd;
     private EditText editEmail;
     private ImageView imageView;
-    private String email = null;
-    private String passwd = null;
+    private String email;
+    private String passwd;
     private boolean isSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        editPasswd = findViewById(R.id.private_change_password_new5);
-        editEmail = findViewById(R.id.private_change_password_new3);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_page);
+        editEmail = findViewById(R.id.private_change_password_new3);
+
         /*************<显示和隐藏密码>******************/
         editText = findViewById(R.id.private_change_password_new5);
         imageView = findViewById(R.id.hide_password_old6);
@@ -56,19 +54,25 @@ public class event_Register extends AppCompatActivity {
                 editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 isOpen[0] = true;
             }
-
         });
-        /*************<显示和隐藏密码>****************11**/
+        /*************<显示和隐藏密码>******************/
 
 
-        button_askForCode = findViewById(R.id.textView) ;
-        button_register = findViewById(R.id.button9) ;
-        button_askForCode.setOnClickListener(view -> Toast.makeText(event_Register.this,"已发送验证码",Toast.LENGTH_SHORT).show());
+        /*************<发送验证码>******************/
+        button_askForCode = findViewById(R.id.textView);
+        button_askForCode.setOnClickListener(view ->
+            Toast.makeText(event_Register.this,"已发送验证码",Toast.LENGTH_SHORT).show()
+        );
+        /*************<发送验证码>******************/
+
+
+        /*************<注册>******************/
+        button_register = findViewById(R.id.button9);
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                email = String.valueOf(editEmail);
-                passwd = String.valueOf(editPasswd);
+                email = editEmail.getText().toString();
+                passwd = editText.getText().toString();
                 isSuccess = userRegister(email,passwd);
                 if(isSuccess) {
                     Toast.makeText(event_Register.this, "注册成功", Toast.LENGTH_SHORT).show();
@@ -80,6 +84,6 @@ public class event_Register extends AppCompatActivity {
                 }
             }
         });
-        //token needed to judge which activity should jump into
+        /*************<注册>******************/
     }
 }

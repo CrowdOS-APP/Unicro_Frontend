@@ -21,21 +21,17 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.crowdos.MainActivity;
 import com.crowdos.R;
-import com.crowdos.databinding.FragmentSettingsBinding;
 
 
 public class event_UploadFragment extends Fragment {
 
-    private FragmentSettingsBinding binding;
     private View root;
     public static MapView mMapView = null;
     public static BaiduMap mBaiduMap = null;
     public LocationClient mLocationClient;
     private UiSettings mUiSettings;
-    private GeoCoder mGeoCoder;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -108,7 +104,7 @@ public class event_UploadFragment extends Fragment {
             LatLng point = new LatLng(MyLocationListener.latitude, MyLocationListener.longitude);
             //构建Marker图标
             BitmapDescriptor bitmap = BitmapDescriptorFactory
-                    .fromResource(R.mipmap.position2);
+                    .fromResource(R.mipmap.position3);
             //构建MarkerOption，用于在地图上添加Marker
             OverlayOptions optionMarker = new MarkerOptions()
                     .position(point)
@@ -142,6 +138,5 @@ public class event_UploadFragment extends Fragment {
         mMapView.onDestroy();
         mMapView = null;
         mLocationClient.stop();
-        binding = null;
     }
 }
