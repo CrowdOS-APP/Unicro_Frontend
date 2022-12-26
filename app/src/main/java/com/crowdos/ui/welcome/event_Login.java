@@ -93,8 +93,8 @@ public class event_Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String token = null;
-                passwd = String.valueOf(editPasswd);
-                username = String.valueOf(editUsername);
+                passwd = editPasswd.getText().toString();
+                username = editUsername.getText().toString();
                 token =  userLogin(username,passwd);
                 if(!token.equals(null)) {
                     receivedtoken = token ;

@@ -58,7 +58,7 @@ public class opInfo {
         return result;
     }
 
-    private List<eventList> gEventList(String data){
+    private static List<eventList> gEventList(String data){
         JsonParser parser = new JsonParser();
         JsonArray jsonArray = parser.parse(data).getAsJsonArray();
         Gson gson = new Gson();
@@ -71,7 +71,7 @@ public class opInfo {
         return eventLists;
     }
 
-    private List<getComment> getComments(String data){
+    private static List<getComment> getComments(String data){
         JsonParser parser = new JsonParser();
         JsonArray jsonArray = parser.parse(data).getAsJsonArray();
         Gson gson = new Gson();
@@ -84,7 +84,7 @@ public class opInfo {
         return commentsLists;
     }
 
-    private List<getMyComment> getMyComments(String data){
+    private static List<getMyComment> getMyComments(String data){
         JsonParser parser = new JsonParser();
         JsonArray jsonArray = parser.parse(data).getAsJsonArray();
         Gson gson = new Gson();
@@ -96,7 +96,7 @@ public class opInfo {
         return commentsLists;
     }
 
-    private List<myEventList> getMyEventList(String data){
+    private static List<myEventList> getMyEventList(String data){
         JsonParser parser = new JsonParser();
         JsonArray jsonArray = parser.parse(data).getAsJsonArray();
         Gson gson = new Gson();
@@ -108,7 +108,7 @@ public class opInfo {
         return eventLists;
     }
 
-    private List<followedEvents> getMyFollow(String data){
+    private static List<followedEvents> getMyFollow(String data){
         JsonParser parser = new JsonParser();
         JsonArray jsonArray = parser.parse(data).getAsJsonArray();
         Gson gson = new Gson();
@@ -120,7 +120,7 @@ public class opInfo {
         return eventLists;
     }
 
-    private getEventInfo getEventInfos(String data){
+    private static getEventInfo getEventInfos(String data){
         getEventInfo result = null;
         try {
             JSONArray jsonArray = new JSONArray(data);
@@ -139,7 +139,7 @@ public class opInfo {
         return result;
     }
 
-    private getUserInfo getUserInfos(String data){
+    private static getUserInfo getUserInfos(String data){
         getUserInfo result = null;
         try {
             JSONArray jsonArray = new JSONArray(data);
@@ -162,7 +162,7 @@ public class opInfo {
      */
 
     //获取用户个人信息
-    public getUserInfo getUserInfo(String token){
+    public static getUserInfo getUserInfo(String token){
         //直接初始化
         final getUserInfo[] userInfo = {null};
         OkHttpClient gUserInfo = new OkHttpClient();
@@ -190,7 +190,7 @@ public class opInfo {
     }
 
     //修改用户信息1
-    public boolean updateUserInfo(String username,String sign,String token){
+    public static boolean updateUserInfo(String username,String sign,String token){
         //直接初始化
         final boolean[] isSuccess = {false};
         //问题同上且UID应该改变不了
@@ -223,7 +223,7 @@ public class opInfo {
     }
 
     //获得我的评论(很奇怪，这里是所有评论的字符串组)
-    public List<getMyComment> getMyComment(String token){
+    public static List<getMyComment> getMyComment(String token){
         final List<getMyComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -250,7 +250,7 @@ public class opInfo {
     }
 
     //获得我的事件
-    public List<myEventList> gMyEventList(String token){
+    public static List<myEventList> gMyEventList(String token){
         final List<myEventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -303,7 +303,7 @@ public class opInfo {
     }*/
 
     //获得关注列表
-    public List<followedEvents> getFollowing(String token){
+    public static List<followedEvents> getFollowing(String token){
         final List<followedEvents>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -332,7 +332,7 @@ public class opInfo {
 
 
     //关注操作
-    public boolean opFollow(String token,long uid,boolean isFollow){
+    public static boolean opFollow(String token,long uid,boolean isFollow){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
@@ -391,7 +391,7 @@ public class opInfo {
 
 
     //紧急事件列表
-    public List<eventList> getEmergeEventList(double longitude,double latitude,String token){
+    public static List<eventList> getEmergeEventList(double longitude,double latitude,String token){
         final List<eventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -423,7 +423,7 @@ public class opInfo {
 
 
     //getting a single event
-    public List<eventList> getEventsNearby(String token,double longitude,double latitude){
+    public static List<eventList> getEventsNearby(String token,double longitude,double latitude){
 
         final List<eventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
@@ -453,7 +453,7 @@ public class opInfo {
     }
 
     //getting event details (listen while clicking for more information)2
-    public getEventInfo getEventInfo(int eventID){
+    public static getEventInfo getEventInfo(int eventID){
         final getEventInfo[] result = {null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
