@@ -6,9 +6,10 @@ public class eventList {
     @SerializedName("eventname")
     public String eventname;
     @SerializedName("eventid")
-    public long enventid;
+    public long eventid;
     @SerializedName("longitude")
-    public long longitude;
+    public double longitude;
     @SerializedName("latitude")
-    public long latitude;
+    public double latitude;
+    public boolean emergency;
 }//1

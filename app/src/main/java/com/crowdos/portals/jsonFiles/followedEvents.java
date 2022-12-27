@@ -2,8 +2,8 @@ package com.crowdos.portals.jsonFiles;
 
 public class followedEvents {
         public String eventname;
-        public long enventid;
+        public long eventid;
         public String content;
-        public long longitude;
-        public long latitude;
+        public double longitude;
+        public double latitude;
 }//2

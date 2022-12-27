@@ -1,18 +1,18 @@
 package com.crowdos.portals;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
+import com.crowdos.portals.jsonFiles.emergencyList;
 import com.crowdos.portals.jsonFiles.eventList;
 import com.crowdos.portals.jsonFiles.followedEvents;
 import com.crowdos.portals.jsonFiles.getComment;
 import com.crowdos.portals.jsonFiles.getEventInfo;
 import com.crowdos.portals.jsonFiles.getMyComment;
-import com.crowdos.portals.jsonFiles.getUserInfo;
+import com.crowdos.portals.jsonFiles.userInfo;
 import com.crowdos.portals.jsonFiles.myEventList;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.crowdos.ui.welcome.event_Login;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,15 +43,8 @@ public class opInfo {
     private static boolean isSucceed(String data){
         boolean result = false;
         try {
-            JSONArray jsonArray = new JSONArray(data);
-            String isSucceed = "false";
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                isSucceed = jsonObject.getString("isSucceed");
-            }
-            if (isSucceed.equals("true")){
-                result = true;
-            }
+            JSONObject jsonObject = new JSONObject(data);
+            result = jsonObject.getBoolean("isSucceed");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -59,96 +52,151 @@ public class opInfo {
     }
 
     private static List<eventList> gEventList(String data){
-        JsonParser parser = new JsonParser();
-        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
-        Gson gson = new Gson();
-        ArrayList<eventList> eventLists = new ArrayList<>();
-        for (JsonElement user : jsonArray) {
-            //使用GSON，直接转成Bean对象
-            eventList eventList = gson.fromJson(user, eventList.class);
-            eventLists.add(eventList);
-        }
-        return eventLists;
-    }
-
-    private static List<getComment> getComments(String data){
-        JsonParser parser = new JsonParser();
-        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
-        Gson gson = new Gson();
-        ArrayList<getComment> commentsLists = new ArrayList<>();
-        for (JsonElement user : jsonArray) {
-            //使用GSON，直接转成Bean对象
-            getComment eventList = gson.fromJson(user, getComment.class);
-            commentsLists.add(eventList);
-        }
-        return commentsLists;
-    }
-
-    private static List<getMyComment> getMyComments(String data){
-        JsonParser parser = new JsonParser();
-        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
-        Gson gson = new Gson();
-        ArrayList<getMyComment> commentsLists = new ArrayList<>();
-        for (JsonElement user : jsonArray) {
-            getMyComment eventList = gson.fromJson(user, getMyComment.class);
-            commentsLists.add(eventList);
-        }
-        return commentsLists;
-    }
-
-    private static List<myEventList> getMyEventList(String data){
-        JsonParser parser = new JsonParser();
-        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
-        Gson gson = new Gson();
-        ArrayList<myEventList> eventLists = new ArrayList<>();
-        for (JsonElement user : jsonArray) {
-            myEventList eventList = gson.fromJson(user, myEventList.class);
-            eventLists.add(eventList);
-        }
-        return eventLists;
-    }
-
-    private static List<followedEvents> getMyFollow(String data){
-        JsonParser parser = new JsonParser();
-        JsonArray jsonArray = parser.parse(data).getAsJsonArray();
-        Gson gson = new Gson();
-        ArrayList<followedEvents> eventLists = new ArrayList<>();
-        for (JsonElement user : jsonArray) {
-            followedEvents eventList = gson.fromJson(user, followedEvents.class);
-            eventLists.add(eventList);
-        }
-        return eventLists;
-    }
-
-    private static getEventInfo getEventInfos(String data){
-        getEventInfo result = null;
+        List<eventList> result = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(data);
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                result.content = jsonObject.getString("content");
-                result.eventname = jsonObject.getString("eventname");
-                result.endtime = Long.valueOf(jsonObject.getString("endtime"));
-                result.starttime = Long.valueOf(jsonObject.getString("starttime"));
-                result.latitude = Double.valueOf(jsonObject.getString("latitude"));
-                result.longitude = Double.valueOf(jsonObject.getString("longitude"));
+                eventList container = new eventList();
+                container.eventid = jsonObject.getLong("eventid");
+                container.eventname = jsonObject.getString("eventname");
+                container.latitude = jsonObject.getDouble("latitude");
+                container.longitude = jsonObject.getDouble("longitude");
+                container.emergency = jsonObject.getBoolean("emergency");
+                result.add(container);
             }
-        } catch (JSONException e) {
+        }catch (JSONException e){
             e.printStackTrace();
         }
         return result;
     }
 
-    private static getUserInfo getUserInfos(String data){
-        getUserInfo result = null;
+    private static List<getComment> getComments(String data){
+        List<getComment> result = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(data);
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                result.signature = jsonObject.getString("signature");
-                result.UID = Long.valueOf(jsonObject.getString("UID"));
-                result.username = jsonObject.getString("username");
+                getComment container = new getComment();
+                container.content = jsonObject.getString("content");
+                container.commentID = jsonObject.getLong("commentid");
+                container.username = jsonObject.getString("username");
+                result.add(container);
             }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static List<getMyComment> getMyComments(String data){
+        List<getMyComment> result = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                getMyComment container = new getMyComment();
+                container.content = jsonObject.getString("content");
+                container.commentID = jsonObject.getLong("commentid");
+                container.eventid = jsonObject.getLong("eventid");
+                container.UID = jsonObject.getLong("UID");
+                container.username = jsonObject.getString("username");
+                result.add(container);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static List<myEventList> getMyEventList(String data){
+        List<myEventList> result = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                myEventList container = new myEventList();
+                container.content = jsonObject.getString("content");
+                container.emergency = jsonObject.getBoolean("emergency");
+                container.eventid = jsonObject.getLong("eventid");
+                container.eventname = jsonObject.getString("eventname");
+                container.latitude = jsonObject.getDouble("latitude");
+                container.longitude = jsonObject.getDouble("longitude");
+                container.starttime = jsonObject.getLong("starttime");
+                container.endtime = jsonObject.getLong("endtime");
+                container.uid = jsonObject.getLong("uid");
+                result.add(container);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static List<followedEvents> getMyFollow(String data){
+        List<followedEvents> result = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                followedEvents container = new followedEvents();
+                container.eventid = jsonObject.getLong("eventid");
+                container.content = jsonObject.getString("content");
+                container.eventname = jsonObject.getString("eventname");
+                container.latitude = jsonObject.getDouble("latitude");
+                container.longitude = jsonObject.getDouble("longitude");
+                result.add(container);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static List<emergencyList> getEmergencyList(String data){
+        List<emergencyList> result = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                emergencyList container = new emergencyList();
+                container.eventid = jsonObject.getLong("eventid");
+                container.content = jsonObject.getString("content");
+                container.eventname = jsonObject.getString("eventname");
+                container.latitude = jsonObject.getDouble("latitude");
+                container.longitude = jsonObject.getDouble("longitude");
+                container.isFollow = jsonObject.getBoolean("isFollowed");
+                result.add(container);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static getEventInfo getEventInfos(String data){
+        getEventInfo result = new getEventInfo();
+        try {
+            JSONObject jsonObj = new JSONObject(data);
+            result.content = jsonObj.getString("content");
+            result.eventname = jsonObj.getString("eventName");
+            result.endtime = jsonObj.getLong("endTime");
+            result.starttime = jsonObj.getLong("startTime");
+            result.latitude = jsonObj.getDouble("latitude");
+            result.longitude = jsonObj.getDouble("longitude");
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
+
+    private static userInfo getUserInfos(String data){
+        userInfo result = new userInfo();
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            result.signature = jsonObject.getString("signature");
+            result.UID = jsonObject.getLong("UID");
+            result.username = jsonObject.getString("username");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -162,9 +210,8 @@ public class opInfo {
      */
 
     //获取用户个人信息
-    public static getUserInfo getUserInfo(String token){
+    public static void getUserInfo(String token){
         //直接初始化
-        final getUserInfo[] userInfo = {null};
         OkHttpClient gUserInfo = new OkHttpClient();
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -172,7 +219,12 @@ public class opInfo {
                 .addPathSegment(com.crowdos.portals.url.getUserInfo)
                 .addQueryParameter("token",token)//在query加入token
                 .build();
-        Request request = new Request.Builder().url(url)
+        Request request = new Request.Builder()
+                .url("https://mock.apifox.cn/m1/1900041-0-default/getUserInfo?token=")
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Connection", "keep-alive")
                 .get()//利用get方法请求
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -183,17 +235,12 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                userInfo[0] = getUserInfos(data);
             }
         });
-        return userInfo[0];
-    }
+    }//Tested
 
     //修改用户信息1
-    public static boolean updateUserInfo(String username,String sign,String token){
-        //直接初始化
-        final boolean[] isSuccess = {false};
-        //问题同上且UID应该改变不了
+    public static void updateUserInfo(String username,String sign,String token){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
@@ -216,14 +263,13 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                String data = response.body().string();
-               isSuccess[0] = isSucceed(data);
+               event_Login.isSuccess = isSucceed(data);
             }
         });
-        return isSuccess[0];
-    }
+    }//tested
 
     //获得我的评论(很奇怪，这里是所有评论的字符串组)
-    public static List<getMyComment> getMyComment(String token){
+    public static void getMyComment(String token){
         final List<getMyComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -243,14 +289,12 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                result[0] = getMyComments(data);
             }
         });
-        return result[0];
-    }
+    }//tested
 
     //获得我的事件
-    public static List<myEventList> gMyEventList(String token){
+    public static void gMyEventList(String token){
         final List<myEventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -259,7 +303,12 @@ public class opInfo {
                 .addQueryParameter("token",token)
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
-        Request request = new Request.Builder().url(url)
+        Request request = new Request.Builder()
+                .url("https://mock.apifox.cn/m1/1900041-0-default/myEventList?token="+token)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -270,11 +319,10 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                result[0] = getMyEventList(data);
+
             }
         });
-        return result[0];//array of eventlists,including name,id,place.
-    }
+    }//testify
 
     /*获得别人的事件
     public String gOtherEventList(String token){
@@ -303,8 +351,7 @@ public class opInfo {
     }*/
 
     //获得关注列表
-    public static List<followedEvents> getFollowing(String token){
-        final List<followedEvents>[] result = new List[]{null};
+    public static void getFollowing(String token){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
@@ -324,15 +371,14 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                result[0] = getMyFollow(data);
+
             }
         });
-        return result[0];//array of integer
-    }
+    }//testify
 
 
-    //关注操作
-    public static boolean opFollow(String token,long uid,boolean isFollow){
+    //关注操作boolean
+    public static void opFollow(String token,long uid,boolean isFollow){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
@@ -356,11 +402,10 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                isSucceed[0] = isSucceed(data);
+
             }
         });
-        return isSucceed[0];//array of integer
-    }
+    }//testify
 
     //搜索操作
     /*coming soon!*/
@@ -391,8 +436,7 @@ public class opInfo {
 
 
     //紧急事件列表
-    public static List<eventList> getEmergeEventList(double longitude,double latitude,String token){
-        final List<eventList>[] result = new List[]{null};
+    public static void getEmergeEventList(double longitude,double latitude,String token){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
@@ -404,7 +448,7 @@ public class opInfo {
                 .add("latitude", String.valueOf(latitude))
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
-        Request request = new Request.Builder().url(url)
+        Request request = new Request.Builder().url("https://mock.apifox.cn/m1/1900041-0-default/getEmergencyList?token="+token)
                 .post(place)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -415,15 +459,14 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                result[0] = gEventList(data);
+                Log.e("onResponse: ",data );
             }
         });
-        return result[0];//array of eventlists,including name,id,place.
-    }
+    }//not tested(apifox failed)
 
 
     //getting a single event
-    public static List<eventList> getEventsNearby(String token,double longitude,double latitude){
+    public static void getEventsNearby(String token,double longitude,double latitude){
 
         final List<eventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
@@ -446,14 +489,13 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                result[0] = gEventList(data);
+
             }
         });
-        return result[0];//array of eventlists,including name,id,place.
-    }
+    }//testify
 
     //getting event details (listen while clicking for more information)2
-    public static getEventInfo getEventInfo(int eventID){
+    public static void getEventInfo(int eventID){
         final getEventInfo[] result = {null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -473,15 +515,13 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                result[0] = getEventInfos(data);
             }
         });
-        return result[0];//details of a single event
-    }
+    }//testify
 
 
     //upload events
-    public static boolean upEvent(String token,
+    public static void upEvent(String token,
                           String title,String content,
                           double longitude,double latitude,
                           long startTime,long endTime){
@@ -513,15 +553,16 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                isSuccess[0] = isSucceed(data);
+                Log.e("Onresponse", data);
+                event_Login.isSuccess = isSucceed(data);
+                Log.e("responding", ""+event_Login.isSuccess);
             }
         });
-        return isSuccess[0];
-    }
+    }//tested failed(apifox failed)
 
 
     //getComment
-    public List<getComment> getComment(String token,long eventID){
+    public static void getComment(String token, long eventID){
         final List<getComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -542,17 +583,17 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                result[0] = getComments(data);
+                Log.e("data",data);
+                event_Login.getCommen = getComments(data);
+                Log.e("fuck",event_Login.getCommen.get(0).content);
             }
         });
-        return result[0];
-    }
+    }//testify
 
 
 
     //upload Comments
-    public boolean upComment(String token,long eveID,String comment){
-        final boolean[] isSuccess = {false};
+    public void upComment(String token,long eveID,String comment){
         //eventID应该是名称
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -576,10 +617,8 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                isSuccess[0] = isSucceed(data);
             }
         });
-        return isSuccess[0];
-    }
+    }//testify
 
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ public class event_Register extends AppCompatActivity {
     private ImageView imageView;
     private String email;
     private String passwd;
-    private boolean isSuccess = false;
+    public static boolean isSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,13 @@ public class event_Register extends AppCompatActivity {
             public void onClick(View view) {
                 email = editEmail.getText().toString();
                 passwd = editText.getText().toString();
-                isSuccess = userRegister(email,passwd);
+                userRegister(email,passwd);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    return;
+                }
+                Log.e("is",""+isSuccess);
                 if(isSuccess) {
                     Toast.makeText(event_Register.this, "注册成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(event_Register.this, event_Login.class);

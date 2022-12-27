@@ -8,7 +8,7 @@ public class getMyComment{
     @SerializedName("username")
     public String username;
     @SerializedName("eventid")
-    public long enventid;
+    public long eventid;
     @SerializedName("content")
     public String content;
     @SerializedName("UID")
