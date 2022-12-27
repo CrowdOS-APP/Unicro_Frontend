@@ -6,4 +6,5 @@ public class followedEvents {
         public String content;
         public double longitude;
         public double latitude;
+        public boolean emergency;
 }//2

@@ -154,6 +154,7 @@ public class opInfo {
                 container.eventname = jsonObject.getString("eventname");
                 container.latitude = jsonObject.getDouble("latitude");
                 container.longitude = jsonObject.getDouble("longitude");
+                container.emergency = jsonObject.getBoolean("emergency");
                 result.add(container);
             }
         }catch (JSONException e){
