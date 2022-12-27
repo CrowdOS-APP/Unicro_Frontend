@@ -1,23 +1,20 @@
 package com.crowdos.ui.notifications;
 
+import static com.crowdos.MainActivity.token;
 import static com.crowdos.portals.opUser.updatePasswd;
-import static com.crowdos.ui.welcome.event_Login.token;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crowdos.R;
+import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import com.crowdos.R;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 

@@ -87,8 +87,9 @@ public class NotificationsFragment extends Fragment {
         ExitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
                 MainActivity.isLogin = true;
+                MainActivity.isExit = true;
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
         });

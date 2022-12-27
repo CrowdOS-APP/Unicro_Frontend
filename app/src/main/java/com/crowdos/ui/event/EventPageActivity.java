@@ -31,6 +31,7 @@ import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.crowdos.R;
+import com.crowdos.portals.jsonFiles.getEventInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,9 @@ public class EventPageActivity extends AppCompatActivity {
 
     public static boolean eventType;
     public static int eventId;
+
+    public static getEventInfo getEventInfoData = new getEventInfo();
+    public static boolean isSuccess;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

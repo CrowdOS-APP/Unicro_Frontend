@@ -1,5 +1,7 @@
 package com.crowdos.ui.home;
 
+import static com.crowdos.portals.opInfo.upEvent;
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -18,7 +20,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.crowdos.MainActivity;
 import com.crowdos.R;
 
@@ -45,13 +46,13 @@ public class event_Upload extends AppCompatActivity {
     // 默认逆地理编码半径范围
     private static final int sDefaultRGCRadius = 500;
 
-    public GeoCoder mGeoCoder;
     public boolean EventType;//true代表紧急事件，false代表普通事件
     public long unixStartTime;
     public long unixEndTime;
     public String description;
     public String title;
     public double latitude,longitude;//经纬度
+    public static boolean isSuccess;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -185,15 +186,23 @@ public class event_Upload extends AppCompatActivity {
             timeChangeUnix();
             if(isChooseEventType && isSetStartTime && isSetEndTime && isSetLocation && unixEndTime >= unixStartTime) {
                 //此处打包信息上传至服务器
-                /*boolean isSuccess = upEvent(,title,description,,,unixStartTime,unixEndTime);
+                upEvent(
+                        MainActivity.token,
+                        title,
+                        description,
+                        longitude,
+                        latitude,
+                        unixStartTime,
+                        unixEndTime
+                );
                 if(isSuccess) {
                     Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(event_Upload.this, MainActivity.class);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(event_Upload.this, "上传失败", Toast.LENGTH_SHORT).show();
-                }*/
-                Intent intent = new Intent(event_Upload.this, MainActivity.class);
-                startActivity(intent);
+                }
             }
             else if(!isChooseEventType)
             {

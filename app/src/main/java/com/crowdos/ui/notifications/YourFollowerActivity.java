@@ -29,6 +29,7 @@ import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.crowdos.R;
+import com.crowdos.portals.jsonFiles.followedEvents;
 import com.crowdos.ui.event.EventPageActivity;
 
 import java.text.SimpleDateFormat;
@@ -36,10 +37,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YourFollowerActivity extends AppCompatActivity {
-    RecyclerView mRecyclerView;
-    YourFollowerActivity.MyAdapter mMyAdapter;
-    List<YourFollower> yourFollowerList = new ArrayList<>();
-    RecyclerView.LayoutManager layoutManager;
+
+    private RecyclerView mRecyclerView;
+    private YourFollowerActivity.MyAdapter mMyAdapter;
+    private List<YourFollower> yourFollowerList = new ArrayList<>();
+    private RecyclerView.LayoutManager layoutManager;
+
+    public List<followedEvents> yourFollowerListData = new ArrayList<>();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

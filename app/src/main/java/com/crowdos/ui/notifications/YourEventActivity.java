@@ -29,6 +29,7 @@ import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.crowdos.R;
+import com.crowdos.portals.jsonFiles.myEventList;
 import com.crowdos.ui.event.EventPageActivity;
 
 import java.text.SimpleDateFormat;
@@ -36,10 +37,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YourEventActivity extends AppCompatActivity {
-    RecyclerView mRecyclerView;
-    MyAdapter mMyAdapter;
-    List<YourEvent> yourEventList = new ArrayList<>();
-    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView mRecyclerView;
+    private MyAdapter mMyAdapter;
+    private List<YourEvent> yourEventList = new ArrayList<>();
+    private RecyclerView.LayoutManager layoutManager;
+
+    public List<myEventList> yourEventListData = new ArrayList<>();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

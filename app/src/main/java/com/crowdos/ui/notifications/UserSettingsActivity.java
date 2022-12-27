@@ -1,6 +1,6 @@
 package com.crowdos.ui.notifications;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+import static com.crowdos.portals.opInfo.updateUserInfo;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -36,6 +35,8 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     MyAdapter myAdapter;
     List<HeadSculpture> sculptureRecyclerViewList = new ArrayList<>();
+    public static boolean isSuccess;
+
     private int sculptureId;
     @SuppressLint({"MissingInflatedId", "ResourceType"})
     @Override
@@ -47,7 +48,6 @@ public class UserSettingsActivity extends AppCompatActivity {
         EditText setSignature = findViewById(R.id.change_signature);
         TextView setUserNameTextNumber = findViewById(R.id.textView34);
         TextView setSignatureTextNumber = findViewById(R.id.textView35);
-
         /*************<用户名和个性签名>******************/
         setUserName.addTextChangedListener(new TextWatcher() {
             final int num = 15;
@@ -122,22 +122,30 @@ public class UserSettingsActivity extends AppCompatActivity {
         change.setOnClickListener(v -> {
             String userName = setUserName.getText().toString();
             String userSignature = setSignature.getText().toString();
-            if(userName.length() != 0) {
-                saveUserFiles(userName,"UserName");
-                Log.e(TAG, "onCreate: "+ userName );
-                Toast.makeText(UserSettingsActivity.this, "用户名已修改", Toast.LENGTH_SHORT).show();
+            if(userName.length() != 0 || userSignature.length() != 0 || sculptureId != 0) {
+                if(userName.length() != 0){
+                    saveUserFiles(userName,"UserName");
+                }
+                if(userSignature.length() != 0){
+                    saveUserFiles(userSignature,"UserSignature");
+                }
+                if(sculptureId != 0){
+                    saveUserFiles(""+sculptureId,"UserSculpture");
+                }
+                updateUserInfo(userName, userSignature, MainActivity.token);
+                if(isSuccess){
+                    Toast.makeText(UserSettingsActivity.this, "已修改", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(UserSettingsActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                }
             }
-            if(userSignature.length() != 0){
-                saveUserFiles(userSignature,"UserSignature");
-                Toast.makeText(UserSettingsActivity.this, "个性签名已修改", Toast.LENGTH_SHORT).show();
+            else{
+                Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
+                startActivity(intent);
             }
-            if(sculptureId != 0){
-                saveUserFiles(""+sculptureId,"UserSculpture");
-                Toast.makeText(UserSettingsActivity.this, "头像已修改", Toast.LENGTH_SHORT).show();
-            }
-            Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
-
-            startActivity(intent);
         });
         /*************<修改>******************/
 

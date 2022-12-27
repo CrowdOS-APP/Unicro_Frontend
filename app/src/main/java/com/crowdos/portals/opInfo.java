@@ -10,8 +10,8 @@ import com.crowdos.portals.jsonFiles.followedEvents;
 import com.crowdos.portals.jsonFiles.getComment;
 import com.crowdos.portals.jsonFiles.getEventInfo;
 import com.crowdos.portals.jsonFiles.getMyComment;
-import com.crowdos.portals.jsonFiles.userInfo;
 import com.crowdos.portals.jsonFiles.myEventList;
+import com.crowdos.portals.jsonFiles.userInfo;
 import com.crowdos.ui.welcome.event_Login;
 
 import org.json.JSONArray;
@@ -467,7 +467,6 @@ public class opInfo {
 
     //getting a single event
     public static void getEventsNearby(String token,double longitude,double latitude){
-
         final List<eventList>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -489,7 +488,6 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-
             }
         });
     }//testify
@@ -584,8 +582,6 @@ public class opInfo {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
                 Log.e("data",data);
-                event_Login.getCommen = getComments(data);
-                Log.e("fuck",event_Login.getCommen.get(0).content);
             }
         });
     }//testify

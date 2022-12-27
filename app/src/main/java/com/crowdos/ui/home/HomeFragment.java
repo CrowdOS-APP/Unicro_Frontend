@@ -1,5 +1,7 @@
 package com.crowdos.ui.home;
 
+import static com.crowdos.portals.opInfo.getEventsNearby;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +34,7 @@ import com.baidu.mapapi.model.LatLngBounds;
 import com.crowdos.MainActivity;
 import com.crowdos.R;
 import com.crowdos.databinding.FragmentHomeBinding;
+import com.crowdos.portals.jsonFiles.eventList;
 import com.crowdos.ui.event.EventPageActivity;
 
 import java.util.ArrayList;
@@ -55,15 +58,16 @@ public class HomeFragment extends Fragment {
     private ArrayList<EventNearby> eventNearbyList = new ArrayList<>();
 
     TextView mapLocation;  //经纬度
-    public double longitude;//经度
-    public double latitude;//纬度
+    public static double longitude;//经度
+    public static double latitude;//纬度
+    public static List<eventList> getEventListData = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        //eventNearby = getEventsNearby();
+        getEventsNearby(MainActivity.token, longitude, latitude);
         double a = 160;
         double b = 40;
         boolean c = false;

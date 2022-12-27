@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.crowdos.R;
+import com.crowdos.portals.jsonFiles.getMyComment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ public class HistoryCommentActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MyAdapter mMyAdapter;
     private List<HistoryComment> mHistoryCommentList = new ArrayList<>();
+
+    public List<getMyComment> mHistoryCommentListData = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override

@@ -4,11 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.crowdos.MainActivity;
 import com.crowdos.ui.notifications.ChangePasswordActivity;
-import com.crowdos.ui.welcome.event_Login;
 import com.crowdos.ui.welcome.event_Register;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -105,7 +104,7 @@ public class opUser {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
                 if(data != null){
-                    event_Login.token = data;
+                    MainActivity.token = data;
                 }
             }
         });

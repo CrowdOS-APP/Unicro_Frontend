@@ -1,13 +1,5 @@
 package com.crowdos.ui.welcome;
 
-import static com.crowdos.portals.opInfo.gMyEventList;
-import static com.crowdos.portals.opInfo.getEmergeEventList;
-import static com.crowdos.portals.opInfo.getEventsNearby;
-import static com.crowdos.portals.opInfo.getFollowing;
-import static com.crowdos.portals.opInfo.getMyComment;
-import static com.crowdos.portals.opInfo.getUserInfo;
-import static com.crowdos.portals.opInfo.opFollow;
-import static com.crowdos.portals.opInfo.updateUserInfo;
 import static com.crowdos.portals.opUser.userLogin;
 
 import android.annotation.SuppressLint;
@@ -27,22 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crowdos.MainActivity;
 import com.crowdos.R;
-import com.crowdos.portals.jsonFiles.emergencyList;
-import com.crowdos.portals.jsonFiles.eventList;
-import com.crowdos.portals.jsonFiles.followedEvents;
-import com.crowdos.portals.jsonFiles.getComment;
-import com.crowdos.portals.jsonFiles.getEventInfo;
-import com.crowdos.portals.jsonFiles.getMyComment;
-import com.crowdos.portals.jsonFiles.myEventList;
-import com.crowdos.portals.jsonFiles.userInfo;
-import com.crowdos.portals.opInfo;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class event_Login extends AppCompatActivity {
 
@@ -52,8 +33,7 @@ public class event_Login extends AppCompatActivity {
     private ImageView imageView;
     private TextView forget;
     private TextView register;
-    private String receivedToken;
-    public static String token = null;
+    public static boolean isSuccess;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +93,11 @@ public class event_Login extends AppCompatActivity {
                 }catch (InterruptedException e){
                     return;
                 }
-                if(token.length()>0) {
-                    receivedToken = token ;
+                if(MainActivity.token.length()>0) {
                     Toast.makeText(event_Login.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(event_Login.this, MainActivity.class);
                     MainActivity.isLogin = false;
+                    saveFiles(MainActivity.token,"token");
                     startActivity(intent);
                 }
                 else{
@@ -131,7 +111,6 @@ public class event_Login extends AppCompatActivity {
         saveFiles("用户名", "UserName");
         saveFiles("很酷，不写个签。", "UserSignature");
         saveFiles("1", "UserSculpture");
-        //saveFiles(receivedToken,"token");
     }
 
     public void saveFiles(String setString, String fileName) {

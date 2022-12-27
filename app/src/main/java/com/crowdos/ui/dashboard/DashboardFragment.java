@@ -34,6 +34,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.crowdos.R;
 import com.crowdos.databinding.FragmentDynamicEmergeBinding;
+import com.crowdos.portals.jsonFiles.emergencyList;
 import com.crowdos.ui.event.EventPageActivity;
 
 import java.text.SimpleDateFormat;
@@ -50,7 +51,7 @@ public class DashboardFragment extends Fragment {
     private List<EmergeEvent> emergeEventList = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
 
-
+    public List<emergencyList> emergeEventListData = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
