@@ -7,6 +7,6 @@ public class YourEvent {
     public double latitude;
     public long startTime;
     public long endTime;
-    public int eventId;
+    public long eventId;
     boolean eventType;
 }

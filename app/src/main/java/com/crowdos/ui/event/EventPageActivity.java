@@ -3,6 +3,8 @@ package com.crowdos.ui.event;
 
 import static com.crowdos.portals.opInfo.gEventInfo;
 import static com.crowdos.portals.opInfo.getComments;
+import static com.crowdos.portals.opInfo.hosts;
+import static com.crowdos.portals.opInfo.scheme;
 import static com.crowdos.portals.opInfo.uploadComment;
 
 import android.Manifest;
@@ -40,8 +42,25 @@ import com.crowdos.R;
 import com.crowdos.portals.jsonFiles.getComment;
 import com.crowdos.portals.jsonFiles.getEventInfo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class EventPageActivity extends AppCompatActivity {
 
@@ -73,12 +92,13 @@ public class EventPageActivity extends AppCompatActivity {
     private double eventLatitude;
     private double eventLongitude;
     private boolean isFollowedEvent;
+    private boolean isSuccessFollow;
 
     public static MapView mMapView = null;
     public static BaiduMap mBaiduMap = null;
 
     public static boolean eventType;
-    public static int eventId;
+    public static long eventId;
 
     public static getEventInfo getEventInfoData = new getEventInfo();
     public static boolean isSuccess;
@@ -96,9 +116,9 @@ public class EventPageActivity extends AppCompatActivity {
         eventTitle = findViewById(R.id.textView17);
         eventDescription = findViewById(R.id.textView24);
         eventTime = findViewById(R.id.textView31);
-//        eventTitleString = getEventInfo(eventId).eventname;
-//        eventDescriptionString = getEventInfo(eventId).content;
-//        eventTimeString = getEventInfo(eventId).starttime + "-" + getEventInfo(eventId).endtime;
+        eventTitleString = getEventInfoData.eventname;
+        eventDescriptionString = getEventInfoData.content;
+        eventTimeString = getEventInfoData.starttime + "-" + getEventInfoData.endtime;
         eventTitle.setText(eventTitleString);
         eventDescription.setText(eventDescriptionString);
         eventTime.setText(eventTimeString);
@@ -112,9 +132,10 @@ public class EventPageActivity extends AppCompatActivity {
                 String eventCommentString = eventComment.getText().toString();
                 if(eventCommentString != null){
                     EventComment mComment = new EventComment();
-                    mComment.userNameString = "名字" + 50;
+                    mComment.userNameString = readData("UserName");
                     mComment.commentString = eventCommentString;
-                    mComment.sculpture = 1;
+                    Random temp = new Random();
+                    mComment.sculpture = temp.nextInt(6);
                     mEventCommentList.add(mComment);
                     uploadComment(MainActivity.token,eventId,eventCommentString);
                     Toast.makeText(EventPageActivity.this, "已发送评论", Toast.LENGTH_SHORT).show();
@@ -143,11 +164,13 @@ public class EventPageActivity extends AppCompatActivity {
 
         //回复
         mRecyclerView = findViewById(R.id.comment_view);
-        for (int i = 0; i < 50; i++) {                              //构造一些数据
+        //构造一些数据
+        for (int i = 0; i < getCommentData.size(); i++) {
             EventComment mComment = new EventComment();
-            mComment.userNameString = "名字" + i;
-            mComment.commentString = "内容" + i;
-            mComment.sculpture = 1;
+            Random temp = new Random();
+            mComment.userNameString = getCommentData.get(i).username;
+            mComment.commentString = getCommentData.get(i).content;
+            mComment.sculpture = temp.nextInt(6);
             mEventCommentList.add(mComment);
         }
         mMyAdapter = new MyAdapter();
@@ -165,8 +188,8 @@ public class EventPageActivity extends AppCompatActivity {
         }
 
         //获取事件地理位置
-        eventLatitude = 39.963175;
-        eventLongitude = 116.400244;
+        eventLatitude = getEventInfoData.latitude;
+        eventLongitude = getEventInfoData.longitude;
 
         //展示地图
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -193,6 +216,15 @@ public class EventPageActivity extends AppCompatActivity {
                     eventFollowedText.setText("+关注");
                     Toast.makeText(EventPageActivity.this, "已取消关注", Toast.LENGTH_SHORT).show();
                 }
+
+                //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
+                opFollow(MainActivity.token, eventId, getEventInfoData.isFollow);
+                if(isSuccessFollow){
+                    Toast.makeText(EventPageActivity.this, "关注成功", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(EventPageActivity.this, "关注失败", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -205,6 +237,43 @@ public class EventPageActivity extends AppCompatActivity {
             followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type3));
             eventFollowedText.setText("+关注");
         }
+    }
+
+    //关注操作boolean
+    public void opFollow(String token,long uid,boolean isFollow){
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme(scheme)
+                .host(hosts)
+                .addPathSegment(com.crowdos.portals.url.opFollow)
+                .addQueryParameter("token",token)
+                .addQueryParameter("UID", String.valueOf(uid))
+                .build();
+        RequestBody opFollowing = new FormBody.Builder()
+                .add("isFollow", String.valueOf(isFollow))
+                .build();
+        final boolean[] isSucceed = {false};
+        OkHttpClient gUserInfo = new OkHttpClient();
+        Request request = new Request.Builder().url(url)
+                .post(opFollowing)
+                .build();
+        gUserInfo.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String data = response.body().string();
+                boolean result = false;
+                try {
+                    JSONObject jsonObject = new JSONObject(data);
+                    result = jsonObject.getBoolean("isSucceed");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                isSuccessFollow = result;
+            }
+        });
     }
 
     private void initLocation() {  //初始化
@@ -302,5 +371,30 @@ public class EventPageActivity extends AppCompatActivity {
             comment = itemView.findViewById(R.id.textView20);
             sculpture = itemView.findViewById(R.id.imageView19);
         }
+    }
+
+    public String readData(String fname) {
+        FileInputStream in = null;
+        BufferedReader reader = null;
+        StringBuilder content = new StringBuilder();
+        try{
+            in = openFileInput(fname);
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null){
+                content.append(line);
+            }
+        }catch (IOException e){
+            e.printStackTrace();;
+        }finally {
+            if(reader != null){
+                try{
+                    reader.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        return content.toString();
     }
 }

@@ -20,6 +20,7 @@ import com.crowdos.portals.jsonFiles.getMyComment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HistoryCommentActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -36,12 +37,13 @@ public class HistoryCommentActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.your_history_list);
         // 构造一些数据
         gMyComment(MainActivity.token);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < mHistoryCommentListData.size(); i++) {
             HistoryComment historyComment = new HistoryComment();
-            historyComment.eventNameString = "标题" + i;
-            historyComment.userNameString = "名字" + i;
-            historyComment.commentString = "内容" + i;
-            historyComment.sculpture = 1;
+            Random temp = new Random();
+            //historyComment.eventNameString = mHistoryCommentListData.get(i).;
+            historyComment.userNameString = mHistoryCommentListData.get(i).username;
+            historyComment.commentString = mHistoryCommentListData.get(i).content;
+            historyComment.sculpture = temp.nextInt(6);
             mHistoryCommentList.add(historyComment);
         }
         mMyAdapter = new MyAdapter();

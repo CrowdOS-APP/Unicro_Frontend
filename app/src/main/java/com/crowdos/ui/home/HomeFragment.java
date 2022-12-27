@@ -72,13 +72,12 @@ public class HomeFragment extends Fragment {
         double b = 40;
         boolean c = false;
         //构造一些数据
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < getEventListData.size(); i++){
             EventNearby eventNearby = new EventNearby();
-            eventNearby.eventId = i;
-            eventNearby.longitude = a++;
-            eventNearby.latitude = b++;
-            eventNearby.EventType = c;
-            c= !c;
+            eventNearby.eventId = getEventListData.get(i).eventid;
+            eventNearby.longitude = getEventListData.get(i).longitude;
+            eventNearby.latitude = getEventListData.get(i).latitude;
+            eventNearby.EventType = getEventListData.get(i).emergency;
             eventNearbyList.add(eventNearby);
         }
         return root;
@@ -167,7 +166,7 @@ public class HomeFragment extends Fragment {
                 eventPack.latLng = latLng;
                 //创建传递参数
                 Bundle mBundle = new Bundle();
-                mBundle.putInt("eventId",eventNearbyList.get(i).eventId);
+                mBundle.putLong("eventId",eventNearbyList.get(i).eventId);
                 eventPack.eventId = mBundle;
                 if(eventNearbyList.get(i).EventType){
                     locationsEmerge.add(eventPack);
@@ -221,7 +220,6 @@ public class HomeFragment extends Fragment {
                     return true;
                 }
             });
-
         }
     }
 
@@ -229,7 +227,6 @@ public class HomeFragment extends Fragment {
         LatLng latLng;
         Bundle eventId;
     }
-
 
     /**
      * 最佳视野内显示所有点标记
@@ -276,6 +273,4 @@ public class HomeFragment extends Fragment {
         }
         binding = null;
     }
-
-
 }

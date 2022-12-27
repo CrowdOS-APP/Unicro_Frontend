@@ -1,7 +1,5 @@
 package com.crowdos.portals;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.crowdos.MainActivity;
@@ -21,7 +19,6 @@ import com.crowdos.ui.notifications.HistoryCommentActivity;
 import com.crowdos.ui.notifications.UserSettingsActivity;
 import com.crowdos.ui.notifications.YourEventActivity;
 import com.crowdos.ui.notifications.YourFollowerActivity;
-import com.crowdos.ui.welcome.event_Login;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,8 +41,8 @@ public class opInfo {
 
     //
 
-    private static String scheme = "https";
-    private static String hosts = "mock.apifox.cn";
+    public static String scheme = "https";
+    public static String hosts = "mock.apifox.cn";
 
 
     //我完全不想写注释了，你只用知道对于array返回的是List，不是array则返回对应数据结构的变量一个，哥们要猝了
@@ -509,7 +506,7 @@ public class opInfo {
     }//testify
 
     //getting event details (listen while clicking for more information)2
-    public static void gEventInfo(int eventID){
+    public static void gEventInfo(long eventID){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)

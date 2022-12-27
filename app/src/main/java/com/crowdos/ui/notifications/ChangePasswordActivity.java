@@ -4,6 +4,8 @@ import static com.crowdos.MainActivity.token;
 import static com.crowdos.portals.opUser.updatePasswd;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -14,7 +16,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.crowdos.MainActivity;
 import com.crowdos.R;
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -122,6 +130,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
                 if(succeed){
                     Toast.makeText(ChangePasswordActivity.this, "更改成功", Toast.LENGTH_SHORT).show();
+                    saveFiles(email,"Email");
+                    saveFiles(newPasswd,"Password");
+                    Intent intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(ChangePasswordActivity.this, "更改失败", Toast.LENGTH_SHORT).show();
@@ -129,5 +141,27 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
         /*************<点击修改按钮>******************/
+    }
+
+    public void saveFiles(String setString, String fileName) {
+        String data = setString;
+        FileOutputStream out;
+        BufferedWriter writer = null;
+        try {
+            out = openFileOutput(""+fileName, Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(data);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

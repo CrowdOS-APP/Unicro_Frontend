@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         isShowMap = false;
         super.onCreate(savedInstanceState);
         if (isGotoWelcomePage) {
+            event_Login.userName = "用户名";
+            event_Login.userSignature = "很酷，不写个签。";
             //调用event_welcome类
             setContentView(R.layout.activity_event_welcome);
             intoBt = findViewById(R.id.startVoyage);
@@ -77,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
             toNotificationsFragmentUserSculpture = readData("UserSculpture");
             getUserInfo(token);
+            String userName = userInfo.username;
+            String userSignature = userInfo.signature;
+            event_Login.userName = userName;
+            event_Login.userSignature = userSignature;
+            //int userSculpture;
             isShowMap = true;
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());

@@ -56,13 +56,14 @@ public class YourFollowerActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.your_followers_list);
         // 构造一些数据
         getFollowing(MainActivity.token);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < yourFollowerListData.size(); i++) {
             YourFollower yourFollower = new YourFollower();
-            yourFollower.eventName = "标题" + i;
-            yourFollower.description = "内容" + i;
-            yourFollower.eventType = true;
-            yourFollower.latitude = 39.963175;
-            yourFollower.longitude = 116.400244;
+            yourFollower.eventName = yourFollowerListData.get(i).eventname;
+            yourFollower.description = yourFollowerListData.get(i).content;
+            yourFollower.eventType = yourFollowerListData.get(i).emergency;
+            yourFollower.latitude = yourFollowerListData.get(i).latitude;
+            yourFollower.longitude = yourFollowerListData.get(i).longitude;
+            //yourFollower.startTime = yourFollowerListData.get(i).
             yourFollowerList.add(yourFollower);
         }
         mMyAdapter = new MyAdapter();

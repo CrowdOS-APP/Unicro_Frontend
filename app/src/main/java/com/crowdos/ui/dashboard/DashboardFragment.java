@@ -1,6 +1,8 @@
 package com.crowdos.ui.dashboard;
 
 import static com.crowdos.portals.opInfo.getEmergeEventList;
+import static com.crowdos.portals.opInfo.hosts;
+import static com.crowdos.portals.opInfo.scheme;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -40,9 +42,22 @@ import com.crowdos.databinding.FragmentDynamicEmergeBinding;
 import com.crowdos.portals.jsonFiles.emergencyList;
 import com.crowdos.ui.event.EventPageActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 /******************************************************************/
 /*************************DYNAMIC**********************************/
 /******************************************************************/
@@ -63,21 +78,21 @@ public class DashboardFragment extends Fragment {
         mRecyclerView = root.findViewById(R.id.emerge_list);
         // 构造一些数据
         getEmergeEventList(114.514,19.19810, MainActivity.token);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < emergeEventListData.size(); i++) {
             EmergeEvent emergeEvent = new EmergeEvent();
-            emergeEvent.eventName = "标题" + i;
-            emergeEvent.description = "内容" + i;
+            emergeEvent.eventName = emergeEventListData.get(i).eventname;
+            emergeEvent.description = emergeEventListData.get(i).content;
             emergeEvent.eventType = true;
-            emergeEvent.isFollowed = true;
-            emergeEvent.latitude = 39.963175;
-            emergeEvent.longitude = 116.400244;
+            emergeEvent.isFollowed = emergeEventListData.get(i).isFollow;
+            emergeEvent.latitude = emergeEventListData.get(i).latitude;
+            emergeEvent.longitude = emergeEventListData.get(i).longitude;
             emergeEventList.add(emergeEvent);
         }
         mMyAdapter = new MyAdapter();
         mRecyclerView.setAdapter(mMyAdapter);
         layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        //设置这个选项可以提高性能
         mRecyclerView.setHasFixedSize(true);
         return root;
     }
@@ -91,6 +106,7 @@ public class DashboardFragment extends Fragment {
         private double eventLatitude;
         private double eventLongitude;
         private ArrayList<LatLng> mLatLngs = new ArrayList<>();
+        private boolean isSuccess;
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -156,6 +172,14 @@ public class DashboardFragment extends Fragment {
                         holder.eventFollowText.setText("+关注");
                         Toast.makeText(getContext(), "已取消关注" + emergeEvent.eventName, Toast.LENGTH_SHORT).show();
                     }
+                    //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
+                    opFollow(MainActivity.token, emergeEvent.eventId, emergeEvent.isFollowed);
+                    if(isSuccess){
+                        Toast.makeText(getContext(), "关注成功", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(getContext(), "关注失败", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -215,6 +239,43 @@ public class DashboardFragment extends Fragment {
             mBaiduMap.setMapStatus(mapStatusUpdate);
             // 设置地图上控件与地图边界的距离，包含比例尺、缩放控件、logo、指南针的位置
             mBaiduMap.setViewPadding(0,0,0,paddingBottom);
+        }
+
+        //关注操作boolean
+        public void opFollow(String token,long uid,boolean isFollow){
+            HttpUrl url = new HttpUrl.Builder()
+                    .scheme(scheme)
+                    .host(hosts)
+                    .addPathSegment(com.crowdos.portals.url.opFollow)
+                    .addQueryParameter("token",token)
+                    .addQueryParameter("UID", String.valueOf(uid))
+                    .build();
+            RequestBody opFollowing = new FormBody.Builder()
+                    .add("isFollow", String.valueOf(isFollow))
+                    .build();
+            final boolean[] isSucceed = {false};
+            OkHttpClient gUserInfo = new OkHttpClient();
+            Request request = new Request.Builder().url(url)
+                    .post(opFollowing)
+                    .build();
+            gUserInfo.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    String data = response.body().string();
+                    boolean result = false;
+                    try {
+                        JSONObject jsonObject = new JSONObject(data);
+                        result = jsonObject.getBoolean("isSucceed");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    isSuccess = result;
+                }
+            });
         }
     }
 

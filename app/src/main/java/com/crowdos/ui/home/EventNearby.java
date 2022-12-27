@@ -4,5 +4,5 @@ public class EventNearby {
     public boolean EventType;
     public double longitude;
     public double latitude;
-    public int eventId;
+    public long eventId;
 }

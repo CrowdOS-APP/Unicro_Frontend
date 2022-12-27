@@ -33,7 +33,8 @@ public class event_Login extends AppCompatActivity {
     private ImageView imageView;
     private TextView forget;
     private TextView register;
-    public static boolean isSuccess;
+    public static String userName;
+    public static String userSignature;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +94,13 @@ public class event_Login extends AppCompatActivity {
                 }catch (InterruptedException e){
                     return;
                 }
-                if(MainActivity.token.length()>0) {
+                if(MainActivity.token.length() > 0) {
                     Toast.makeText(event_Login.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(event_Login.this, MainActivity.class);
                     MainActivity.isLogin = false;
                     saveFiles(MainActivity.token,"token");
+                    saveFiles(email,"Email");
+                    saveFiles(pwd,"Password");
                     startActivity(intent);
                 }
                 else{
@@ -108,8 +111,8 @@ public class event_Login extends AppCompatActivity {
         });
         /*************<登陆>******************/
 
-        saveFiles("用户名", "UserName");
-        saveFiles("很酷，不写个签。", "UserSignature");
+        saveFiles(userName, "UserName");
+        saveFiles(userSignature, "UserSignature");
         saveFiles("1", "UserSculpture");
     }
 

@@ -54,14 +54,16 @@ public class YourEventActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.your_event_list);
         // 构造一些数据
         gMyEventList(MainActivity.token);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < yourEventListData.size(); i++) {
             YourEvent yourEvent = new YourEvent();
-            yourEvent.eventName = "标题" + i;
-            yourEvent.description = "内容" + i;
-            yourEvent.eventId = i;
-            yourEvent.eventType = true;
-            yourEvent.latitude = 39.963175;
-            yourEvent.longitude = 116.400244;
+            yourEvent.eventName = yourEventListData.get(i).eventname;
+            yourEvent.description = yourEventListData.get(i).content;
+            yourEvent.eventId = yourEventListData.get(i).eventid;
+            yourEvent.eventType = yourEventListData.get(i).emergency;
+            yourEvent.latitude = yourEventListData.get(i).latitude;
+            yourEvent.longitude = yourEventListData.get(i).longitude;
+            yourEvent.startTime = yourEventListData.get(i).starttime;
+            yourEvent.endTime = yourEventListData.get(i).endtime;
             yourEventList.add(yourEvent);
         }
         mMyAdapter = new MyAdapter();
