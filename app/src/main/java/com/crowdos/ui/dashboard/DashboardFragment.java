@@ -1,5 +1,7 @@
 package com.crowdos.ui.dashboard;
 
+import static com.crowdos.portals.opInfo.getEmergeEventList;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -32,6 +34,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.crowdos.MainActivity;
 import com.crowdos.R;
 import com.crowdos.databinding.FragmentDynamicEmergeBinding;
 import com.crowdos.portals.jsonFiles.emergencyList;
@@ -51,7 +54,7 @@ public class DashboardFragment extends Fragment {
     private List<EmergeEvent> emergeEventList = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
 
-    public List<emergencyList> emergeEventListData = new ArrayList<>();
+    public static List<emergencyList> emergeEventListData = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
         mRecyclerView = root.findViewById(R.id.emerge_list);
         // 构造一些数据
+        getEmergeEventList(114.514,19.19810, MainActivity.token);
         for (int i = 0; i < 50; i++) {
             EmergeEvent emergeEvent = new EmergeEvent();
             emergeEvent.eventName = "标题" + i;

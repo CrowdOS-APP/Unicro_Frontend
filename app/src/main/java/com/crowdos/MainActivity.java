@@ -1,5 +1,7 @@
 package com.crowdos;
 
+import static com.crowdos.portals.opInfo.getUserInfo;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.crowdos.databinding.ActivityMainBinding;
+import com.crowdos.portals.jsonFiles.userInfo;
 import com.crowdos.ui.welcome.event_Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public static String toNotificationsFragmentUserSculpture;
     public static String token;
     public static boolean isExit;
+    public static userInfo userInfo;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             toNotificationsFragmentUserNameString = readData("UserName");
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
             toNotificationsFragmentUserSculpture = readData("UserSculpture");
+            getUserInfo(token);
             isShowMap = true;
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());

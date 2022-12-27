@@ -113,10 +113,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
             else if(email.length() == 0 || oldPasswd.length() == 0){
                 Toast.makeText(ChangePasswordActivity.this, "邮箱或旧密码为空,请重新输入", Toast.LENGTH_SHORT).show();
             }
-            /**（4）判断邮箱密码是否对应**/
-            //else if(false){
-            //    Toast.makeText(ChangePasswordActivity.this, "邮箱或旧密码错误,请重新输入", Toast.LENGTH_SHORT).show();
-            //}
             else{
                 updatePasswd(token,oldPasswd,newPasswd);
                 try {

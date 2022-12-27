@@ -15,6 +15,7 @@ public class getEventInfo {
     public long starttime;
     @SerializedName("endtime")
     public long endtime;
+    public boolean isFollow;
 
 //4
 }

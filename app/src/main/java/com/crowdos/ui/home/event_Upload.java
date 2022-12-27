@@ -193,7 +193,8 @@ public class event_Upload extends AppCompatActivity {
                         longitude,
                         latitude,
                         unixStartTime,
-                        unixEndTime
+                        unixEndTime,
+                        EventType
                 );
                 if(isSuccess) {
                     Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();

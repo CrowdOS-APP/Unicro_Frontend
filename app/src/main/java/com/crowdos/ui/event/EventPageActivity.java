@@ -1,5 +1,10 @@
 package com.crowdos.ui.event;
 
+
+import static com.crowdos.portals.opInfo.gEventInfo;
+import static com.crowdos.portals.opInfo.getComments;
+import static com.crowdos.portals.opInfo.uploadComment;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
@@ -30,7 +35,9 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.crowdos.MainActivity;
 import com.crowdos.R;
+import com.crowdos.portals.jsonFiles.getComment;
 import com.crowdos.portals.jsonFiles.getEventInfo;
 
 import java.util.ArrayList;
@@ -75,11 +82,15 @@ public class EventPageActivity extends AppCompatActivity {
 
     public static getEventInfo getEventInfoData = new getEventInfo();
     public static boolean isSuccess;
+    public static List<getComment> getCommentData = new ArrayList<>();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_page);
+        gEventInfo(eventId);
+        getComments(MainActivity.token,eventId);
 
         //简介+标题+时间展示
         eventTitle = findViewById(R.id.textView17);
@@ -105,6 +116,7 @@ public class EventPageActivity extends AppCompatActivity {
                     mComment.commentString = eventCommentString;
                     mComment.sculpture = 1;
                     mEventCommentList.add(mComment);
+                    uploadComment(MainActivity.token,eventId,eventCommentString);
                     Toast.makeText(EventPageActivity.this, "已发送评论", Toast.LENGTH_SHORT).show();
                 }
                 else{

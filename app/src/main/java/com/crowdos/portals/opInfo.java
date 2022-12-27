@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.crowdos.MainActivity;
 import com.crowdos.portals.jsonFiles.emergencyList;
 import com.crowdos.portals.jsonFiles.eventList;
 import com.crowdos.portals.jsonFiles.followedEvents;
@@ -12,6 +13,14 @@ import com.crowdos.portals.jsonFiles.getEventInfo;
 import com.crowdos.portals.jsonFiles.getMyComment;
 import com.crowdos.portals.jsonFiles.myEventList;
 import com.crowdos.portals.jsonFiles.userInfo;
+import com.crowdos.ui.dashboard.DashboardFragment;
+import com.crowdos.ui.event.EventPageActivity;
+import com.crowdos.ui.home.HomeFragment;
+import com.crowdos.ui.home.event_Upload;
+import com.crowdos.ui.notifications.HistoryCommentActivity;
+import com.crowdos.ui.notifications.UserSettingsActivity;
+import com.crowdos.ui.notifications.YourEventActivity;
+import com.crowdos.ui.notifications.YourFollowerActivity;
 import com.crowdos.ui.welcome.event_Login;
 
 import org.json.JSONArray;
@@ -184,6 +193,7 @@ public class opInfo {
             result.starttime = jsonObj.getLong("startTime");
             result.latitude = jsonObj.getDouble("latitude");
             result.longitude = jsonObj.getDouble("longitude");
+            result.isFollow = jsonObj.getBoolean("isFollowed");
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
@@ -235,6 +245,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                MainActivity.userInfo = getUserInfos(data);
             }
         });
     }//Tested
@@ -263,13 +274,13 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                String data = response.body().string();
-               event_Login.isSuccess = isSucceed(data);
+               UserSettingsActivity.isSuccess = isSucceed(data);
             }
         });
     }//tested
 
     //获得我的评论(很奇怪，这里是所有评论的字符串组)
-    public static void getMyComment(String token){
+    public static void gMyComment(String token){
         final List<getMyComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -289,6 +300,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                HistoryCommentActivity.mHistoryCommentListData = getMyComments(data);
             }
         });
     }//tested
@@ -319,6 +331,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                YourEventActivity.yourEventListData = getMyEventList(data);
 
             }
         });
@@ -371,6 +384,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                YourFollowerActivity.yourFollowerListData = getMyFollow(data);
 
             }
         });
@@ -459,7 +473,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                Log.e("onResponse: ",data );
+                DashboardFragment.emergeEventListData = getEmergencyList(data);
             }
         });
     }//not tested(apifox failed)
@@ -488,13 +502,13 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                HomeFragment.getEventListData = gEventList(data);
             }
         });
     }//testify
 
     //getting event details (listen while clicking for more information)2
-    public static void getEventInfo(int eventID){
-        final getEventInfo[] result = {null};
+    public static void gEventInfo(int eventID){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
@@ -513,16 +527,23 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                EventPageActivity.getEventInfoData = getEventInfos(data);
             }
         });
     }//testify
 
 
     //upload events
-    public static void upEvent(String token,
-                          String title,String content,
-                          double longitude,double latitude,
-                          long startTime,long endTime){
+    public static void upEvent(
+            String token,
+            String title,
+            String content,
+            double longitude,
+            double latitude,
+            long startTime,
+            long endTime,
+            boolean isUrgent
+    ){
         final boolean[] isSuccess = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -538,6 +559,7 @@ public class opInfo {
                 .add("endTime", String.valueOf(endTime))
                 .add("longitude", String.valueOf(longitude))
                 .add("latitude", String.valueOf(latitude))
+                .add("isUrgent",String.valueOf(isUrgent))
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
@@ -551,16 +573,14 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                Log.e("Onresponse", data);
-                event_Login.isSuccess = isSucceed(data);
-                Log.e("responding", ""+event_Login.isSuccess);
+                event_Upload.isSuccess = isSucceed(data);
             }
         });
     }//tested failed(apifox failed)
 
 
     //getComment
-    public static void getComment(String token, long eventID){
+    public static void getComments(String token, long eventID){
         final List<getComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -581,7 +601,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                Log.e("data",data);
+                EventPageActivity.getCommentData = getComments(data);
             }
         });
     }//testify
@@ -589,7 +609,7 @@ public class opInfo {
 
 
     //upload Comments
-    public void upComment(String token,long eveID,String comment){
+    public static void uploadComment(String token,long eveID,String comment){
         //eventID应该是名称
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
@@ -613,6 +633,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                EventPageActivity.isSuccess = isSucceed(data);
             }
         });
     }//testify

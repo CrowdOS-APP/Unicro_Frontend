@@ -1,5 +1,7 @@
 package com.crowdos.ui.notifications;
 
+import static com.crowdos.portals.opInfo.gMyComment;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crowdos.MainActivity;
 import com.crowdos.R;
 import com.crowdos.portals.jsonFiles.getMyComment;
 
@@ -23,7 +26,7 @@ public class HistoryCommentActivity extends AppCompatActivity {
     private MyAdapter mMyAdapter;
     private List<HistoryComment> mHistoryCommentList = new ArrayList<>();
 
-    public List<getMyComment> mHistoryCommentListData = new ArrayList<>();
+    public static List<getMyComment> mHistoryCommentListData = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -32,6 +35,7 @@ public class HistoryCommentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history_comment);
         mRecyclerView = findViewById(R.id.your_history_list);
         // 构造一些数据
+        gMyComment(MainActivity.token);
         for (int i = 0; i < 50; i++) {
             HistoryComment historyComment = new HistoryComment();
             historyComment.eventNameString = "标题" + i;

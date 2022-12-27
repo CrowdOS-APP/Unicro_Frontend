@@ -1,5 +1,7 @@
 package com.crowdos.ui.notifications;
 
+import static com.crowdos.portals.opInfo.getFollowing;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.crowdos.MainActivity;
 import com.crowdos.R;
 import com.crowdos.portals.jsonFiles.followedEvents;
 import com.crowdos.ui.event.EventPageActivity;
@@ -43,7 +46,7 @@ public class YourFollowerActivity extends AppCompatActivity {
     private List<YourFollower> yourFollowerList = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
 
-    public List<followedEvents> yourFollowerListData = new ArrayList<>();
+    public static List<followedEvents> yourFollowerListData = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,6 +55,7 @@ public class YourFollowerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_your_follower);
         mRecyclerView = findViewById(R.id.your_followers_list);
         // 构造一些数据
+        getFollowing(MainActivity.token);
         for (int i = 0; i < 50; i++) {
             YourFollower yourFollower = new YourFollower();
             yourFollower.eventName = "标题" + i;

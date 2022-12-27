@@ -1,5 +1,7 @@
 package com.crowdos.ui.notifications;
 
+import static com.crowdos.portals.opInfo.gMyEventList;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
+import com.crowdos.MainActivity;
 import com.crowdos.R;
 import com.crowdos.portals.jsonFiles.myEventList;
 import com.crowdos.ui.event.EventPageActivity;
@@ -42,7 +45,7 @@ public class YourEventActivity extends AppCompatActivity {
     private List<YourEvent> yourEventList = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
 
-    public List<myEventList> yourEventListData = new ArrayList<>();
+    public static List<myEventList> yourEventListData = new ArrayList<>();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class YourEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_your_event);
         mRecyclerView = findViewById(R.id.your_event_list);
         // 构造一些数据
+        gMyEventList(MainActivity.token);
         for (int i = 0; i < 50; i++) {
             YourEvent yourEvent = new YourEvent();
             yourEvent.eventName = "标题" + i;
