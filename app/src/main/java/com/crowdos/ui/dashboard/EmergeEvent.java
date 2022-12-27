@@ -8,6 +8,6 @@ public class EmergeEvent {
     public long startTime;
     public long endTime;
     public int eventId;
-    boolean isFollowed;
-    boolean eventType;
+    public boolean isFollowed;
+    public boolean eventType;
 }
