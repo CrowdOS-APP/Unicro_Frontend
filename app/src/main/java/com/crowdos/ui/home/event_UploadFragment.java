@@ -16,13 +16,18 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
 import com.crowdos.MainActivity;
 import com.crowdos.R;
+
+import java.util.ArrayList;
 
 
 public class event_UploadFragment extends Fragment {
@@ -32,6 +37,7 @@ public class event_UploadFragment extends Fragment {
     public static BaiduMap mBaiduMap = null;
     public LocationClient mLocationClient;
     private UiSettings mUiSettings;
+    private ArrayList<LatLng> mLatLngs = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -102,6 +108,8 @@ public class event_UploadFragment extends Fragment {
              */
             //定义Maker坐标点
             LatLng point = new LatLng(MyLocationListener.latitude, MyLocationListener.longitude);
+            mLatLngs.add(point);
+            setBounds(mLatLngs,0);
             //构建Marker图标
             BitmapDescriptor bitmap = BitmapDescriptorFactory
                     .fromResource(R.mipmap.position3);
@@ -112,6 +120,24 @@ public class event_UploadFragment extends Fragment {
             //在地图上添加Marker，并显示
             mBaiduMap.addOverlay(optionMarker);
         }
+    }
+
+    /**
+     * 最佳视野内显示所有点标记
+     */
+    private void setBounds(ArrayList<LatLng> LatLngs , int paddingBottom ) {
+        int padding = 80;
+        // 构造地理范围对象
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        // 让该地理范围包含一组地理位置坐标
+        builder.include(LatLngs);
+        // 设置显示在指定相对于MapView的padding中的地图地理范围
+        MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLngBounds(builder.build(), padding, padding,
+                padding, paddingBottom);
+        // 更新地图
+        mBaiduMap.setMapStatus(mapStatusUpdate);
+        // 设置地图上控件与地图边界的距离，包含比例尺、缩放控件、logo、指南针的位置
+        mBaiduMap.setViewPadding(0,0,0,paddingBottom);
     }
 
     @Override

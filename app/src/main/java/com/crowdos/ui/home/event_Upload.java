@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -42,9 +41,6 @@ public class event_Upload extends AppCompatActivity {
     private String[] getTime = {"00:00","00:00"};
     private String[] getDate = {"2000-01-01","2000-01-01"};
     private TextView startDate,endDate, startTime, endTime;
-    private TextView addressTextView;
-    private String addressString;
-    private Handler mHandler;
 
     // 默认逆地理编码半径范围
     private static final int sDefaultRGCRadius = 500;
@@ -170,15 +166,12 @@ public class event_Upload extends AppCompatActivity {
 
 
         /*************<地图>******************/
-        addressTextView = findViewById(R.id.textView38);
         upload_locate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 isSetLocation = true;
                 latitude = MyLocationListener.latitude;
                 longitude = MyLocationListener.longitude;
-                addressString = MyLocationListener.address;
-                addressTextView.setText(addressString);
                 Toast.makeText(event_Upload.this, "已设置为当前位置", Toast.LENGTH_SHORT).show();
             }
         });

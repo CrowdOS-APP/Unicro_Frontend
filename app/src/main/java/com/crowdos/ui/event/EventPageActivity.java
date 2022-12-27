@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,17 +37,17 @@ import java.util.List;
 
 public class EventPageActivity extends AppCompatActivity {
 
-    private Button followEvent;
-
     private TextView eventTitle;
     private TextView eventDescription;
     private TextView eventTime;
+    private TextView eventFollowedText;
 
     private EditText eventComment;
 
     private ImageButton eventSendComment;
     private ImageButton eventLike;
     private ImageButton eventDislike;
+    private ImageButton followEvent;
 
     private ImageView eventTypeImage;
 
@@ -160,19 +160,35 @@ public class EventPageActivity extends AppCompatActivity {
         }
 
         //关注按钮
-        followEvent = findViewById(R.id.button);
+        followEvent = findViewById(R.id.button6);
+        eventFollowedText =findViewById(R.id.textView42);
+        //isFollowedEvent = getEventInfo(eventId).;
         followEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isFollowedEvent = !isFollowedEvent;
                 if(isFollowedEvent){
+                    followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type4));
+                    eventFollowedText.setText("已关注");
                     Toast.makeText(EventPageActivity.this, "已关注事件", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type3));
+                    eventFollowedText.setText("+关注");
                     Toast.makeText(EventPageActivity.this, "已取消关注", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        //展示事件按钮颜色
+        if(isFollowedEvent){
+            followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type4));
+            eventFollowedText.setText("已关注");
+        }
+        else{
+            followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type3));
+            eventFollowedText.setText("+关注");
+        }
     }
 
     private void initLocation() {  //初始化

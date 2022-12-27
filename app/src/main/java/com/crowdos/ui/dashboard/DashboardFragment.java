@@ -8,13 +8,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -84,7 +86,6 @@ public class DashboardFragment extends Fragment {
         private double eventLatitude;
         private double eventLongitude;
         private ArrayList<LatLng> mLatLngs = new ArrayList<>();
-        View root = binding.getRoot();
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -93,6 +94,7 @@ public class DashboardFragment extends Fragment {
             return myViewHolder;
         }
 
+        @SuppressLint("ResourceAsColor")
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             EmergeEvent emergeEvent = emergeEventList.get(position);
@@ -114,7 +116,8 @@ public class DashboardFragment extends Fragment {
             holder.mRootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EventPageActivity.eventType = true;
+                    EventPageActivity.eventType = emergeEvent.eventType;
+                    EventPageActivity.eventId = emergeEvent.eventId;
                     Intent intent = new Intent(getActivity(), EventPageActivity.class);
                     startActivity(intent);
                 }
@@ -130,6 +133,35 @@ public class DashboardFragment extends Fragment {
             }else{
                 mMapView = holder.mMapView;
                 initLocation();
+            }
+
+            //点击关注按钮
+            holder.eventFollow.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("ResourceAsColor")
+                @Override
+                public void onClick(View v) {
+                    emergeEvent.isFollowed = !emergeEvent.isFollowed;
+                    if(emergeEvent.isFollowed) {
+                        holder.eventFollow.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.button_type4));
+                        holder.eventFollowText.setText("已关注");
+                        Toast.makeText(getContext(), "已关注" + emergeEvent.eventName, Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        holder.eventFollow.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.button_type3));
+                        holder.eventFollowText.setText("+关注");
+                        Toast.makeText(getContext(), "已取消关注" + emergeEvent.eventName, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            //展示事件按钮颜色
+            if(emergeEvent.isFollowed) {
+                holder.eventFollow.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.button_type4));
+                holder.eventFollowText.setText("已关注");
+            }
+            else{
+                holder.eventFollow.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.button_type3));
+                holder.eventFollowText.setText("+关注");
             }
         }
 
@@ -192,10 +224,11 @@ public class DashboardFragment extends Fragment {
         TextView eventTitle;
         TextView eventContent;
         TextView eventTime;
+        TextView eventFollowText;
         ImageView eventType;
-        Button followed;
         ConstraintLayout mRootView;
         MapView mMapView;
+        ImageButton eventFollow;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -203,9 +236,10 @@ public class DashboardFragment extends Fragment {
             eventContent = itemView.findViewById(R.id.textView20);
             eventTime = itemView.findViewById(R.id.textView28);
             eventType = itemView.findViewById(R.id.imageView24);
-            followed = itemView.findViewById(R.id.button2);
             mRootView = itemView.findViewById(R.id.item4);
             mMapView = itemView.findViewById(R.id.mapView6);
+            eventFollow = itemView.findViewById(R.id.button2);
+            eventFollowText = itemView.findViewById(R.id.textView38);
         }
     }
 
