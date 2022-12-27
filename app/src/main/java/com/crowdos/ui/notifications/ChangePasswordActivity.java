@@ -1,5 +1,8 @@
 package com.crowdos.ui.notifications;
 
+import static com.crowdos.portals.opUser.updatePasswd;
+import static com.crowdos.ui.welcome.event_Login.token;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -27,6 +30,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private EditText editTextEmail;
 
     private TextView change;
+
+    public static boolean succeed;
 
 
     @SuppressLint("MissingInflatedId")
@@ -111,16 +116,23 @@ public class ChangePasswordActivity extends AppCompatActivity {
             else if(email.length() == 0 || oldPasswd.length() == 0){
                 Toast.makeText(ChangePasswordActivity.this, "邮箱或旧密码为空,请重新输入", Toast.LENGTH_SHORT).show();
             }
-            /**（4）判断邮箱是否存在**/
-            else if(true){
-                Toast.makeText(ChangePasswordActivity.this, "邮箱不存在,请重新输入", Toast.LENGTH_SHORT).show();
-            }
-            /**（5）判断邮箱密码是否对应**/
-            else if(false){
-                Toast.makeText(ChangePasswordActivity.this, "邮箱或旧密码错误,请重新输入", Toast.LENGTH_SHORT).show();
-            }
+            /**（4）判断邮箱密码是否对应**/
+            //else if(false){
+            //    Toast.makeText(ChangePasswordActivity.this, "邮箱或旧密码错误,请重新输入", Toast.LENGTH_SHORT).show();
+            //}
             else{
-
+                updatePasswd(token,oldPasswd,newPasswd);
+                try {
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){
+                    return;
+                }
+                if(succeed){
+                    Toast.makeText(ChangePasswordActivity.this, "更改成功", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(ChangePasswordActivity.this, "更改失败", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         /*************<点击修改按钮>******************/

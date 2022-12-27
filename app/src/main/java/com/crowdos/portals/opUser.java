@@ -1,6 +1,12 @@
 package com.crowdos.portals;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+
+import com.crowdos.ui.notifications.ChangePasswordActivity;
+import com.crowdos.ui.welcome.event_Login;
+import com.crowdos.ui.welcome.event_Register;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,70 +28,18 @@ public class opUser {
     private static boolean isSucceed(String data){
         boolean result = false;
         try {
-            JSONArray jsonArray = new JSONArray(data);
-            String isSucceed = "false";
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                isSucceed = jsonObject.getString("isSucceed");
-            }
-            if (isSucceed.equals("true")){
-                result = true;
-            }
+            JSONObject jsonObject = new JSONObject(data);
+            result = jsonObject.getBoolean("isSucceed");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return result;
     }
-    private static String receivedToken(String data){
-        String token = null;
-        try {
-            JSONArray jsonArray = new JSONArray(data);
-            for(int i = 0; i<jsonArray.length(); i++)
-            {
-                JSONObject jsonObject=jsonArray.getJSONObject(i);
-                token = jsonObject.getString("token");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return token;
 
-    }
     /*以下是登录函数2*/
-    public static String userLogin(String username,String pwd){
-        //结果变量(token)
-        final String[] token = {null};
-        //建立url
-        HttpUrl url = new HttpUrl.Builder()
-                .scheme("https")
-                .host("mock.apifox.cn")
-                .port(8888)
-                .addPathSegment(com.crowdos.portals.url.userLogin)
-                .build();
-        //新建请求体
-        RequestBody loginPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
-        //采用异步
-        OkHttpClient loginAct = new OkHttpClient();
-        Request request = new Request.Builder().url(url).post(loginPac).build();
-        loginAct.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                String data = response.body().string();
-                token[0] = receivedToken(data);
-            }
-        });
-        return token[0];
-    }
-
-
-    /*注册函数*/
-    public static boolean userRegister(String username,String pwd){
+    public static void userRegister(String username,String pwd){
         //结果变量()
-        final boolean[] judge = {false};
+        boolean[] judge = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host("mock.apifox.cn")
@@ -94,8 +48,16 @@ public class opUser {
         //新建请求体
         RequestBody registerPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
         //采用异步
+        Request request = new Request.Builder()
+                .url("https://mock.apifox.cn/m1/1900041-0-default/register")
+                .post(registerPac)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Connection", "keep-alive")
+                .build();
         OkHttpClient loginAct = new OkHttpClient();
-        Request request = new Request.Builder().url(url).post(registerPac).build();
         loginAct.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -104,12 +66,54 @@ public class opUser {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                judge[0] = isSucceed(data);
-
+                if(data.equals("true")){
+                    judge[0] = true;
+                }
+                event_Register.isSuccess = judge[0];
             }
         });
-        return judge[0];
+
     }
+
+    public static void userLogin(String username,String pwd){
+        //结果变量()
+        boolean[] judge = {false};
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme("https")
+                .host("mock.apifox.cn")
+                .addPathSegment(com.crowdos.portals.url.userRegister)
+                .build();
+        //新建请求体
+        RequestBody registerPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
+        //采用异步
+        Request request = new Request.Builder()
+                .url("https://mock.apifox.cn/m1/1900041-0-default/login")
+                .post(registerPac)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Connection", "keep-alive")
+                .build();
+        OkHttpClient loginAct = new OkHttpClient();
+        loginAct.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String data = response.body().string();
+                if(data != null){
+                    event_Login.token = data;
+                }
+            }
+        });
+
+    }
+
+
+    /*注册函数*/
 
     //修改密码
     public static boolean updatePasswd(String token, String oldPwd, String pwd){
@@ -125,7 +129,12 @@ public class opUser {
                 .add("newPasswd",pwd)
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
-        Request request = new Request.Builder().url(url)
+        Request request = new Request.Builder().url("https://mock.apifox.cn/m1/1900041-0-default/updatePasswd?token="+token)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Connection", "keep-alive")
                 .post(updateInfo)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -136,13 +145,17 @@ public class opUser {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                isSucceed(data);
+                Log.e("onResponse: ",data );
+                ChangePasswordActivity.succeed = isSucceed(data);
+                Log.e("onResponse: ",""+ChangePasswordActivity.succeed );
             }
 
 
         });
         return isSucceed[0];
     }
+
+
     /*coming sonn
     //请求验证码（注册段）1
     public boolean requestVerifyCode(String email){

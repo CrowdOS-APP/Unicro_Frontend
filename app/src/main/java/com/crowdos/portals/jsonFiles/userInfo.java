@@ -2,7 +2,7 @@ package com.crowdos.portals.jsonFiles;
 
 import com.google.gson.annotations.SerializedName;
 
-public class getUserInfo {
+public class userInfo {
     @SerializedName("username")
     public String username;
     @SerializedName("signature")

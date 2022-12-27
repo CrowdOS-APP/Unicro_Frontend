@@ -8,13 +8,13 @@ public class myEventList {//8
     @SerializedName("eventname")
     public String eventname;
     @SerializedName("eventid")
-    public long enventid;
+    public long eventid;
     @SerializedName("content")
     public String content;
     @SerializedName("longitude")
-    public long longitude;
+    public double longitude;
     @SerializedName("latitude")
-    public long latitude;
+    public double latitude;
     @SerializedName("starttime")
     public long starttime;
     @SerializedName("endtime")
