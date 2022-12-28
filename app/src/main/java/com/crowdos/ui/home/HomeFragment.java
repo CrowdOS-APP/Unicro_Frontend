@@ -4,14 +4,12 @@ import static com.crowdos.portals.opInfo.getEventsNearby;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -48,16 +46,13 @@ public class HomeFragment extends Fragment {
     private ImageView Upload;
     public static MapView mMapView = null;
     public static BaiduMap mBaiduMap = null;
-    private static SharedPreferences homePreferences;
     public LocationClient mLocationClient;
     private UiSettings mUiSettings;
     private MultiPoint mMultiPointA;
     private MultiPoint mMultiPointB;
-    private MyLocationListener myLocationListener;
     private ArrayList<LatLng> mLatLngs = new ArrayList<>();
     private ArrayList<EventNearby> eventNearbyList = new ArrayList<>();
 
-    TextView mapLocation;  //经纬度
     public static double longitude;//经度
     public static double latitude;//纬度
     public static List<eventList> getEventListData = new ArrayList<>();
@@ -70,7 +65,8 @@ public class HomeFragment extends Fragment {
         getEventsNearby(MainActivity.token, longitude, latitude);
         try{
             Thread.sleep(500);
-        }catch (InterruptedException ignored){
+        } catch (InterruptedException ignored){
+
         }
         double a = 120;
         double b = 40;
@@ -106,7 +102,6 @@ public class HomeFragment extends Fragment {
         mMapView = v.findViewById(R.id.mapView2);
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);
-        mapLocation = v.findViewById(R.id.location);
         //实例化UiSettings类对象
         mUiSettings = mBaiduMap.getUiSettings();
         //通过设置enable为true或false 选择是否显示指南针
@@ -123,7 +118,6 @@ public class HomeFragment extends Fragment {
         if(MainActivity.isShowMap) {
             mBaiduMap.setTrafficEnabled(true);
             mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-
             LocationClient.setAgreePrivacy(true);
             try {
                 mLocationClient = new LocationClient(getContext());
@@ -213,16 +207,13 @@ public class HomeFragment extends Fragment {
             }
 
             //点击地图事件
-            mBaiduMap.setOnMultiPointClickListener(new BaiduMap.OnMultiPointClickListener() {
-                @Override
-                public boolean onMultiPointClick(MultiPoint multiPoint, MultiPointItem multiPointItem) {
-                    Bundle bundle = multiPoint.getExtraInfo();
-                    int eventId = bundle.getInt("eventId");
-                    EventPageActivity.eventId = eventId;
-                    Intent intent = new Intent(getContext(), EventPageActivity.class);
-                    startActivity(intent);
-                    return true;
-                }
+            mBaiduMap.setOnMultiPointClickListener((multiPoint, multiPointItem) -> {
+                Bundle bundle = multiPoint.getExtraInfo();
+                int eventId = bundle.getInt("eventId");
+                EventPageActivity.eventId = eventId;
+                Intent intent = new Intent(getContext(), EventPageActivity.class);
+                startActivity(intent);
+                return true;
             });
         }
     }

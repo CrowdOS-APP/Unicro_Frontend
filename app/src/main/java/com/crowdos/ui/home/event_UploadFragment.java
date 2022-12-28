@@ -47,7 +47,6 @@ public class event_UploadFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         if(root == null)
         {
             root = inflater.inflate(R.layout.upload_page,container,false);
@@ -60,7 +59,8 @@ public class event_UploadFragment extends Fragment {
         return root;
     }
 
-    private void initLocation(View v) {  //初始化
+    private void initLocation(View v) {
+        //初始化
         mMapView = v.findViewById(R.id.mapView4);
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);

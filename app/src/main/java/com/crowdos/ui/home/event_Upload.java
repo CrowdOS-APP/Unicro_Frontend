@@ -38,7 +38,6 @@ public class event_Upload extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
     private Calendar calendar;
-    private static final String TAG = "tzbc";
     private String[] getTime = {"00:00","00:00"};
     private String[] getDate = {"2000-01-01","2000-01-01"};
     private TextView startDate,endDate, startTime, endTime;
@@ -167,14 +166,11 @@ public class event_Upload extends AppCompatActivity {
 
 
         /*************<地图>******************/
-        upload_locate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isSetLocation = true;
-                latitude = MyLocationListener.latitude;
-                longitude = MyLocationListener.longitude;
-                Toast.makeText(event_Upload.this, "已设置为当前位置", Toast.LENGTH_SHORT).show();
-            }
+        upload_locate.setOnClickListener(view -> {
+            isSetLocation = true;
+            latitude = MyLocationListener.latitude;
+            longitude = MyLocationListener.longitude;
+            Toast.makeText(event_Upload.this, "已设置为当前位置", Toast.LENGTH_SHORT).show();
         });
         /*************<地图>******************/
 
@@ -296,7 +292,6 @@ public class event_Upload extends AppCompatActivity {
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         timePickerDialog.show();
-
     }
 
     private void showCalenderDialog(boolean chooseTimeType) {

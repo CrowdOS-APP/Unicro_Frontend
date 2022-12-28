@@ -18,7 +18,6 @@ public class event_WelcomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         if(root == null)
         {
             root = inflater.inflate(R.layout.welcome_page,container,false);

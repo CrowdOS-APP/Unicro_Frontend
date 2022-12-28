@@ -132,23 +132,20 @@ public class EventPageActivity extends AppCompatActivity {
         //发布评论
         eventComment = findViewById(R.id.event_comment);
         eventSendComment = findViewById(R.id.imageButton9);
-        eventSendComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String eventCommentString = eventComment.getText().toString();
-                if(eventCommentString != null){
-                    EventComment mComment = new EventComment();
-                    mComment.userNameString = readData("UserName");
-                    mComment.commentString = eventCommentString;
-                    Random temp = new Random();
-                    mComment.sculpture = temp.nextInt(6);
-                    mEventCommentList.add(mComment);
-                    uploadComment(MainActivity.token,eventId,eventCommentString);
-                    Toast.makeText(EventPageActivity.this, "已发送评论", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(EventPageActivity.this, "不可以发空评论哦(●'◡'●)", Toast.LENGTH_SHORT).show();
-                }
+        eventSendComment.setOnClickListener(v -> {
+            String eventCommentString = eventComment.getText().toString();
+            if(eventCommentString.length() > 0){
+                EventComment mComment = new EventComment();
+                mComment.userNameString = readData("UserName");
+                mComment.commentString = eventCommentString;
+                Random temp = new Random();
+                mComment.sculpture = temp.nextInt(6);
+                mEventCommentList.add(mComment);
+                uploadComment(MainActivity.token,eventId,eventCommentString);
+                Toast.makeText(EventPageActivity.this, "已发送评论", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(EventPageActivity.this, "不可以发空评论哦(●'◡'●)", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -388,7 +385,7 @@ public class EventPageActivity extends AppCompatActivity {
     }
 
     public String readData(String fname) {
-        FileInputStream in = null;
+        FileInputStream in;
         BufferedReader reader = null;
         StringBuilder content = new StringBuilder();
         try{

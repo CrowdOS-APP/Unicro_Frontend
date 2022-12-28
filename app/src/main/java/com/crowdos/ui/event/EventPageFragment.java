@@ -13,13 +13,11 @@ import com.crowdos.R;
 
 public class EventPageFragment extends Fragment {
 
-
     private View root;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         if(root == null)
         {
             root = inflater.inflate(R.layout.event_page,container,false);

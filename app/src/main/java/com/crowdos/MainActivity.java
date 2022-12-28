@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String readData(String fname) {
-        FileInputStream in = null;
+        FileInputStream in;
         BufferedReader reader = null;
         StringBuilder content = new StringBuilder();
         try{

@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,9 +20,7 @@ public class event_Register extends AppCompatActivity {
 
     private TextView button_askForCode;
     private Button button_register;
-
     private EditText editText;
-    private EditText editPasswd;
     private EditText editEmail;
     private ImageView imageView;
     private String email;
@@ -69,18 +65,19 @@ public class event_Register extends AppCompatActivity {
 
         /*************<注册>******************/
         button_register = findViewById(R.id.button9);
-        button_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                email = editEmail.getText().toString();
-                passwd = editText.getText().toString();
+        button_register.setOnClickListener(view -> {
+            email = editEmail.getText().toString();
+            passwd = editText.getText().toString();
+            if(passwd.length() < 6 || passwd.length() >18){
+                Toast.makeText(event_Register.this, "密码必须为6-18位,请重新输入", Toast.LENGTH_SHORT).show();
+            }
+            else{
                 userRegister(email,passwd);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     return;
                 }
-                Log.e("is",""+isSuccess);
                 if(isSuccess) {
                     Toast.makeText(event_Register.this, "注册成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(event_Register.this, event_Login.class);

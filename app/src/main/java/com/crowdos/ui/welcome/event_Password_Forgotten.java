@@ -24,7 +24,6 @@ public class event_Password_Forgotten extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_password_forgotten);
 
@@ -46,7 +45,6 @@ public class event_Password_Forgotten extends AppCompatActivity {
                 editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 isOpen[0] = true;
             }
-
         });
         /*************<显示和隐藏密码>******************/
         button_askForCode = findViewById(R.id.textView);

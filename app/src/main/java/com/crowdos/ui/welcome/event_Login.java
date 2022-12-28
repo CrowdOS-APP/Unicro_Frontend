@@ -90,7 +90,7 @@ public class event_Login extends AppCompatActivity {
                 String pwd = editPasswd.getText().toString();
                 userLogin(email,pwd);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 }catch (InterruptedException e){
                     return;
                 }

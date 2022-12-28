@@ -33,17 +33,17 @@ import java.util.List;
 
 public class UserSettingsActivity extends AppCompatActivity {
 
-    MyAdapter myAdapter;
-    List<HeadSculpture> sculptureRecyclerViewList = new ArrayList<>();
+    private MyAdapter myAdapter;
+    private List<HeadSculpture> sculptureRecyclerViewList = new ArrayList<>();
+    private int sculptureId;
+
     public static boolean isSuccess;
 
-    private int sculptureId;
     @SuppressLint({"MissingInflatedId", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
-
         EditText setUserName = findViewById(R.id.private_settings_user);
         EditText setSignature = findViewById(R.id.change_signature);
         TextView setUserNameTextNumber = findViewById(R.id.textView34);

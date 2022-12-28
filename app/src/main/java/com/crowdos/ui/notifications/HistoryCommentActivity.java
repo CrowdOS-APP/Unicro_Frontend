@@ -35,6 +35,7 @@ public class HistoryCommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_comment);
         mRecyclerView = findViewById(R.id.your_history_list);
+
         // 构造一些数据
         gMyComment(MainActivity.token);
         try{

@@ -28,7 +28,6 @@ public class NotificationsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 

@@ -6,7 +6,6 @@ public class YourEvent {
     public double longitude;
     public double latitude;
     public long startTime;
-    public long endTime;
     public long eventId;
     boolean eventType;
 }

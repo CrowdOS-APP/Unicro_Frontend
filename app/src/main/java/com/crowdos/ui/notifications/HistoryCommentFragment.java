@@ -21,6 +21,7 @@ public class HistoryCommentFragment extends Fragment {
     private TextView userName;
     private TextView userSignature;
     private ImageView userSculpture;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

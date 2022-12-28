@@ -110,14 +110,11 @@ public class YourFollowerActivity extends AppCompatActivity {
             String startTime;
             startTime = getFormatDate(yourFollower.startTime);
             holder.eventTime.setText("开始时间:"+startTime);
-            holder.mRootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EventPageActivity.eventType = yourFollower.eventType;
-                    EventPageActivity.eventId = yourFollower.eventId;
-                    Intent intent = new Intent(YourFollowerActivity.this, EventPageActivity.class);
-                    startActivity(intent);
-                }
+            holder.mRootView.setOnClickListener(v -> {
+                EventPageActivity.eventType = yourFollower.eventType;
+                EventPageActivity.eventId = yourFollower.eventId;
+                Intent intent = new Intent(YourFollowerActivity.this, EventPageActivity.class);
+                startActivity(intent);
             });
 
             //设置事件位置

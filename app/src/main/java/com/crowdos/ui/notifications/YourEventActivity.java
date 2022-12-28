@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YourEventActivity extends AppCompatActivity {
+
     private RecyclerView mRecyclerView;
     private MyAdapter mMyAdapter;
     private List<YourEvent> yourEventList = new ArrayList<>();
