@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public static String toNotificationsFragmentUserSculpture;
     public static String token;
     public static boolean isExit;
-    public static userInfo userInfo;
+    public static userInfo userInfo = new userInfo();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
             toNotificationsFragmentUserSignatureString = readData("UserSignature");
             toNotificationsFragmentUserSculpture = readData("UserSculpture");
             getUserInfo(token);
+            try{
+                Thread.sleep(500);
+            }catch (InterruptedException e){
+                return;
+            }
             String userName = userInfo.username;
             String userSignature = userInfo.signature;
             event_Login.userName = userName;

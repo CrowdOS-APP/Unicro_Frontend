@@ -41,6 +41,7 @@ import com.crowdos.R;
 import com.crowdos.databinding.FragmentDynamicEmergeBinding;
 import com.crowdos.portals.jsonFiles.emergencyList;
 import com.crowdos.ui.event.EventPageActivity;
+import com.crowdos.ui.home.MyLocationListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,7 +78,11 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
         mRecyclerView = root.findViewById(R.id.emerge_list);
         // 构造一些数据
-        getEmergeEventList(114.514,19.19810, MainActivity.token);
+        getEmergeEventList(MyLocationListener.longitude,MyLocationListener.latitude, MainActivity.token);
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ignored){
+        }
         for (int i = 0; i < emergeEventListData.size(); i++) {
             EmergeEvent emergeEvent = new EmergeEvent();
             emergeEvent.eventName = emergeEventListData.get(i).eventname;
@@ -174,11 +179,13 @@ public class DashboardFragment extends Fragment {
                     }
                     //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
                     opFollow(MainActivity.token, emergeEvent.eventId, emergeEvent.isFollowed);
-                    if(isSuccess){
-                        Toast.makeText(getContext(), "关注成功", Toast.LENGTH_SHORT).show();
+                    try{
+                        Thread.sleep(400);
+                    }catch (InterruptedException e){
+                        return;
                     }
-                    else{
-                        Toast.makeText(getContext(), "关注失败", Toast.LENGTH_SHORT).show();
+                    if(!isSuccess){
+                        Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

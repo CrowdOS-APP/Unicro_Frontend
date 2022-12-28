@@ -7,4 +7,5 @@ public class followedEvents {
         public double longitude;
         public double latitude;
         public boolean emergency;
+        public long starttime;
 }//2

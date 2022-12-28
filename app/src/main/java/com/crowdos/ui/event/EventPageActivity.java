@@ -49,6 +49,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -111,6 +112,11 @@ public class EventPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_page);
         gEventInfo(eventId);
         getComments(MainActivity.token,eventId);
+        try{
+            Thread.sleep(750);
+        }catch (InterruptedException e){
+            return;
+        }
 
         //简介+标题+时间展示
         eventTitle = findViewById(R.id.textView17);
@@ -118,7 +124,7 @@ public class EventPageActivity extends AppCompatActivity {
         eventTime = findViewById(R.id.textView31);
         eventTitleString = getEventInfoData.eventname;
         eventDescriptionString = getEventInfoData.content;
-        eventTimeString = getEventInfoData.starttime + "-" + getEventInfoData.endtime;
+        eventTimeString = getFormatDate(getEventInfoData.starttime) + " - " + getFormatDate(getEventInfoData.endtime);
         eventTitle.setText(eventTitleString);
         eventDescription.setText(eventDescriptionString);
         eventTime.setText(eventTimeString);
@@ -167,10 +173,16 @@ public class EventPageActivity extends AppCompatActivity {
         //构造一些数据
         for (int i = 0; i < getCommentData.size(); i++) {
             EventComment mComment = new EventComment();
-            Random temp = new Random();
+            Random random = new Random();
+            int temp = random.nextInt(7);
             mComment.userNameString = getCommentData.get(i).username;
             mComment.commentString = getCommentData.get(i).content;
-            mComment.sculpture = temp.nextInt(6);
+            if(temp <= 0){
+                mComment.sculpture = 1;
+            }
+            else{
+                mComment.sculpture = temp;
+            }
             mEventCommentList.add(mComment);
         }
         mMyAdapter = new MyAdapter();
@@ -219,11 +231,13 @@ public class EventPageActivity extends AppCompatActivity {
 
                 //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
                 opFollow(MainActivity.token, eventId, getEventInfoData.isFollow);
-                if(isSuccessFollow){
-                    Toast.makeText(EventPageActivity.this, "关注成功", Toast.LENGTH_SHORT).show();
+                try{
+                    Thread.sleep(400);
+                }catch (InterruptedException e){
+                    return;
                 }
-                else{
-                    Toast.makeText(EventPageActivity.this, "关注失败", Toast.LENGTH_SHORT).show();
+                if(!isSuccessFollow){
+                    Toast.makeText(EventPageActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -396,5 +410,12 @@ public class EventPageActivity extends AppCompatActivity {
             }
         }
         return content.toString();
+    }
+
+    public String getFormatDate(long times){
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final String format = formatter.format(times);
+        return format;
     }
 }

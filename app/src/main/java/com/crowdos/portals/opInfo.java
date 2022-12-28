@@ -1,5 +1,9 @@
 package com.crowdos.portals;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.crowdos.MainActivity;
@@ -107,6 +111,7 @@ public class opInfo {
                 container.eventid = jsonObject.getLong("eventid");
                 container.UID = jsonObject.getLong("UID");
                 container.username = jsonObject.getString("username");
+                container.eventname = jsonObject.getString("eventname");
                 result.add(container);
             }
         }catch (JSONException e){
@@ -152,6 +157,7 @@ public class opInfo {
                 container.latitude = jsonObject.getDouble("latitude");
                 container.longitude = jsonObject.getDouble("longitude");
                 container.emergency = jsonObject.getBoolean("emergency");
+                container.starttime = jsonObject.getLong("starttime");
                 result.add(container);
             }
         }catch (JSONException e){
@@ -520,6 +526,7 @@ public class opInfo {
         gUserInfo.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.e(TAG, "onFailure: "+ "404" );
             }
 
             @Override

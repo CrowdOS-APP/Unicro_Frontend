@@ -54,6 +54,11 @@ public class YourEventActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.your_event_list);
         // 构造一些数据
         gMyEventList(MainActivity.token);
+        try{
+            Thread.sleep(500);
+        }catch (InterruptedException e){
+            return;
+        }
         for (int i = 0; i < yourEventListData.size(); i++) {
             YourEvent yourEvent = new YourEvent();
             yourEvent.eventName = yourEventListData.get(i).eventname;
@@ -63,7 +68,6 @@ public class YourEventActivity extends AppCompatActivity {
             yourEvent.latitude = yourEventListData.get(i).latitude;
             yourEvent.longitude = yourEventListData.get(i).longitude;
             yourEvent.startTime = yourEventListData.get(i).starttime;
-            yourEvent.endTime = yourEventListData.get(i).endtime;
             yourEventList.add(yourEvent);
         }
         mMyAdapter = new MyAdapter();

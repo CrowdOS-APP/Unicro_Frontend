@@ -37,13 +37,24 @@ public class HistoryCommentActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.your_history_list);
         // 构造一些数据
         gMyComment(MainActivity.token);
+        try{
+            Thread.sleep(500);
+        }catch (InterruptedException e){
+            return;
+        }
         for (int i = 0; i < mHistoryCommentListData.size(); i++) {
             HistoryComment historyComment = new HistoryComment();
-            Random temp = new Random();
-            //historyComment.eventNameString = mHistoryCommentListData.get(i).;
+            Random random = new Random();
+            int temp = random.nextInt(7);
+            historyComment.eventNameString = mHistoryCommentListData.get(i).eventname;
             historyComment.userNameString = mHistoryCommentListData.get(i).username;
             historyComment.commentString = mHistoryCommentListData.get(i).content;
-            historyComment.sculpture = temp.nextInt(6);
+            if(temp <= 0){
+                historyComment.sculpture = 1;
+            }
+            else{
+                historyComment.sculpture = temp;
+            }
             mHistoryCommentList.add(historyComment);
         }
         mMyAdapter = new MyAdapter();
@@ -66,7 +77,7 @@ public class HistoryCommentActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull MyViewHoder holder, int position) {
             HistoryComment comment = mHistoryCommentList.get(position);
             holder.userName.setText(comment.userNameString);
-            holder.comment.setText("回复" + comment.eventNameString + ":" + comment.commentString);
+            holder.comment.setText("回复" + comment.eventNameString + "：" + comment.commentString);
             int sculptureNumber = chooseSculpture(comment.sculpture);
             holder.sculpture.setImageResource(sculptureNumber);
         }

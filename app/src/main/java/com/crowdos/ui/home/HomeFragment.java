@@ -68,7 +68,11 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         getEventsNearby(MainActivity.token, longitude, latitude);
-        double a = 160;
+        try{
+            Thread.sleep(500);
+        }catch (InterruptedException ignored){
+        }
+        double a = 120;
         double b = 40;
         boolean c = false;
         //构造一些数据

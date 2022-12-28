@@ -314,7 +314,6 @@ public class event_Upload extends AppCompatActivity {
             else{
                 calender = year + "-" + (month + 1) + "-" + dayOfMonth;
             }
-
             if(chooseTimeType){
                 getDate[1] = calender;
                 endDate.setText(getDate[1]);
@@ -361,20 +360,16 @@ public class event_Upload extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
-
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
     }
 
 }
