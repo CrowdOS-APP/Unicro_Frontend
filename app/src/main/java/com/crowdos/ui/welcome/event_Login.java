@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,8 +32,7 @@ public class event_Login extends AppCompatActivity {
     private ImageView imageView;
     private TextView forget;
     private TextView register;
-    public static String userName;
-    public static String userSignature;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,37 +81,29 @@ public class event_Login extends AppCompatActivity {
 
         /*************<登陆>******************/
         button_login = (Button) findViewById(R.id.button9) ;
-        button_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = editEmail.getText().toString();
-                String pwd = editPasswd.getText().toString();
-                userLogin(email,pwd);
-                try {
-                    Thread.sleep(500);
-                }catch (InterruptedException e){
-                    return;
-                }
-                if(MainActivity.token.length() > 0) {
-                    Toast.makeText(event_Login.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(event_Login.this, MainActivity.class);
-                    MainActivity.isLogin = false;
-                    saveFiles(MainActivity.token,"token");
-                    saveFiles(email,"Email");
-                    saveFiles(pwd,"Password");
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(event_Login.this, "登录失败", Toast.LENGTH_SHORT).show();
-                }
-
+        button_login.setOnClickListener(view -> {
+            String email = editEmail.getText().toString();
+            String pwd = editPasswd.getText().toString();
+            userLogin(email,pwd);
+            try {
+                Thread.sleep(100);
+            }catch (InterruptedException e){
+                return;
+            }
+            if(MainActivity.token.length() > 0) {
+                Toast.makeText(event_Login.this, "登录成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(event_Login.this, MainActivity.class);
+                MainActivity.isLogin = false;
+                saveFiles(MainActivity.token,"token");
+                saveFiles(email,"Email");
+                saveFiles(pwd,"Password");
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(event_Login.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
             }
         });
         /*************<登陆>******************/
-
-        saveFiles(userName, "UserName");
-        saveFiles(userSignature, "UserSignature");
-        saveFiles("1", "UserSculpture");
     }
 
     public void saveFiles(String setString, String fileName) {

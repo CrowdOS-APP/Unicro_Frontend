@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -57,7 +58,7 @@ public class YourFollowerActivity extends AppCompatActivity {
         // 构造一些数据
         getFollowing(MainActivity.token);
         try{
-            Thread.sleep(500);
+            Thread.sleep(100);
         }catch (InterruptedException e){
             return;
         }
@@ -67,6 +68,7 @@ public class YourFollowerActivity extends AppCompatActivity {
             yourFollower.description = yourFollowerListData.get(i).content;
             yourFollower.eventType = yourFollowerListData.get(i).emergency;
             yourFollower.latitude = yourFollowerListData.get(i).latitude;
+            yourFollower.eventId = yourFollowerListData.get(i).eventid;
             yourFollower.longitude = yourFollowerListData.get(i).longitude;
             yourFollower.startTime = yourFollowerListData.get(i).starttime;
             yourFollowerList.add(yourFollower);
@@ -94,6 +96,7 @@ public class YourFollowerActivity extends AppCompatActivity {
             return myViewHolder;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             YourFollower yourFollower = yourFollowerList.get(position);
@@ -109,10 +112,11 @@ public class YourFollowerActivity extends AppCompatActivity {
             //展示时间
             String startTime;
             startTime = getFormatDate(yourFollower.startTime);
-            holder.eventTime.setText("开始时间:"+startTime);
+            holder.eventTime.setText("开始时间:" + startTime);
             holder.mRootView.setOnClickListener(v -> {
                 EventPageActivity.eventType = yourFollower.eventType;
                 EventPageActivity.eventId = yourFollower.eventId;
+                EventPageActivity.isJumpFromMainPage = false;
                 Intent intent = new Intent(YourFollowerActivity.this, EventPageActivity.class);
                 startActivity(intent);
             });
@@ -203,5 +207,15 @@ public class YourFollowerActivity extends AppCompatActivity {
             mRootView = itemView.findViewById(R.id.item3);
             mMapView = itemView.findViewById(R.id.mapView5);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //返回按钮点击事件
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

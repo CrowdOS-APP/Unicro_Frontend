@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -126,13 +127,26 @@ public class UserSettingsActivity extends AppCompatActivity {
                 if(userName.length() != 0){
                     saveUserFiles(userName,"UserName");
                 }
+                else{
+                    TextView temp = findViewById(R.id.user_name3);
+                    userName = temp.getText().toString();
+                }
                 if(userSignature.length() != 0){
                     saveUserFiles(userSignature,"UserSignature");
+                }
+                else{
+                    TextView temp = findViewById(R.id.signature3);
+                    userSignature = temp.getText().toString();
                 }
                 if(sculptureId != 0){
                     saveUserFiles(""+sculptureId,"UserSculpture");
                 }
                 updateUserInfo(userName, userSignature, MainActivity.token);
+                try{
+                    Thread.sleep(100);
+                }catch (InterruptedException e){
+                    return;
+                }
                 if(isSuccess){
                     Toast.makeText(UserSettingsActivity.this, "已修改", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
@@ -245,5 +259,13 @@ public class UserSettingsActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //返回按钮点击事件
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

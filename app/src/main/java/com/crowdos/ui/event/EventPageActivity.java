@@ -6,12 +6,15 @@ import static com.crowdos.portals.opInfo.getComments;
 import static com.crowdos.portals.opInfo.hosts;
 import static com.crowdos.portals.opInfo.scheme;
 import static com.crowdos.portals.opInfo.uploadComment;
+import static com.crowdos.portals.opUser.JSON;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -57,7 +60,6 @@ import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -99,11 +101,12 @@ public class EventPageActivity extends AppCompatActivity {
     public static MapView mMapView = null;
     public static BaiduMap mBaiduMap = null;
 
+    public static boolean isSuccess;
     public static boolean eventType;
+    public static boolean isJumpFromMainPage;
     public static long eventId;
 
     public static getEventInfo getEventInfoData = new getEventInfo();
-    public static boolean isSuccess;
     public static List<getComment> getCommentData = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
@@ -115,7 +118,7 @@ public class EventPageActivity extends AppCompatActivity {
         gEventInfo(eventId,MainActivity.token);
         getComments(MainActivity.token,eventId);
         try{
-            Thread.sleep(750);
+            Thread.sleep(200);
         }catch (InterruptedException e){
             return;
         }
@@ -126,7 +129,7 @@ public class EventPageActivity extends AppCompatActivity {
         eventTime = findViewById(R.id.textView31);
         eventTitleString = getEventInfoData.eventname;
         eventDescriptionString = getEventInfoData.content;
-        eventTimeString = getFormatDate(getEventInfoData.starttime) + " - " + getFormatDate(getEventInfoData.endtime);
+        eventTimeString = getFormatDate(getEventInfoData.starttime) + " 至 " + getFormatDate(getEventInfoData.endtime);
         eventTitle.setText(eventTitleString);
         eventDescription.setText(eventDescriptionString);
         eventTime.setText(eventTimeString);
@@ -145,6 +148,15 @@ public class EventPageActivity extends AppCompatActivity {
                 mEventCommentList.add(mComment);
                 uploadComment(MainActivity.token,eventId,eventCommentString);
                 Toast.makeText(EventPageActivity.this, "已发送评论", Toast.LENGTH_SHORT).show();
+                getComments(MainActivity.token,eventId);
+                try{
+                    Thread.sleep(100);
+                }catch (InterruptedException e){
+                    return;
+                }
+                mEventCommentList.clear();
+                eventComment.setText("");
+                commentShow();
             }
             else{
                 Toast.makeText(EventPageActivity.this, "不可以发空评论哦(●'◡'●)", Toast.LENGTH_SHORT).show();
@@ -154,40 +166,15 @@ public class EventPageActivity extends AppCompatActivity {
         //点赞+点踩
         eventLike =findViewById(R.id.imageButton2);
         eventDislike =findViewById(R.id.imageButton8);
-        eventLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(EventPageActivity.this, "功能尚未开发，敬请期待", Toast.LENGTH_SHORT).show();
-            }
-        });
-        eventDislike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(EventPageActivity.this, "功能尚未开发，敬请期待", Toast.LENGTH_SHORT).show();
-            }
-        });
+        eventLike.setOnClickListener(v ->
+                Toast.makeText(EventPageActivity.this, "功能尚未开发，敬请期待", Toast.LENGTH_SHORT).show()
+        );
+        eventDislike.setOnClickListener(v ->
+                Toast.makeText(EventPageActivity.this, "功能尚未开发，敬请期待", Toast.LENGTH_SHORT).show()
+        );
 
         //回复
-        mRecyclerView = findViewById(R.id.comment_view);
-        //构造一些数据
-        for (int i = 0; i < getCommentData.size(); i++) {
-            EventComment mComment = new EventComment();
-            Random random = new Random();
-            int temp = random.nextInt(7);
-            mComment.userNameString = getCommentData.get(i).username;
-            mComment.commentString = getCommentData.get(i).content;
-            if(temp <= 0){
-                mComment.sculpture = 1;
-            }
-            else{
-                mComment.sculpture = temp;
-            }
-            mEventCommentList.add(mComment);
-        }
-        mMyAdapter = new MyAdapter();
-        mRecyclerView.setAdapter(mMyAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(EventPageActivity.this);
-        mRecyclerView.setLayoutManager(layoutManager);
+        commentShow();
 
         //事件类型
         eventTypeImage = findViewById(R.id.imageView4);
@@ -212,32 +199,29 @@ public class EventPageActivity extends AppCompatActivity {
         //关注按钮
         followEvent = findViewById(R.id.button6);
         eventFollowedText =findViewById(R.id.textView42);
-        //isFollowedEvent = getEventInfo(eventId).;
-        followEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isFollowedEvent = !isFollowedEvent;
-                if(isFollowedEvent){
-                    followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type4));
-                    eventFollowedText.setText("已关注");
-                    Toast.makeText(EventPageActivity.this, "已关注事件", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type3));
-                    eventFollowedText.setText("+关注");
-                    Toast.makeText(EventPageActivity.this, "已取消关注", Toast.LENGTH_SHORT).show();
-                }
+        isFollowedEvent = getEventInfoData.isFollow;
+        followEvent.setOnClickListener(v -> {
+            isFollowedEvent = !isFollowedEvent;
+            if(isFollowedEvent){
+                followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type4));
+                eventFollowedText.setText("已关注");
+                Toast.makeText(EventPageActivity.this, "已关注事件", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type3));
+                eventFollowedText.setText("+关注");
+                Toast.makeText(EventPageActivity.this, "已取消关注", Toast.LENGTH_SHORT).show();
+            }
 
-                //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
-                opFollow(MainActivity.token, eventId, getEventInfoData.isFollow);
-                try{
-                    Thread.sleep(400);
-                }catch (InterruptedException e){
-                    return;
-                }
-                if(!isSuccessFollow){
-                    Toast.makeText(EventPageActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
-                }
+            //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
+            opFollow(MainActivity.token, eventId, getEventInfoData.isFollow);
+            try{
+                Thread.sleep(400);
+            }catch (InterruptedException e){
+                return;
+            }
+            if(!isSuccessFollow){
+                Toast.makeText(EventPageActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -259,14 +243,23 @@ public class EventPageActivity extends AppCompatActivity {
                 .host(hosts)
                 .addPathSegment(com.crowdos.portals.url.opFollow)
                 .addQueryParameter("token",token)
-                .addQueryParameter("UID", String.valueOf(uid))
+                .addQueryParameter("eventID", String.valueOf(uid))
                 .build();
-        RequestBody opFollowing = new FormBody.Builder()
-                .add("isFollow", String.valueOf(isFollow))
-                .build();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("isFollow", String.valueOf(isFollow));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        RequestBody opFollowing = RequestBody.create(JSON,String.valueOf(json));
         final boolean[] isSucceed = {false};
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
                 .post(opFollowing)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -277,16 +270,41 @@ public class EventPageActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
-                boolean result = false;
+                Log.e("response",data);
                 try {
                     JSONObject jsonObject = new JSONObject(data);
-                    result = jsonObject.getBoolean("isSucceed");
+                    isSuccessFollow = jsonObject.getBoolean("isSucceed");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                isSuccessFollow = result;
             }
         });
+    }//testify
+
+    private void commentShow(){
+        mRecyclerView = findViewById(R.id.comment_view);
+        //构造一些数据
+        for (int i = 0; i < getCommentData.size(); i++) {
+            EventComment mComment = new EventComment();
+            Random random = new Random();
+            int temp = random.nextInt(7);
+            mComment.userNameString = getCommentData.get(i).username;
+            if(mComment.userNameString == "null"){
+                mComment.userNameString = "用户名";
+            }
+            mComment.commentString = getCommentData.get(i).content;
+            if(temp <= 0){
+                mComment.sculpture = 1;
+            }
+            else{
+                mComment.sculpture = temp;
+            }
+            mEventCommentList.add(mComment);
+        }
+        mMyAdapter = new MyAdapter();
+        mRecyclerView.setAdapter(mMyAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(EventPageActivity.this);
+        mRecyclerView.setLayoutManager(layoutManager);
     }
 
     private void initLocation() {  //初始化
@@ -417,4 +435,32 @@ public class EventPageActivity extends AppCompatActivity {
         final String format = formatter.format(times);
         return format;
     }
+
+    @Override
+    public void onBackPressed(){
+        if (isJumpFromMainPage) {
+            Intent intent = new Intent(EventPageActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        else{
+            super.onBackPressed();
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(!isJumpFromMainPage){
+            //返回按钮点击事件
+            if (item.getItemId() == android.R.id.home) {
+                finish();
+                return true;
+            }
+        }
+        else{
+            return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

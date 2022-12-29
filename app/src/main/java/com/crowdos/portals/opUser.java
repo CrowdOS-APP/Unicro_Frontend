@@ -8,16 +8,13 @@ import com.crowdos.MainActivity;
 import com.crowdos.ui.notifications.ChangePasswordActivity;
 import com.crowdos.ui.welcome.event_Register;
 
-import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -28,7 +25,7 @@ import okhttp3.Response;
 /*这个文件主要负责进行用户账号操作*/
 public class opUser {
 
-    static MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+    public static MediaType JSON = MediaType.parse("application/json;charset=utf-8");
 
     private static boolean isSucceed(String data){
         boolean result = false;

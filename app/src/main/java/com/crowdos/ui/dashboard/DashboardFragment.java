@@ -3,12 +3,14 @@ package com.crowdos.ui.dashboard;
 import static com.crowdos.portals.opInfo.getEmergeEventList;
 import static com.crowdos.portals.opInfo.hosts;
 import static com.crowdos.portals.opInfo.scheme;
+import static com.crowdos.portals.opUser.JSON;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +55,6 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -80,17 +81,19 @@ public class DashboardFragment extends Fragment {
         // 构造一些数据
         getEmergeEventList(MyLocationListener.longitude,MyLocationListener.latitude, MainActivity.token);
         try{
-            Thread.sleep(1000);
+            Thread.sleep(100);
         }catch (InterruptedException ignored){
         }
         for (int i = 0; i < emergeEventListData.size(); i++) {
             EmergeEvent emergeEvent = new EmergeEvent();
             emergeEvent.eventName = emergeEventListData.get(i).eventname;
             emergeEvent.description = emergeEventListData.get(i).content;
+            emergeEvent.eventId = emergeEventListData.get(i).eventid;
             emergeEvent.eventType = true;
             emergeEvent.isFollowed = emergeEventListData.get(i).isFollow;
             emergeEvent.latitude = emergeEventListData.get(i).latitude;
             emergeEvent.longitude = emergeEventListData.get(i).longitude;
+            emergeEvent.startTime = emergeEventListData.get(i).starttime;
             emergeEventList.add(emergeEvent);
         }
         mMyAdapter = new MyAdapter();
@@ -142,6 +145,7 @@ public class DashboardFragment extends Fragment {
             holder.mRootView.setOnClickListener(v -> {
                 EventPageActivity.eventType = emergeEvent.eventType;
                 EventPageActivity.eventId = emergeEvent.eventId;
+                EventPageActivity.isJumpFromMainPage = false;
                 Intent intent = new Intent(getActivity(), EventPageActivity.class);
                 startActivity(intent);
             });
@@ -248,14 +252,23 @@ public class DashboardFragment extends Fragment {
                     .host(hosts)
                     .addPathSegment(com.crowdos.portals.url.opFollow)
                     .addQueryParameter("token",token)
-                    .addQueryParameter("UID", String.valueOf(uid))
+                    .addQueryParameter("eventID", String.valueOf(uid))
                     .build();
-            RequestBody opFollowing = new FormBody.Builder()
-                    .add("isFollow", String.valueOf(isFollow))
-                    .build();
+            JSONObject json = new JSONObject();
+            try {
+                json.put("isFollow", String.valueOf(isFollow));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            RequestBody opFollowing = RequestBody.create(JSON,String.valueOf(json));
             final boolean[] isSucceed = {false};
             OkHttpClient gUserInfo = new OkHttpClient();
             Request request = new Request.Builder().url(url)
+                    .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Accept", "*/*")
+                    .addHeader("Host", "39.103.146.190")
+                    .addHeader("Connection", "keep-alive")
                     .post(opFollowing)
                     .build();
             gUserInfo.newCall(request).enqueue(new Callback() {
@@ -266,17 +279,16 @@ public class DashboardFragment extends Fragment {
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     String data = response.body().string();
-                    boolean result = false;
+                    Log.e("response",data);
                     try {
                         JSONObject jsonObject = new JSONObject(data);
-                        result = jsonObject.getBoolean("isSucceed");
+                        isSuccess = jsonObject.getBoolean("isSucceed");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    isSuccess = result;
                 }
             });
-        }
+        }//testify
     }
 
     public String getFormatDate(long times){

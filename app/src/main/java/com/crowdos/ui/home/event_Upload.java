@@ -1,5 +1,6 @@
 package com.crowdos.ui.home;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.crowdos.portals.opInfo.upEvent;
 
 import android.annotation.SuppressLint;
@@ -8,9 +9,9 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Trace;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +47,7 @@ public class event_Upload extends AppCompatActivity {
     // 默认逆地理编码半径范围
     private static final int sDefaultRGCRadius = 500;
 
-    public boolean EventType;//true代表紧急事件，false代表普通事件
+    public boolean eventType;//true代表紧急事件，false代表普通事件
     public long unixStartTime;
     public long unixEndTime;
     public String description;
@@ -191,15 +192,16 @@ public class event_Upload extends AppCompatActivity {
                         latitude,
                         unixStartTime,
                         unixEndTime,
-                        EventType
+                        eventType
                 );
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 if(isSuccess) {
                     Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "onCreate: " + eventType);
                     Intent intent = new Intent(event_Upload.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -232,13 +234,14 @@ public class event_Upload extends AppCompatActivity {
         final String[] items = {"紧急事件", "普通事件"};
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setTitle("事件类型");
-        alertBuilder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+        alertBuilder.setSingleChoiceItems(items, 2, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(i == 0)
-                    EventType = true;
+                if(i == 0){
+                    eventType = true;
+                }
                 else{
-                    EventType = false;
+                    eventType = false;
                 }
             }
         });

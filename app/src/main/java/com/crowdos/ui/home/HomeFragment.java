@@ -23,9 +23,9 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MultiPoint;
-import com.baidu.mapapi.map.MultiPointItem;
-import com.baidu.mapapi.map.MultiPointOption;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
@@ -48,8 +48,6 @@ public class HomeFragment extends Fragment {
     public static BaiduMap mBaiduMap = null;
     public LocationClient mLocationClient;
     private UiSettings mUiSettings;
-    private MultiPoint mMultiPointA;
-    private MultiPoint mMultiPointB;
     private ArrayList<LatLng> mLatLngs = new ArrayList<>();
     private ArrayList<EventNearby> eventNearbyList = new ArrayList<>();
 
@@ -64,13 +62,10 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         getEventsNearby(MainActivity.token, longitude, latitude);
         try{
-            Thread.sleep(500);
+            Thread.sleep(100);
         } catch (InterruptedException ignored){
 
         }
-        double a = 120;
-        double b = 40;
-        boolean c = false;
         //构造一些数据
         for (int i = 0; i < getEventListData.size(); i++){
             EventNearby eventNearby = new EventNearby();
@@ -146,7 +141,7 @@ public class HomeFragment extends Fragment {
             setBounds(mLatLngs,0);
 
             /**
-             * 海量点展示
+             * 绘制点标记
              */
             // 海量点icon
             BitmapDescriptor bitmapA = BitmapDescriptorFactory.fromResource(R.mipmap.position);
@@ -165,6 +160,7 @@ public class HomeFragment extends Fragment {
                 //创建传递参数
                 Bundle mBundle = new Bundle();
                 mBundle.putLong("eventId",eventNearbyList.get(i).eventId);
+                mBundle.putBoolean("eventType", eventNearbyList.get(i).EventType);
                 eventPack.eventId = mBundle;
                 if(eventNearbyList.get(i).EventType){
                     locationsEmerge.add(eventPack);
@@ -174,45 +170,49 @@ public class HomeFragment extends Fragment {
                 }
             }
 
-            /**普通事件**/
-            ArrayList<MultiPointItem> multiPointItemsNormal = new ArrayList<>();
-            for (int i = 0; i < locationsNormal.size(); i++) {
-                // 创建覆盖物单个点对象
-                MultiPointItem multiPointItem = new MultiPointItem(locationsNormal.get(i).latLng);
-                multiPointItemsNormal.add(multiPointItem);
-                // 设置海量点数据
-                MultiPointOption multiPointOptionA = new MultiPointOption();
-                multiPointOptionA.setMultiPointItems(multiPointItemsNormal);
-                multiPointOptionA.setIcon(bitmapA);
-                // 添加海量点覆盖物
-                mMultiPointA = (MultiPoint) mBaiduMap.addOverlay(multiPointOptionA);
-                //传参
-                mMultiPointA.setExtraInfo(locationsNormal.get(i).eventId);
+            for(int i = 0; i < locationsNormal.size(); i++){
+                //定义Maker坐标点
+                LatLng pointA = locationsNormal.get(i).latLng;
+                //数据
+                Bundle bundle = locationsNormal.get(i).eventId;
+                //构建Marker图标
+                BitmapDescriptor bitmap = bitmapA;
+                //构建MarkerOption，用于在地图上添加Marker
+                OverlayOptions optionA = new MarkerOptions()
+                        .position(pointA)
+                        .icon(bitmap);
+                //在地图上添加Marker，并显示
+                Marker marker = (Marker) mBaiduMap.addOverlay(optionA);
+                marker.setExtraInfo(bundle);
+                marker.setScale(0.7F);
             }
 
-            /**紧急事件**/
-            ArrayList<MultiPointItem> multiPointItemsEmerge = new ArrayList<>();
-            for (int i = 0; i < locationsEmerge.size(); i++) {
-                // 创建覆盖物单个点对象
-                MultiPointItem multiPointItem = new MultiPointItem(locationsEmerge.get(i).latLng);
-                multiPointItemsEmerge.add(multiPointItem);
-                // 设置海量点数据
-                MultiPointOption multiPointOptionB = new MultiPointOption();
-                multiPointOptionB.setMultiPointItems(multiPointItemsEmerge);
-                multiPointOptionB.setIcon(bitmapB);
-                // 添加海量点覆盖物
-                mMultiPointB = (MultiPoint) mBaiduMap.addOverlay(multiPointOptionB);
-                //传参
-                mMultiPointB.setExtraInfo(locationsEmerge.get(i).eventId);
+            for(int i = 0; i < locationsEmerge.size(); i++){
+                //定义Maker坐标点
+                LatLng pointB = locationsEmerge.get(i).latLng;
+                //数据
+                Bundle bundle = locationsEmerge.get(i).eventId;
+                //构建Marker图标
+                BitmapDescriptor bitmap = bitmapB;
+                //构建MarkerOption，用于在地图上添加Marker
+                OverlayOptions optionB = new MarkerOptions()
+                        .position(pointB)
+                        .icon(bitmap);
+                //在地图上添加Marker，并显示
+                Marker marker = (Marker) mBaiduMap.addOverlay(optionB);
+                marker.setExtraInfo(bundle);
+                marker.setScale(0.7F);
             }
 
-            //点击地图事件
-            mBaiduMap.setOnMultiPointClickListener((multiPoint, multiPointItem) -> {
-                Bundle bundle = multiPoint.getExtraInfo();
-                int eventId = bundle.getInt("eventId");
+            mBaiduMap.setOnMarkerClickListener(marker -> {
+                Bundle bundle = marker.getExtraInfo();
+                long eventId = bundle.getLong("eventId");
+                boolean eventType = bundle.getBoolean("eventType");
                 EventPageActivity.eventId = eventId;
-                Intent intent = new Intent(getContext(), EventPageActivity.class);
-                startActivity(intent);
+                EventPageActivity.eventType = eventType;
+                EventPageActivity.isJumpFromMainPage = true;
+                Intent intent = new Intent(HomeFragment.this.getContext(), EventPageActivity.class);
+                HomeFragment.this.startActivity(intent);
                 return true;
             });
         }

@@ -17,6 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.crowdos.databinding.ActivityMainBinding;
 import com.crowdos.portals.jsonFiles.userInfo;
 import com.crowdos.ui.welcome.event_Login;
+import com.crowdos.ui.welcome.event_Register;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
@@ -62,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
             isLogin = false;
         }
         isGotoWelcomePage = isLogin;
-        isShowMap = false;
         super.onCreate(savedInstanceState);
         if (isGotoWelcomePage) {
-            event_Login.userName = "用户名";
-            event_Login.userSignature = "很酷，不写个签。";
+            isShowMap = false;
+            event_Register.userName = "用户名";
+            event_Register.userSignature = "很酷，不写个签。";
             //调用event_welcome类
             setContentView(R.layout.activity_event_welcome);
             intoBt = findViewById(R.id.startVoyage);
@@ -75,20 +76,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             });
         } else {
-            toNotificationsFragmentUserNameString = readData("UserName");
-            toNotificationsFragmentUserSignatureString = readData("UserSignature");
-            toNotificationsFragmentUserSculpture = readData("UserSculpture");
             getUserInfo(token);
             try{
-                Thread.sleep(500);
+                Thread.sleep(300);
             }catch (InterruptedException e){
                 return;
             }
             String userName = userInfo.username;
             String userSignature = userInfo.signature;
-            event_Login.userName = userName;
-            event_Login.userSignature = userSignature;
-            //int userSculpture;
+            event_Register.userName = userName;
+            event_Register.userSignature = userSignature;
+            if(event_Register.userName == "null"){
+                event_Register.userName = "用户名";
+            }
+            if(event_Register.userSignature == "null"){
+                event_Register.userSignature = "很酷，不写个签";
+            }
+            saveFiles(event_Register.userName, "UserName");
+            saveFiles(event_Register.userSignature, "UserSignature");
+            toNotificationsFragmentUserNameString = readData("UserName");
+            toNotificationsFragmentUserSignatureString = readData("UserSignature");
+            toNotificationsFragmentUserSculpture = readData("UserSculpture");
             isShowMap = true;
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());

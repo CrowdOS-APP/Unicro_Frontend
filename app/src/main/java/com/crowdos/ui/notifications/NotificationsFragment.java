@@ -33,64 +33,45 @@ public class NotificationsFragment extends Fragment {
 
         /*UserSettingButton*/
         Button UserSettingsButton = (Button) view.findViewById(R.id.private_button);
-        UserSettingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), UserSettingsActivity.class);
-                startActivity(intent);
-            }
+        UserSettingsButton.setOnClickListener(view15 -> {
+            Intent intent = new Intent(getActivity(), UserSettingsActivity.class);
+            startActivity(intent);
         });
 
         /*HistoryCommentButton*/
         Button HistoryCommentButton = (Button) view.findViewById(R.id.history);
-        HistoryCommentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), HistoryCommentActivity.class);
-                startActivity(intent);
-            }
+        HistoryCommentButton.setOnClickListener(view14 -> {
+            Intent intent = new Intent(getActivity(), HistoryCommentActivity.class);
+            startActivity(intent);
         });
 
         /*YourFollowerButton*/
         Button YourFollowerButton = (Button) view.findViewById(R.id.follows);
-        YourFollowerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), YourFollowerActivity.class);
-                startActivity(intent);
-            }
+        YourFollowerButton.setOnClickListener(view13 -> {
+            Intent intent = new Intent(getActivity(), YourFollowerActivity.class);
+            startActivity(intent);
         });
 
         /*YourEventButton*/
         Button YourEventButton = (Button) view.findViewById(R.id.your_event);
-        YourEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), YourEventActivity.class);
-                startActivity(intent);
-            }
+        YourEventButton.setOnClickListener(view12 -> {
+            Intent intent = new Intent(getActivity(), YourEventActivity.class);
+            startActivity(intent);
         });
 
         /*ChangePasswordButton*/
         Button ChangePasswordButton = (Button) view.findViewById(R.id.change_password);
-        ChangePasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
-                startActivity(intent);
-            }
+        ChangePasswordButton.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+            startActivity(intent);
         });
 
         /*ExitButton*/
         Button ExitButton = (Button) view.findViewById(R.id.private_button3);
-        ExitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.isLogin = true;
-                MainActivity.isExit = true;
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
+        ExitButton.setOnClickListener(view16 -> {
+            MainActivity.isExit = true;
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         });
 
         String userNameString = MainActivity.toNotificationsFragmentUserNameString;

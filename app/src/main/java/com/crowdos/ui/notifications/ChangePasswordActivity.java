@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -124,7 +125,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             else{
                 updatePasswd(token,oldPasswd,newPasswd);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 }catch (InterruptedException e){
                     return;
                 }
@@ -163,5 +164,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //返回按钮点击事件
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

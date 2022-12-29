@@ -1,7 +1,5 @@
 package com.crowdos.portals;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -31,11 +29,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -183,6 +179,7 @@ public class opInfo {
                 container.latitude = jsonObject.getDouble("latitude");
                 container.longitude = jsonObject.getDouble("longitude");
                 container.isFollow = jsonObject.getBoolean("isFollowed");
+                container.starttime = jsonObject.getLong("starttime");
                 result.add(container);
             }
         }catch (JSONException e){
@@ -359,7 +356,6 @@ public class opInfo {
                 String data = response.body().string();
                 Log.e("response",data);
                 YourEventActivity.yourEventListData = getMyEventList(data);
-
             }
         });
     }//testify

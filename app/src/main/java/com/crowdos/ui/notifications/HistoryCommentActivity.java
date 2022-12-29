@@ -4,6 +4,7 @@ import static com.crowdos.portals.opInfo.gMyComment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,7 +40,7 @@ public class HistoryCommentActivity extends AppCompatActivity {
         // 构造一些数据
         gMyComment(MainActivity.token);
         try{
-            Thread.sleep(500);
+            Thread.sleep(100);
         }catch (InterruptedException e){
             return;
         }
@@ -113,6 +114,16 @@ public class HistoryCommentActivity extends AppCompatActivity {
             comment = itemView.findViewById(R.id.textView20);
             sculpture = itemView.findViewById(R.id.imageView19);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //返回按钮点击事件
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

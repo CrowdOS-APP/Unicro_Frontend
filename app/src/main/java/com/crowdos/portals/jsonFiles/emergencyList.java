@@ -7,4 +7,5 @@ public class emergencyList {
     public long eventid;
     public boolean isFollow;
     public String content;
+    public long starttime;
 }

@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -56,7 +57,7 @@ public class YourEventActivity extends AppCompatActivity {
         // 构造一些数据
         gMyEventList(MainActivity.token);
         try{
-            Thread.sleep(500);
+            Thread.sleep(100);
         }catch (InterruptedException e){
             return;
         }
@@ -114,6 +115,7 @@ public class YourEventActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     EventPageActivity.eventId = yourEvent.eventId;
                     EventPageActivity.eventType = yourEvent.eventType;
+                    EventPageActivity.isJumpFromMainPage = false;
                     Intent intent = new Intent(YourEventActivity.this, EventPageActivity.class);
                     startActivity(intent);
                 }
@@ -204,6 +206,16 @@ public class YourEventActivity extends AppCompatActivity {
             mRootView = itemView.findViewById(R.id.item3);
             mMapView = itemView.findViewById(R.id.mapView5);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //返回按钮点击事件
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -2,6 +2,7 @@ package com.crowdos.ui.welcome;
 
 import static com.crowdos.portals.opUser.userRegister;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -16,6 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crowdos.R;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 public class event_Register extends AppCompatActivity {
 
     private TextView button_askForCode;
@@ -26,7 +32,8 @@ public class event_Register extends AppCompatActivity {
     private String email;
     private String passwd;
     public static boolean isSuccess;
-
+    public static String userName;
+    public static String userSignature;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,12 +81,15 @@ public class event_Register extends AppCompatActivity {
             else{
                 userRegister(email,passwd);
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     return;
                 }
                 if(isSuccess) {
                     Toast.makeText(event_Register.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    saveFiles(userName, "UserName");
+                    saveFiles(userSignature, "UserSignature");
+                    saveFiles("1", "UserSculpture");
                     Intent intent = new Intent(event_Register.this, event_Login.class);
                     startActivity(intent);
                 }
@@ -89,5 +99,28 @@ public class event_Register extends AppCompatActivity {
             }
         });
         /*************<注册>******************/
+    }
+
+    public void saveFiles(String setString, String fileName) {
+
+        String data = setString;
+        FileOutputStream out;
+        BufferedWriter writer = null;
+        try {
+            out = openFileOutput(""+fileName, Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(data);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
