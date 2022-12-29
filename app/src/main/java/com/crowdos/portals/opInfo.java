@@ -431,7 +431,7 @@ public class opInfo {
                 .host(hosts)
                 .addPathSegment(com.crowdos.portals.url.opFollow)
                 .addQueryParameter("token",token)
-                .addQueryParameter("UID", String.valueOf(uid))
+                .addQueryParameter("eventID", String.valueOf(uid))
                 .build();
         JSONObject json = new JSONObject();
         try {
