@@ -8,15 +8,18 @@ import com.crowdos.MainActivity;
 import com.crowdos.ui.notifications.ChangePasswordActivity;
 import com.crowdos.ui.welcome.event_Register;
 
+import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -24,6 +27,9 @@ import okhttp3.Response;
 
 /*这个文件主要负责进行用户账号操作*/
 public class opUser {
+
+    static MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+
     private static boolean isSucceed(String data){
         boolean result = false;
         try {
@@ -40,31 +46,38 @@ public class opUser {
         //结果变量()
         boolean[] judge = {false};
         HttpUrl url = new HttpUrl.Builder()
-                .scheme("https")
-                .host("mock.apifox.cn")
+                .scheme("http")
+                .host("39.103.146.190")
                 .addPathSegment(com.crowdos.portals.url.userRegister)
                 .build();
         //新建请求体
-        RequestBody registerPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("email",username).put("passwd",pwd);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        RequestBody registerPac = RequestBody.create(JSON,String.valueOf(json));
         //采用异步
         Request request = new Request.Builder()
-                .url("https://mock.apifox.cn/m1/1900041-0-default/register")
-                .post(registerPac)
+                .url("http://39.103.146.190/register")
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Host", "39.103.146.190")
                 .addHeader("Connection", "keep-alive")
+                .post(registerPac)
                 .build();
         OkHttpClient loginAct = new OkHttpClient();
+        Log.e("post",request.toString());
         loginAct.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
             }
-
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 if(data.equals("true")){
                     judge[0] = true;
                 }
@@ -78,21 +91,27 @@ public class opUser {
         //结果变量()
         boolean[] judge = {false};
         HttpUrl url = new HttpUrl.Builder()
-                .scheme("https")
-                .host("mock.apifox.cn")
-                .addPathSegment(com.crowdos.portals.url.userRegister)
+                .scheme("http")
+                .host("39.103.146.190")
+                .addPathSegment(com.crowdos.portals.url.userLogin)
                 .build();
         //新建请求体
-        RequestBody registerPac = new FormBody.Builder().add("email",username).add("passwd",pwd).build();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("email",username).put("passwd",pwd);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        RequestBody registerPac = RequestBody.create(JSON,String.valueOf(json));
         //采用异步
         Request request = new Request.Builder()
-                .url("https://mock.apifox.cn/m1/1900041-0-default/login")
-                .post(registerPac)
+                .url(url)
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
-                .addHeader("Content-Type", "application/json")
+                .addHeader("Content-Type", "appliaticon/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Host", "39.103.146.190")
                 .addHeader("Connection", "keep-alive")
+                .post(registerPac)
                 .build();
         OkHttpClient loginAct = new OkHttpClient();
         loginAct.newCall(request).enqueue(new Callback() {
@@ -118,21 +137,25 @@ public class opUser {
     public static boolean updatePasswd(String token, String oldPwd, String pwd){
         final boolean[] isSucceed = {false};
         HttpUrl url = new HttpUrl.Builder()
-                .scheme("https")
-                .host("mock.apifox.cn")
+                .scheme("http")
+                .host("39.103.146.190")
                 .addPathSegment(com.crowdos.portals.url.updatePwd)
                 .addQueryParameter("token",token)
                 .build();
-        RequestBody updateInfo = new FormBody.Builder()
-                .add("oldPasswd",oldPwd)
-                .add("newPasswd",pwd)
-                .build();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("oldPasswd",oldPwd).put("newPasswd",pwd);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        RequestBody updateInfo = RequestBody.create(JSON,String.valueOf(json));
         OkHttpClient gUserInfo = new OkHttpClient();
-        Request request = new Request.Builder().url("https://mock.apifox.cn/m1/1900041-0-default/updatePasswd?token="+token)
+        Request request = new Request.Builder()
+                .url(url)
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Host", "39.103.146.190")
                 .addHeader("Connection", "keep-alive")
                 .post(updateInfo)
                 .build();

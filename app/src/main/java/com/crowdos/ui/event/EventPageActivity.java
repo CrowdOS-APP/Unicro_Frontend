@@ -11,6 +11,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -108,9 +109,10 @@ public class EventPageActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("eventid",""+eventId+eventType);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_page);
-        gEventInfo(eventId);
+        gEventInfo(eventId,MainActivity.token);
         getComments(MainActivity.token,eventId);
         try{
             Thread.sleep(750);

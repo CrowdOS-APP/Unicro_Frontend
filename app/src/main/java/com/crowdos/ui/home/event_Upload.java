@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Trace;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -192,6 +193,11 @@ public class event_Upload extends AppCompatActivity {
                         unixEndTime,
                         EventType
                 );
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if(isSuccess) {
                     Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(event_Upload.this, MainActivity.class);

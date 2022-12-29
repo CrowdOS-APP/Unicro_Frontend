@@ -31,11 +31,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -43,10 +45,12 @@ import okhttp3.Response;
 
 public class opInfo {
 
+    static MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+
     //
 
-    public static String scheme = "https";
-    public static String hosts = "mock.apifox.cn";
+    public static String scheme = "http";
+    public static String hosts = "39.103.146.190";
 
 
     //我完全不想写注释了，你只用知道对于array返回的是List，不是array则返回对应数据结构的变量一个，哥们要猝了
@@ -234,10 +238,11 @@ public class opInfo {
                 .addQueryParameter("token",token)//在query加入token
                 .build();
         Request request = new Request.Builder()
-                .url("https://mock.apifox.cn/m1/1900041-0-default/getUserInfo?token=")
+                .url(url)
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Host", "39.103.146.190")
                 .addHeader("Connection", "keep-alive")
                 .get()//利用get方法请求
                 .build();
@@ -249,6 +254,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 MainActivity.userInfo = getUserInfos(data);
             }
         });
@@ -262,12 +268,20 @@ public class opInfo {
                 .addPathSegment(com.crowdos.portals.url.updateUserInfo)
                 .addQueryParameter("token",token)//在query加入token
                 .build();
-        RequestBody updateInfo = new FormBody.Builder()
-                .add("username",username)
-                .add("signature",sign)
-                .build();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("username",username).put("signature",sign);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        RequestBody updateInfo = RequestBody.create(JSON,String.valueOf(json));
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
                 .post(updateInfo)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -278,6 +292,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                String data = response.body().string();
+                Log.e("response",data);
                UserSettingsActivity.isSuccess = isSucceed(data);
             }
         });
@@ -294,36 +309,10 @@ public class opInfo {
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
-                .get()
-                .build();
-        gUserInfo.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                String data = response.body().string();
-                HistoryCommentActivity.mHistoryCommentListData = getMyComments(data);
-            }
-        });
-    }//tested
-
-    //获得我的事件
-    public static void gMyEventList(String token){
-        final List<myEventList>[] result = new List[]{null};
-        HttpUrl url = new HttpUrl.Builder()
-                .scheme(scheme)
-                .host(hosts)
-                .addPathSegment(com.crowdos.portals.url.myEventList)
-                .addQueryParameter("token",token)
-                .build();
-        OkHttpClient gUserInfo = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://mock.apifox.cn/m1/1900041-0-default/myEventList?token="+token)
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "mock.apifox.cn")
+                .addHeader("Host", "39.103.146.190")
                 .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
@@ -335,6 +324,40 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
+                HistoryCommentActivity.mHistoryCommentListData = getMyComments(data);
+            }
+        });
+    }//tested
+
+    //获得我的事件
+    public static void gMyEventList(String token){
+        HttpUrl url = new HttpUrl.Builder()
+                .scheme(scheme)
+                .host(hosts)
+                .addPathSegment(com.crowdos.portals.url.myEventList)
+                .addQueryParameter("token",token)
+                .build();
+        Log.e("url",url.toString());
+        OkHttpClient gUserInfo = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
+                .get()
+                .build();
+        gUserInfo.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String data = response.body().string();
+                Log.e("response",data);
                 YourEventActivity.yourEventListData = getMyEventList(data);
 
             }
@@ -378,6 +401,11 @@ public class opInfo {
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -388,6 +416,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 YourFollowerActivity.yourFollowerListData = getMyFollow(data);
 
             }
@@ -404,12 +433,21 @@ public class opInfo {
                 .addQueryParameter("token",token)
                 .addQueryParameter("UID", String.valueOf(uid))
                 .build();
-        RequestBody opFollowing = new FormBody.Builder()
-                .add("isFollow", String.valueOf(isFollow))
-                .build();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("isFollow", String.valueOf(isFollow));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        RequestBody opFollowing = RequestBody.create(JSON,String.valueOf(json));
         final boolean[] isSucceed = {false};
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
                 .post(opFollowing)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -420,6 +458,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
 
             }
         });
@@ -461,13 +500,21 @@ public class opInfo {
                 .addPathSegment(com.crowdos.portals.url.gemergList)
                 .addQueryParameter("token",token)
                 .build();
-        RequestBody place = new FormBody.Builder()
-                .add("longitude", String.valueOf(longitude))
-                .add("latitude", String.valueOf(latitude))
-                .build();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("longitude", String.valueOf(longitude)).put("latitude", String.valueOf(latitude));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        RequestBody place = RequestBody.create(JSON,String.valueOf(json));
         OkHttpClient gUserInfo = new OkHttpClient();
-        Request request = new Request.Builder().url("https://mock.apifox.cn/m1/1900041-0-default/getEmergencyList?token="+token)
-                .post(place)
+        Request request = new Request.Builder().url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
+                .method("GET",place)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
             @Override
@@ -477,6 +524,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 DashboardFragment.emergeEventListData = getEmergencyList(data);
             }
         });
@@ -496,6 +544,11 @@ public class opInfo {
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -506,32 +559,40 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 HomeFragment.getEventListData = gEventList(data);
             }
         });
     }//testify
 
     //getting event details (listen while clicking for more information)2
-    public static void gEventInfo(long eventID){
+    public static void gEventInfo(long eventID,String token){
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
                 .addPathSegment(com.crowdos.portals.url.gEventInfo)
-                .addQueryParameter("eventID", String.valueOf(eventID))
+                .addQueryParameter("token", token)
+                .addQueryParameter("eventId", String.valueOf(eventID))
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
+        Log.e("url",url.toString());
         Request request = new Request.Builder().url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e(TAG, "onFailure: "+ "404" );
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 EventPageActivity.getEventInfoData = getEventInfos(data);
             }
         });
@@ -557,20 +618,31 @@ public class opInfo {
                 .addQueryParameter("token",token)
                 .build();
         //eventID应该是名称
-        RequestBody updateInfo = new FormBody.Builder()
-                .add("title",title)
-                .add("content",content)
-                .add("startTime",String.valueOf(startTime))
-                .add("endTime", String.valueOf(endTime))
-                .add("longitude", String.valueOf(longitude))
-                .add("latitude", String.valueOf(latitude))
-                .add("isUrgent",String.valueOf(isUrgent))
-                .build();
-        OkHttpClient gUserInfo = new OkHttpClient();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("title",title)
+                    .put("content",content)
+                    .put("startTime",String.valueOf(startTime))
+                    .put("endTime", String.valueOf(endTime))
+                    .put("longitude", String.valueOf(longitude))
+                    .put("latitude", String.valueOf(latitude))
+                    .put("isUrgent",String.valueOf(isUrgent));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Log.e("response",json.toString());
+        RequestBody updateEve = RequestBody.create(JSON,String.valueOf(json));
+        Log.e("response",updateEve.toString());
+        OkHttpClient updataEvent = new OkHttpClient();
         Request request = new Request.Builder().url(url)
-                .post(updateInfo)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
+                .post(updateEve)
                 .build();
-        gUserInfo.newCall(request).enqueue(new Callback() {
+        updataEvent.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
             }
@@ -578,6 +650,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 event_Upload.isSuccess = isSucceed(data);
             }
         });
@@ -592,10 +665,15 @@ public class opInfo {
                 .host(hosts)
                 .addPathSegment(com.crowdos.portals.url.gComment)
                 .addQueryParameter("token",token)
-                .addQueryParameter("eventID", String.valueOf(eventID))
+                .addQueryParameter("eventid", String.valueOf(eventID))
                 .build();
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -606,6 +684,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 EventPageActivity.getCommentData = getComments(data);
             }
         });
@@ -621,13 +700,22 @@ public class opInfo {
                 .host(hosts)
                 .addPathSegment(com.crowdos.portals.url.upComment)
                 .addQueryParameter("token",token)
+                .addQueryParameter("eventId",String.valueOf(eveID))
                 .build();
-        RequestBody updateInfo = new FormBody.Builder()
-                .add("eventID", String.valueOf(eveID))
-                .add("comment",comment)
-                .build();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("eventID", String.valueOf(eveID)).put("comment",comment);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        RequestBody updateInfo = RequestBody.create(JSON,String.valueOf(json));
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
+                .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "*/*")
+                .addHeader("Host", "39.103.146.190")
+                .addHeader("Connection", "keep-alive")
                 .post(updateInfo)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -638,6 +726,7 @@ public class opInfo {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String data = response.body().string();
+                Log.e("response",data);
                 EventPageActivity.isSuccess = isSucceed(data);
             }
         });
