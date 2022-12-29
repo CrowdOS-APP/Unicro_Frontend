@@ -300,13 +300,13 @@ public class opInfo {
 
     //获得我的评论(很奇怪，这里是所有评论的字符串组)
     public static void gMyComment(String token){
-        final List<getMyComment>[] result = new List[]{null};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(hosts)
                 .addPathSegment(com.crowdos.portals.url.myComment)
                 .addQueryParameter("token",token)//在query加入token
                 .build();
+        Log.e("fasf",url.toString());
         OkHttpClient gUserInfo = new OkHttpClient();
         Request request = new Request.Builder().url(url)
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
@@ -499,7 +499,10 @@ public class opInfo {
                 .host(hosts)
                 .addPathSegment(com.crowdos.portals.url.gemergList)
                 .addQueryParameter("token",token)
+                .addQueryParameter("longitude",String.valueOf(longitude))
+                .addQueryParameter("latitude",String.valueOf(latitude))
                 .build();
+        Log.e("e",url.toString());
         JSONObject json = new JSONObject();
         try {
             json.put("longitude", String.valueOf(longitude)).put("latitude", String.valueOf(latitude));
@@ -514,7 +517,6 @@ public class opInfo {
                 .addHeader("Accept", "*/*")
                 .addHeader("Host", "39.103.146.190")
                 .addHeader("Connection", "keep-alive")
-                .method("GET",place)
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
             @Override
