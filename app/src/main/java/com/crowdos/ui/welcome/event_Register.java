@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.crowdos.R;
+import com.crowdos.ui.Utils;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -73,29 +74,34 @@ public class event_Register extends AppCompatActivity {
         /*************<注册>******************/
         button_register = findViewById(R.id.button9);
         button_register.setOnClickListener(view -> {
-            email = editEmail.getText().toString();
-            passwd = editText.getText().toString();
-            if(passwd.length() < 6 || passwd.length() >18){
-                Toast.makeText(event_Register.this, "密码必须为6-18位,请重新输入", Toast.LENGTH_SHORT).show();
+            if(Utils.isFastClick()){
+                email = editEmail.getText().toString();
+                passwd = editText.getText().toString();
+                if(passwd.length() < 6 || passwd.length() >18){
+                    Toast.makeText(event_Register.this, "密码必须为6-18位,请重新输入", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    userRegister(email,passwd);
+                    try {
+                        Thread.sleep(700);
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    if(isSuccess) {
+                        Toast.makeText(event_Register.this, "注册成功", Toast.LENGTH_SHORT).show();
+                        saveFiles(userName, "UserName");
+                        saveFiles(userSignature, "UserSignature");
+                        saveFiles("1", "UserSculpture");
+                        Intent intent = new Intent(event_Register.this, event_Login.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(event_Register.this,"注册失败",Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
             else{
-                userRegister(email,passwd);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    return;
-                }
-                if(isSuccess) {
-                    Toast.makeText(event_Register.this, "注册成功", Toast.LENGTH_SHORT).show();
-                    saveFiles(userName, "UserName");
-                    saveFiles(userSignature, "UserSignature");
-                    saveFiles("1", "UserSculpture");
-                    Intent intent = new Intent(event_Register.this, event_Login.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(event_Register.this,"注册失败",Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(event_Register.this, "您的手速太快辣w(ﾟДﾟ)w", Toast.LENGTH_SHORT).show();
             }
         });
         /*************<注册>******************/

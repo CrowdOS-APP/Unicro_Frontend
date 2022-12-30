@@ -45,6 +45,7 @@ import com.crowdos.MainActivity;
 import com.crowdos.R;
 import com.crowdos.portals.jsonFiles.getComment;
 import com.crowdos.portals.jsonFiles.getEventInfo;
+import com.crowdos.ui.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,7 +119,7 @@ public class EventPageActivity extends AppCompatActivity {
         gEventInfo(eventId,MainActivity.token);
         getComments(MainActivity.token,eventId);
         try{
-            Thread.sleep(200);
+            Thread.sleep(700);
         }catch (InterruptedException e){
             return;
         }
@@ -138,28 +139,33 @@ public class EventPageActivity extends AppCompatActivity {
         eventComment = findViewById(R.id.event_comment);
         eventSendComment = findViewById(R.id.imageButton9);
         eventSendComment.setOnClickListener(v -> {
-            String eventCommentString = eventComment.getText().toString();
-            if(eventCommentString.length() > 0){
-                EventComment mComment = new EventComment();
-                mComment.userNameString = readData("UserName");
-                mComment.commentString = eventCommentString;
-                Random temp = new Random();
-                mComment.sculpture = temp.nextInt(6);
-                mEventCommentList.add(mComment);
-                uploadComment(MainActivity.token,eventId,eventCommentString);
-                Toast.makeText(EventPageActivity.this, "已发送评论", Toast.LENGTH_SHORT).show();
-                getComments(MainActivity.token,eventId);
-                try{
-                    Thread.sleep(100);
-                }catch (InterruptedException e){
-                    return;
+            if(Utils.isFastClick()){
+                String eventCommentString = eventComment.getText().toString();
+                if(eventCommentString.length() > 0){
+                    EventComment mComment = new EventComment();
+                    mComment.userNameString = readData("UserName");
+                    mComment.commentString = eventCommentString;
+                    Random temp = new Random();
+                    mComment.sculpture = temp.nextInt(6);
+                    mEventCommentList.add(mComment);
+                    uploadComment(MainActivity.token,eventId,eventCommentString);
+                    getComments(MainActivity.token,eventId);
+                    try{
+                        Thread.sleep(1000);
+                    }catch (InterruptedException e){
+                        return;
+                    }
+                    mEventCommentList.clear();
+                    eventComment.setText("");
+                    commentShow();
+                    Toast.makeText(EventPageActivity.this, "已发送评论", Toast.LENGTH_SHORT).show();
                 }
-                mEventCommentList.clear();
-                eventComment.setText("");
-                commentShow();
+                else{
+                    Toast.makeText(EventPageActivity.this, "不可以发空评论哦(●'◡'●)", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
-                Toast.makeText(EventPageActivity.this, "不可以发空评论哦(●'◡'●)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EventPageActivity.this, "您的手速太快辣w(ﾟДﾟ)w", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -201,27 +207,32 @@ public class EventPageActivity extends AppCompatActivity {
         eventFollowedText =findViewById(R.id.textView42);
         isFollowedEvent = getEventInfoData.isFollow;
         followEvent.setOnClickListener(v -> {
-            isFollowedEvent = !isFollowedEvent;
-            if(isFollowedEvent){
-                followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type4));
-                eventFollowedText.setText("已关注");
-                Toast.makeText(EventPageActivity.this, "已关注事件", Toast.LENGTH_SHORT).show();
+            if(Utils.isFastClick()){
+                isFollowedEvent = !isFollowedEvent;
+                if(isFollowedEvent){
+                    followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type4));
+                    eventFollowedText.setText("已关注");
+                    Toast.makeText(EventPageActivity.this, "已关注事件", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type3));
+                    eventFollowedText.setText("+关注");
+                    Toast.makeText(EventPageActivity.this, "已取消关注", Toast.LENGTH_SHORT).show();
+                }
+
+                //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
+                opFollow(MainActivity.token, eventId, isFollowedEvent);
+                try{
+                    Thread.sleep(500);
+                }catch (InterruptedException e){
+                    return;
+                }
+                if(!isSuccessFollow){
+                    Toast.makeText(EventPageActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
-                followEvent.setBackground(ContextCompat.getDrawable(EventPageActivity.this,R.drawable.button_type3));
-                eventFollowedText.setText("+关注");
-                Toast.makeText(EventPageActivity.this, "已取消关注", Toast.LENGTH_SHORT).show();
-            }
-
-            //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
-            opFollow(MainActivity.token, eventId, getEventInfoData.isFollow);
-            try{
-                Thread.sleep(400);
-            }catch (InterruptedException e){
-                return;
-            }
-            if(!isSuccessFollow){
-                Toast.makeText(EventPageActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EventPageActivity.this, "您的手速太快辣w(ﾟДﾟ)w", Toast.LENGTH_SHORT).show();
             }
         });
 

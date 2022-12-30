@@ -36,6 +36,7 @@ import com.crowdos.portals.jsonFiles.eventList;
 import com.crowdos.ui.event.EventPageActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 /******************************************************************/
 /*************************HOME*************************************/
@@ -62,7 +63,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         getEventsNearby(MainActivity.token, longitude, latitude);
         try{
-            Thread.sleep(100);
+            Thread.sleep(700);
         } catch (InterruptedException ignored){
 
         }
@@ -73,6 +74,7 @@ public class HomeFragment extends Fragment {
             eventNearby.longitude = getEventListData.get(i).longitude;
             eventNearby.latitude = getEventListData.get(i).latitude;
             eventNearby.EventType = getEventListData.get(i).emergency;
+            eventNearby.endTime = getEventListData.get(i).endtime;
             eventNearbyList.add(eventNearby);
         }
         return root;
@@ -152,8 +154,14 @@ public class HomeFragment extends Fragment {
 
             //本行为测试样例，需要将后端给的周围的事件展示出来
             for(int i = 0; i < eventNearbyList.size(); i++){
+                Date date = new Date();
+                long time = date.getTime();
                 double latitude = eventNearbyList.get(i).latitude;
                 double longitude = eventNearbyList.get(i).longitude;
+                long endTime = eventNearbyList.get(i).endTime;
+                if(endTime < time){
+                    continue;
+                }
                 LatLng latLng = new LatLng(latitude, longitude);
                 EventPack eventPack = new EventPack();
                 eventPack.latLng = latLng;

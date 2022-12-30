@@ -73,6 +73,7 @@ public class opInfo {
                 container.latitude = jsonObject.getDouble("latitude");
                 container.longitude = jsonObject.getDouble("longitude");
                 container.emergency = jsonObject.getBoolean("emergency");
+                container.endtime = jsonObject.getLong("endtime");
                 result.add(container);
             }
         }catch (JSONException e){
@@ -180,6 +181,7 @@ public class opInfo {
                 container.longitude = jsonObject.getDouble("longitude");
                 container.isFollow = jsonObject.getBoolean("isFollowed");
                 container.starttime = jsonObject.getLong("starttime");
+                container.endtime = jsonObject.getLong("endtime");
                 result.add(container);
             }
         }catch (JSONException e){

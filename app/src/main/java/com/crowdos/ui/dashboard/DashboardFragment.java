@@ -42,6 +42,7 @@ import com.crowdos.MainActivity;
 import com.crowdos.R;
 import com.crowdos.databinding.FragmentDynamicEmergeBinding;
 import com.crowdos.portals.jsonFiles.emergencyList;
+import com.crowdos.ui.Utils;
 import com.crowdos.ui.event.EventPageActivity;
 import com.crowdos.ui.home.MyLocationListener;
 
@@ -51,6 +52,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.Call;
@@ -70,6 +72,8 @@ public class DashboardFragment extends Fragment {
     private MyAdapter mMyAdapter;
     private List<EmergeEvent> emergeEventList = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
+    private TextView receivedComment;
+    private TextView myFollows;
 
     public static List<emergencyList> emergeEventListData = new ArrayList<>();
 
@@ -81,11 +85,17 @@ public class DashboardFragment extends Fragment {
         // 构造一些数据
         getEmergeEventList(MyLocationListener.longitude,MyLocationListener.latitude, MainActivity.token);
         try{
-            Thread.sleep(100);
+            Thread.sleep(1000);
         }catch (InterruptedException ignored){
         }
         for (int i = 0; i < emergeEventListData.size(); i++) {
             EmergeEvent emergeEvent = new EmergeEvent();
+            Date date = new Date();
+            long time = date.getTime();
+            emergeEvent.endTime = emergeEventListData.get(i).endtime;
+            if(emergeEvent.endTime < time){
+                continue;
+            }
             emergeEvent.eventName = emergeEventListData.get(i).eventname;
             emergeEvent.description = emergeEventListData.get(i).content;
             emergeEvent.eventId = emergeEventListData.get(i).eventid;
@@ -102,6 +112,18 @@ public class DashboardFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
         //设置这个选项可以提高性能
         mRecyclerView.setHasFixedSize(true);
+
+        //回复我的
+        receivedComment = root.findViewById(R.id.textView16);
+        receivedComment.setOnClickListener(v ->
+                Toast.makeText(getContext(), "前方的世界下次再来探索吧ヾ(•ω•`)o", Toast.LENGTH_SHORT).show()
+        );
+
+        //我的关注
+        myFollows = root.findViewById(R.id.textView17);
+        myFollows.setOnClickListener(v ->
+                Toast.makeText(getContext(), "前方的世界下次再来探索吧ヾ(•ω•`)o", Toast.LENGTH_SHORT).show()
+        );
         return root;
     }
 
@@ -164,26 +186,31 @@ public class DashboardFragment extends Fragment {
 
             //点击关注按钮
             holder.eventFollow.setOnClickListener(v -> {
-                emergeEvent.isFollowed = !emergeEvent.isFollowed;
-                if(emergeEvent.isFollowed) {
-                    holder.eventFollow.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.button_type4));
-                    holder.eventFollowText.setText("已关注");
-                    Toast.makeText(getContext(), "已关注" + emergeEvent.eventName, Toast.LENGTH_SHORT).show();
+                if(Utils.isFastClick()){
+                    emergeEvent.isFollowed = !emergeEvent.isFollowed;
+                    if(emergeEvent.isFollowed) {
+                        holder.eventFollow.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.button_type4));
+                        holder.eventFollowText.setText("已关注");
+                        Toast.makeText(getContext(), "已关注" + emergeEvent.eventName, Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        holder.eventFollow.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.button_type3));
+                        holder.eventFollowText.setText("+关注");
+                        Toast.makeText(getContext(), "已取消关注" + emergeEvent.eventName, Toast.LENGTH_SHORT).show();
+                    }
+                    //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
+                    opFollow(MainActivity.token, emergeEvent.eventId, emergeEvent.isFollowed);
+                    try{
+                        Thread.sleep(500);
+                    }catch (InterruptedException e){
+                        return;
+                    }
+                    if(!isSuccess){
+                        Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
-                    holder.eventFollow.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.button_type3));
-                    holder.eventFollowText.setText("+关注");
-                    Toast.makeText(getContext(), "已取消关注" + emergeEvent.eventName, Toast.LENGTH_SHORT).show();
-                }
-                //在这个地方需要向后端传入当前的eventId，token，和目前的isFollowed
-                opFollow(MainActivity.token, emergeEvent.eventId, emergeEvent.isFollowed);
-                try{
-                    Thread.sleep(400);
-                }catch (InterruptedException e){
-                    return;
-                }
-                if(!isSuccess){
-                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "您的手速太快辣w(ﾟДﾟ)w", Toast.LENGTH_SHORT).show();
                 }
             });
 

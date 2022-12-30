@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.crowdos.MainActivity;
 import com.crowdos.R;
+import com.crowdos.ui.Utils;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -121,44 +122,49 @@ public class UserSettingsActivity extends AppCompatActivity {
         /*************<修改>******************/
         TextView change = findViewById(R.id.password_change2);
         change.setOnClickListener(v -> {
-            String userName = setUserName.getText().toString();
-            String userSignature = setSignature.getText().toString();
-            if(userName.length() != 0 || userSignature.length() != 0 || sculptureId != 0) {
-                if(userName.length() != 0){
-                    saveUserFiles(userName,"UserName");
+            if(Utils.isFastClick()){
+                String userName = setUserName.getText().toString();
+                String userSignature = setSignature.getText().toString();
+                if(userName.length() != 0 || userSignature.length() != 0 || sculptureId != 0) {
+                    if(userName.length() != 0){
+                        saveUserFiles(userName,"UserName");
+                    }
+                    else{
+                        TextView temp = findViewById(R.id.user_name3);
+                        userName = temp.getText().toString();
+                    }
+                    if(userSignature.length() != 0){
+                        saveUserFiles(userSignature,"UserSignature");
+                    }
+                    else{
+                        TextView temp = findViewById(R.id.signature3);
+                        userSignature = temp.getText().toString();
+                    }
+                    if(sculptureId != 0){
+                        saveUserFiles(""+sculptureId,"UserSculpture");
+                    }
+                    updateUserInfo(userName, userSignature, MainActivity.token);
+                    try{
+                        Thread.sleep(700);
+                    }catch (InterruptedException e){
+                        return;
+                    }
+                    if(isSuccess){
+                        Toast.makeText(UserSettingsActivity.this, "已修改", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(UserSettingsActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
-                    TextView temp = findViewById(R.id.user_name3);
-                    userName = temp.getText().toString();
-                }
-                if(userSignature.length() != 0){
-                    saveUserFiles(userSignature,"UserSignature");
-                }
-                else{
-                    TextView temp = findViewById(R.id.signature3);
-                    userSignature = temp.getText().toString();
-                }
-                if(sculptureId != 0){
-                    saveUserFiles(""+sculptureId,"UserSculpture");
-                }
-                updateUserInfo(userName, userSignature, MainActivity.token);
-                try{
-                    Thread.sleep(100);
-                }catch (InterruptedException e){
-                    return;
-                }
-                if(isSuccess){
-                    Toast.makeText(UserSettingsActivity.this, "已修改", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
-                else{
-                    Toast.makeText(UserSettingsActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
-                }
             }
             else{
-                Intent intent = new Intent(UserSettingsActivity.this, MainActivity.class);
-                startActivity(intent);
+                Toast.makeText(UserSettingsActivity.this, "您的手速太快辣w(ﾟДﾟ)w", Toast.LENGTH_SHORT).show();
             }
         });
         /*************<修改>******************/

@@ -12,4 +12,5 @@ public class eventList {
     @SerializedName("latitude")
     public double latitude;
     public boolean emergency;
+    public long endtime;
 }//1

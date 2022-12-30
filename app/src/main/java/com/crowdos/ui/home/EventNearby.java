@@ -5,4 +5,5 @@ public class EventNearby {
     public double longitude;
     public double latitude;
     public long eventId;
+    public long endTime;
 }

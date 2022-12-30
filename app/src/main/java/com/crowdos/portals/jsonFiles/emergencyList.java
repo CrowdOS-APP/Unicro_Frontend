@@ -8,4 +8,5 @@ public class emergencyList {
     public boolean isFollow;
     public String content;
     public long starttime;
+    public long endtime;
 }

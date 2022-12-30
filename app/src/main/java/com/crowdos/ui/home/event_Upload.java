@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crowdos.MainActivity;
 import com.crowdos.R;
+import com.crowdos.ui.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,9 +44,6 @@ public class event_Upload extends AppCompatActivity {
     private String[] getTime = {"00:00","00:00"};
     private String[] getDate = {"2000-01-01","2000-01-01"};
     private TextView startDate,endDate, startTime, endTime;
-
-    // 默认逆地理编码半径范围
-    private static final int sDefaultRGCRadius = 500;
 
     public boolean eventType;//true代表紧急事件，false代表普通事件
     public long unixStartTime;
@@ -179,51 +177,56 @@ public class event_Upload extends AppCompatActivity {
 
         /*************<上传>******************/
         upload_event.setOnClickListener(view -> {
-            description = upload_Description.getText().toString();
-            title = upload_Title.getText().toString();
-            timeChangeUnix();
-            if(isChooseEventType && isSetStartTime && isSetEndTime && isSetLocation && unixEndTime >= unixStartTime) {
-                //此处打包信息上传至服务器
-                upEvent(
-                        MainActivity.token,
-                        title,
-                        description,
-                        longitude,
-                        latitude,
-                        unixStartTime,
-                        unixEndTime,
-                        eventType
-                );
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            if(Utils.isFastClick()){
+                description = upload_Description.getText().toString();
+                title = upload_Title.getText().toString();
+                timeChangeUnix();
+                if(isChooseEventType && isSetStartTime && isSetEndTime && isSetLocation && unixEndTime >= unixStartTime) {
+                    //此处打包信息上传至服务器
+                    upEvent(
+                            MainActivity.token,
+                            title,
+                            description,
+                            longitude,
+                            latitude,
+                            unixStartTime,
+                            unixEndTime,
+                            eventType
+                    );
+                    try {
+                        Thread.sleep(700);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(isSuccess) {
+                        Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onCreate: " + eventType);
+                        Intent intent = new Intent(event_Upload.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(event_Upload.this, "上传失败", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                if(isSuccess) {
-                    Toast.makeText(event_Upload.this, "事件已上传", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "onCreate: " + eventType);
-                    Intent intent = new Intent(event_Upload.this, MainActivity.class);
-                    startActivity(intent);
+                else if(!isChooseEventType)
+                {
+                    Toast.makeText(event_Upload.this, "未选择事件类型", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(event_Upload.this, "上传失败", Toast.LENGTH_SHORT).show();
+                else if(!isSetStartTime){
+                    Toast.makeText(event_Upload.this, "未设置起始时间", Toast.LENGTH_SHORT).show();
+                }
+                else if(!isSetEndTime){
+                    Toast.makeText(event_Upload.this, "未设置终止时间", Toast.LENGTH_SHORT).show();
+                }
+                else if(!isSetLocation){
+                    Toast.makeText(event_Upload.this, "未选择事件位置", Toast.LENGTH_SHORT).show();
+                }
+                else if(unixEndTime < unixStartTime){
+                    Toast.makeText(event_Upload.this, "终止时间需晚于起始时间", Toast.LENGTH_SHORT).show();
                 }
             }
-            else if(!isChooseEventType)
-            {
-                Toast.makeText(event_Upload.this, "未选择事件类型", Toast.LENGTH_SHORT).show();
-            }
-            else if(!isSetStartTime){
-                Toast.makeText(event_Upload.this, "未设置起始时间", Toast.LENGTH_SHORT).show();
-            }
-            else if(!isSetEndTime){
-                Toast.makeText(event_Upload.this, "未设置终止时间", Toast.LENGTH_SHORT).show();
-            }
-            else if(!isSetLocation){
-                Toast.makeText(event_Upload.this, "未选择事件位置", Toast.LENGTH_SHORT).show();
-            }
-            else if(unixEndTime < unixStartTime){
-                Toast.makeText(event_Upload.this, "终止时间需晚于起始时间", Toast.LENGTH_SHORT).show();
+            else{
+                Toast.makeText(event_Upload.this, "您的手速太快辣w(ﾟДﾟ)w", Toast.LENGTH_SHORT).show();
             }
         });
         /*************<上传>******************/

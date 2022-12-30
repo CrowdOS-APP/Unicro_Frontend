@@ -58,7 +58,7 @@ public class YourFollowerActivity extends AppCompatActivity {
         // 构造一些数据
         getFollowing(MainActivity.token);
         try{
-            Thread.sleep(100);
+            Thread.sleep(700);
         }catch (InterruptedException e){
             return;
         }

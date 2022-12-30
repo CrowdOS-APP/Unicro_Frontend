@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crowdos.MainActivity;
 import com.crowdos.R;
+import com.crowdos.ui.Utils;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -82,26 +83,32 @@ public class event_Login extends AppCompatActivity {
         /*************<登陆>******************/
         button_login = (Button) findViewById(R.id.button9) ;
         button_login.setOnClickListener(view -> {
-            String email = editEmail.getText().toString();
-            String pwd = editPasswd.getText().toString();
-            userLogin(email,pwd);
-            try {
-                Thread.sleep(100);
-            }catch (InterruptedException e){
-                return;
-            }
-            if(MainActivity.token.length() > 0) {
-                Toast.makeText(event_Login.this, "登录成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(event_Login.this, MainActivity.class);
-                MainActivity.isLogin = false;
-                saveFiles(MainActivity.token,"token");
-                saveFiles(email,"Email");
-                saveFiles(pwd,"Password");
-                startActivity(intent);
+            if(Utils.isFastClick()){
+                String email = editEmail.getText().toString();
+                String pwd = editPasswd.getText().toString();
+                userLogin(email,pwd);
+                try {
+                    Thread.sleep(700);
+                }catch (InterruptedException e){
+                    return;
+                }
+                if(MainActivity.token.length() > 0) {
+                    Toast.makeText(event_Login.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(event_Login.this, MainActivity.class);
+                    MainActivity.isLogin = false;
+                    saveFiles(MainActivity.token,"token");
+                    saveFiles(email,"Email");
+                    saveFiles(pwd,"Password");
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(event_Login.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
-                Toast.makeText(event_Login.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(event_Login.this, "您的手速太快辣w(ﾟДﾟ)w", Toast.LENGTH_SHORT).show();
             }
+
         });
         /*************<登陆>******************/
     }

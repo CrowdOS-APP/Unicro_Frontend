@@ -6,6 +6,7 @@ public class EmergeEvent {
     public double longitude;
     public double latitude;
     public long startTime;
+    public long endTime;
     public long eventId;
     public boolean isFollowed;
     public boolean eventType;

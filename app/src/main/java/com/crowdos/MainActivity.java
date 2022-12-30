@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             getUserInfo(token);
             try{
-                Thread.sleep(300);
+                Thread.sleep(700);
             }catch (InterruptedException e){
                 return;
             }

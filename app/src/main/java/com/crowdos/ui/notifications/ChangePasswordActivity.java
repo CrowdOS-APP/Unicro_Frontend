@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crowdos.MainActivity;
 import com.crowdos.R;
+import com.crowdos.ui.Utils;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -106,39 +107,44 @@ public class ChangePasswordActivity extends AppCompatActivity {
         change = findViewById(R.id.password_change);
 
         change.setOnClickListener(v -> {
-            String email = editTextEmail.getText().toString();
-            String oldPasswd = editTextOld.getText().toString();
-            String newPasswd = editTextNew.getText().toString();
-            String newPasswd2 = editTextNew2.getText().toString();
-            /**（1）判断密码是否6-18位**/
-            if(newPasswd.length() < 6 || newPasswd.length() > 18){
-                Toast.makeText(ChangePasswordActivity.this, "密码必须为6-18位,请重新输入", Toast.LENGTH_SHORT).show();
-            }
-            /**（2）判断两次新密码是否一致**/
-            else if(!(newPasswd.equals(newPasswd2))){
-                Toast.makeText(ChangePasswordActivity.this, "两次密码不一致,请重新输入", Toast.LENGTH_SHORT).show();
-            }
-            /**（3）判断邮箱或密码是否为空**/
-            else if(email.length() == 0 || oldPasswd.length() == 0){
-                Toast.makeText(ChangePasswordActivity.this, "邮箱或旧密码为空,请重新输入", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                updatePasswd(token,oldPasswd,newPasswd);
-                try {
-                    Thread.sleep(100);
-                }catch (InterruptedException e){
-                    return;
+            if(Utils.isFastClick()){
+                String email = editTextEmail.getText().toString();
+                String oldPasswd = editTextOld.getText().toString();
+                String newPasswd = editTextNew.getText().toString();
+                String newPasswd2 = editTextNew2.getText().toString();
+                /**（1）判断密码是否6-18位**/
+                if(newPasswd.length() < 6 || newPasswd.length() > 18){
+                    Toast.makeText(ChangePasswordActivity.this, "密码必须为6-18位,请重新输入", Toast.LENGTH_SHORT).show();
                 }
-                if(succeed){
-                    Toast.makeText(ChangePasswordActivity.this, "更改成功", Toast.LENGTH_SHORT).show();
-                    saveFiles(email,"Email");
-                    saveFiles(newPasswd,"Password");
-                    Intent intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
-                    startActivity(intent);
+                /**（2）判断两次新密码是否一致**/
+                else if(!(newPasswd.equals(newPasswd2))){
+                    Toast.makeText(ChangePasswordActivity.this, "两次密码不一致,请重新输入", Toast.LENGTH_SHORT).show();
+                }
+                /**（3）判断邮箱或密码是否为空**/
+                else if(email.length() == 0 || oldPasswd.length() == 0){
+                    Toast.makeText(ChangePasswordActivity.this, "邮箱或旧密码为空,请重新输入", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(ChangePasswordActivity.this, "更改失败", Toast.LENGTH_SHORT).show();
+                    updatePasswd(token,oldPasswd,newPasswd);
+                    try {
+                        Thread.sleep(700);
+                    }catch (InterruptedException e){
+                        return;
+                    }
+                    if(succeed){
+                        Toast.makeText(ChangePasswordActivity.this, "更改成功", Toast.LENGTH_SHORT).show();
+                        saveFiles(email,"Email");
+                        saveFiles(newPasswd,"Password");
+                        Intent intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(ChangePasswordActivity.this, "更改失败", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            }
+            else{
+                Toast.makeText(ChangePasswordActivity.this, "您的手速太快辣w(ﾟДﾟ)w", Toast.LENGTH_SHORT).show();
             }
         });
         /*************<点击修改按钮>******************/
