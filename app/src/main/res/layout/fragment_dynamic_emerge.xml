@@ -28,12 +28,13 @@
         android:id="@+id/blank"
         android:layout_width="364dp"
         android:layout_height="530dp"
-        android:layout_marginTop="132dp"
         android:background="@drawable/button_type"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.616" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/emerge_list"
@@ -54,7 +55,7 @@
         android:fontFamily="@font/mainx"
         android:text="紧急事件"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -80,7 +81,7 @@
         android:fontFamily="@font/mainx"
         android:text="我的关注"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +95,7 @@
         android:fontFamily="@font/mainx"
         android:text="回复我的"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"

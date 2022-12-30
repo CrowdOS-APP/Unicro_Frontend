@@ -71,7 +71,7 @@
         android:fontFamily="@font/mainx"
         android:text="你的关注"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:icon="@mipmap/follows"
         app:layout_constraintStart_toStartOf="@+id/preference"
         app:layout_constraintTop_toTopOf="@+id/preference" />
@@ -85,7 +85,7 @@
         android:fontFamily="@font/mainx"
         android:text="用户设置"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:icon="@mipmap/eye"
         app:layout_constraintStart_toStartOf="@+id/settings"
         app:layout_constraintTop_toTopOf="@+id/settings" />
@@ -99,7 +99,7 @@
         android:fontFamily="@font/mainx"
         android:text="退出登录"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:icon="@mipmap/exit"
         app:iconGravity="textEnd"
         app:layout_constraintStart_toStartOf="@+id/settings"
@@ -114,7 +114,7 @@
         android:fontFamily="@font/mainx"
         android:text="修改密码"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:icon="@mipmap/key_2"
         app:layout_constraintStart_toStartOf="@+id/settings"
         app:layout_constraintTop_toTopOf="@+id/settings" />
@@ -128,7 +128,7 @@
         android:fontFamily="@font/mainx"
         android:text="历史回复"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:icon="@mipmap/history"
         app:layout_constraintEnd_toEndOf="@+id/preference"
         app:layout_constraintTop_toTopOf="@+id/preference" />
@@ -142,7 +142,7 @@
         android:fontFamily="@font/mainx"
         android:text="你的事件"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:icon="@mipmap/your_event"
         app:iconGravity="textEnd"
         app:layout_constraintStart_toStartOf="@+id/preference"
@@ -157,7 +157,7 @@
         android:fontFamily="@font/mainx"
         android:text="偏好"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/preference"
         app:layout_constraintTop_toTopOf="@+id/preference" />
 
@@ -170,7 +170,7 @@
         android:fontFamily="@font/mainx"
         android:text="账号设置"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/settings"
         app:layout_constraintTop_toTopOf="@+id/settings" />
 
@@ -183,7 +183,7 @@
         android:fontFamily="@font/title"
         android:text="用户名"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintStart_toStartOf="@+id/User_back"
         app:layout_constraintTop_toTopOf="@+id/User_back" />
 
@@ -206,6 +206,7 @@
         android:fontFamily="@font/mainx"
         android:text="很酷，不写个签。"
         android:textColor="@color/black"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="@+id/signature_blank"
         app:layout_constraintTop_toTopOf="@+id/signature_blank" />
 

@@ -67,7 +67,7 @@
         android:fontFamily="@font/mainx"
         android:text="我的关注"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,7 +80,7 @@
         android:fontFamily="@font/mainx"
         android:text="回复我的"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +93,7 @@
         android:fontFamily="@font/mainx"
         android:text="紧急事件"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

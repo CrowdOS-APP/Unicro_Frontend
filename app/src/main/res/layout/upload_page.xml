@@ -26,9 +26,12 @@
         android:background="#00FFFFFF"
         android:clickable="true"
         android:onClick="showSingleAlertDialog"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/button_type"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -37,13 +40,14 @@
         style="@android:style/Widget.Holo.ImageButton"
         android:layout_width="180dp"
         android:layout_height="40dp"
-        android:layout_marginTop="232dp"
         android:background="#00FFFFFF"
         android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.848"
+        app:layout_constraintHorizontal_bias="0.861"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7"
+        app:layout_constraintVertical_bias="0.103"
         app:srcCompat="@drawable/button_type"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -52,14 +56,15 @@
         style="@android:style/Widget.Holo.ImageButton"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginTop="664dp"
         android:layout_marginEnd="32dp"
         android:background="#00FFFFFF"
         android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintHorizontal_bias="0.979"
         app:layout_constraintStart_toEndOf="@+id/imageButton6"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
+        app:layout_constraintVertical_bias="0.54"
         app:srcCompat="@drawable/button_type"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -68,12 +73,14 @@
         style="@android:style/Widget.Holo.Light.ImageButton"
         android:layout_width="100dp"
         android:layout_height="35dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="664dp"
         android:background="#00FFFFFF"
         android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
+        app:layout_constraintVertical_bias="0.392"
         app:srcCompat="@drawable/button_type"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -82,12 +89,13 @@
         style="@android:style/Widget.Holo.Light.ImageButton"
         android:layout_width="100dp"
         android:layout_height="35dp"
-        android:layout_marginTop="664dp"
         android:background="#00FFFFFF"
         android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toStartOf="@+id/imageButton5"
         app:layout_constraintStart_toEndOf="@+id/imageButton6"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
+        app:layout_constraintVertical_bias="0.392"
         app:srcCompat="@drawable/button_type"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -95,25 +103,30 @@
         android:id="@+id/textView2"
         android:layout_width="52dp"
         android:layout_height="28dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
         android:fontFamily="@font/mainx"
         android:text="@string/title"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.036" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="52dp"
         android:layout_height="28dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="14dp"
         android:fontFamily="@font/mainx"
         android:text="@string/description"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upload_title" />
+        app:layout_constraintTop_toBottomOf="@+id/upload_title"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView4"
@@ -122,6 +135,7 @@
         android:fontFamily="@font/mainx"
         android:text="@string/type_of_events"
         android:textColor="@color/black"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
         app:layout_constraintEnd_toEndOf="@+id/imageButton3"
         app:layout_constraintStart_toStartOf="@+id/imageButton3"
@@ -134,6 +148,7 @@
         android:fontFamily="@font/mainx"
         android:text="使用当前位置"
         android:textColor="@color/black"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton4"
         app:layout_constraintEnd_toEndOf="@+id/imageButton4"
         app:layout_constraintStart_toStartOf="@+id/imageButton4"
@@ -143,14 +158,16 @@
         android:id="@+id/editTextTextPersonName7"
         android:layout_width="180dp"
         android:layout_height="210dp"
-        android:layout_marginStart="196dp"
-        android:layout_marginTop="384dp"
         android:background="@drawable/button_type"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/Null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+        app:layout_constraintVertical_bias="0.11" />
 
     <TextView
         android:id="@+id/textView6"
@@ -159,7 +176,7 @@
         android:fontFamily="@font/mainx"
         android:text="@string/upload"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton5"
         app:layout_constraintEnd_toEndOf="@+id/imageButton5"
         app:layout_constraintHorizontal_bias="0.786"
@@ -171,14 +188,16 @@
         android:id="@+id/editTextTextPersonName4"
         android:layout_width="152dp"
         android:layout_height="260dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="384dp"
         android:background="@drawable/button_type"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/Null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+        app:layout_constraintVertical_bias="0.153" />
 
     <TextView
         android:id="@+id/textView7"
@@ -187,6 +206,7 @@
         android:fontFamily="@font/mainx"
         android:text="@string/set_start_time"
         android:textColor="@color/black"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton6"
         app:layout_constraintEnd_toEndOf="@+id/imageButton6"
         app:layout_constraintStart_toStartOf="@+id/imageButton6"
@@ -199,6 +219,7 @@
         android:fontFamily="@font/mainx"
         android:text="@string/set_end_time"
         android:textColor="@color/black"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton7"
         app:layout_constraintEnd_toEndOf="@+id/imageButton7"
         app:layout_constraintStart_toStartOf="@+id/imageButton7"
@@ -214,9 +235,12 @@
         android:inputType="textPersonName"
         android:lineSpacingExtra="10dp"
         android:text="@string/Null"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -242,14 +266,16 @@
         android:id="@+id/editTextTextPersonName3"
         android:layout_width="345dp"
         android:layout_height="150dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/button_type"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/Null"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView23"
@@ -290,6 +316,7 @@
         android:fontFamily="@font/mainx"
         android:text="发布照片"
         android:textColor="@color/black"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
         app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4" />
 
@@ -339,25 +366,33 @@
         android:id="@+id/textView33"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/mainx"
         android:text="2000-01-01"
         android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/mainx"
         android:text="2000-01-01"
         android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.124"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/mapView4"

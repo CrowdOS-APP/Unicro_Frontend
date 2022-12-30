@@ -309,13 +309,13 @@ public class event_Upload extends AppCompatActivity {
     private void showCalenderDialog(boolean chooseTimeType) {
         datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
             String calender;
-            if(month < 10 && dayOfMonth <10){
+            if(month < 9 && dayOfMonth < 9){
                 calender = year + "-0" + (month + 1) + "-0" + dayOfMonth;
             }
-            else if(dayOfMonth < 10){
+            else if(dayOfMonth < 9){
                 calender = year + "-" + (month + 1) + "-0" + dayOfMonth;
             }
-            else if(month < 10) {
+            else if(month < 9) {
                 calender = year + "-0" + (month + 1) + "-" + dayOfMonth;
             }
             else{
