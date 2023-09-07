@@ -46,7 +46,7 @@ public class opInfo {
     //
 
     public static String scheme = "http";
-    public static String hosts = "39.103.146.190";
+    public static String hosts = "$HOST";
 
 
     //我完全不想写注释了，你只用知道对于array返回的是List，不是array则返回对应数据结构的变量一个，哥们要猝了
@@ -241,7 +241,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .get()//利用get方法请求
                 .build();
@@ -279,7 +279,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .post(updateInfo)
                 .build();
@@ -311,7 +311,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
@@ -344,7 +344,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
@@ -402,7 +402,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
@@ -444,7 +444,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .post(opFollowing)
                 .build();
@@ -513,7 +513,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .build();
         gUserInfo.newCall(request).enqueue(new Callback() {
@@ -547,7 +547,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
@@ -580,7 +580,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
@@ -638,7 +638,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .post(updateEve)
                 .build();
@@ -672,7 +672,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .get()
                 .build();
@@ -714,7 +714,7 @@ public class opInfo {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .post(updateInfo)
                 .build();

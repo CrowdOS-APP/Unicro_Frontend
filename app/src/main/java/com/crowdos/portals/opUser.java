@@ -44,7 +44,7 @@ public class opUser {
         boolean[] judge = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("http")
-                .host("39.103.146.190")
+                .host("$HOST")
                 .addPathSegment(com.crowdos.portals.url.userRegister)
                 .build();
         //新建请求体
@@ -57,11 +57,11 @@ public class opUser {
         RequestBody registerPac = RequestBody.create(JSON,String.valueOf(json));
         //采用异步
         Request request = new Request.Builder()
-                .url("http://39.103.146.190/register")
+                .url("http://$HOST/register")
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .post(registerPac)
                 .build();
@@ -89,7 +89,7 @@ public class opUser {
         boolean[] judge = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("http")
-                .host("39.103.146.190")
+                .host("$HOST")
                 .addPathSegment(com.crowdos.portals.url.userLogin)
                 .build();
         //新建请求体
@@ -106,7 +106,7 @@ public class opUser {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "appliaticon/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .post(registerPac)
                 .build();
@@ -135,7 +135,7 @@ public class opUser {
         final boolean[] isSucceed = {false};
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("http")
-                .host("39.103.146.190")
+                .host("$HOST")
                 .addPathSegment(com.crowdos.portals.url.updatePwd)
                 .addQueryParameter("token",token)
                 .build();
@@ -152,7 +152,7 @@ public class opUser {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .post(updateInfo)
                 .build();

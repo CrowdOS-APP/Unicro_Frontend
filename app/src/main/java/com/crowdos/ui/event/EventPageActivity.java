@@ -269,7 +269,7 @@ public class EventPageActivity extends AppCompatActivity {
                 .addHeader("User-Agent", "Apifox/1.0.0 (https://www.apifox.cn)")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Accept", "*/*")
-                .addHeader("Host", "39.103.146.190")
+                .addHeader("Host", "$HOST")
                 .addHeader("Connection", "keep-alive")
                 .post(opFollowing)
                 .build();
